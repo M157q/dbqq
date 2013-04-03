@@ -1,6 +1,7 @@
 <?php
-function CheckUser_ID_and_Passwd($link, $id, $passwd){
-    $stmt = mysqli_stmt_init($link);
+
+function CheckUser_ID_and_Passwd($link, $id, $passwd) {
+    $result = false;
     $adm_id = false;
     $pro_id = false;
     $stu_id = false;
@@ -9,39 +10,44 @@ function CheckUser_ID_and_Passwd($link, $id, $passwd){
 
     // check the Administrator table
     $query = 'SELECT ID FROM Administrator WHERE ID=? AND Password=SHA1(?)';
+    $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
         mysqli_stmt_bind_param($stmt, "ss", $id, $passwd);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $adm_id);
-        mysqli_stmt_fetch($stmt)
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
     }
 
     // check the Professor table
     $query = 'SELECT ID FROM Professor WHERE ID=? AND Password=SHA1(?)';
+    $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
         mysqli_stmt_bind_param($stmt, "ss", $id, $passwd);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $pro_id);
-        mysqli_stmt_fetch($stmt)
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
     }
 
     // check the Student table
     $query = 'SELECT ID FROM Student WHERE ID=? AND Password=SHA1(?)';
+    $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
         mysqli_stmt_bind_param($stmt, "ss", $id, $passwd);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $stu_id);
-        mysqli_stmt_fetch($stmt)
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
     }
 
-    mysqli_stmt_close($stmt);
-
     return $adm_id ? $adm_id : 
-           $pro_id ? $pro_id :
-           $stu_id ? $stu_id : false;
+         ( $pro_id ? $pro_id :
+         ( $stu_id ? $stu_id : false));
+    
 }
 
 function Select_UserList($link){
