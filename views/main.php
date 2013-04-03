@@ -6,7 +6,7 @@
     {
         echo 'correct ip & user validation';
 ?>
-<!DOCTYPE html>                                                                    
+<!DOCTYPE html>
 <html lang="zh">                                                                   
     <head>                                                                         
         <meta charset="utf-8">                                                     
