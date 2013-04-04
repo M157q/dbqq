@@ -47,9 +47,11 @@ function CheckUser_ID_and_Passwd($link, $id, $passwd) {
         mysqli_stmt_close($stmt);
     }
 
-    return $adm_id ? $adm_id : 
-         ( $pro_id ? $pro_id :
-         ( $stu_id ? $stu_id : false));
+    // set user's permission in session
+    if ($adm_id)   $_SESSION['perm'] = 'adm';
+    if ($pro_id)   $_SESSION['perm'] = 'pro';
+    if ($stu_id)   $_SESSION['perm'] = 'stu';
+    return $adm_id || $pro_id || $stu_id;
     
 }
 
