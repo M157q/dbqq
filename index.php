@@ -18,7 +18,7 @@
 </head>
 <body>
 <h1>歡迎使用選課系統</h1>
-<p>If you see this page, the our server is successfully installed and working. ^q^</p>
+<p>If you see this page, our server is successfully working. ^q^</p>
 
 <p>Your IP:<p>
 <?php
@@ -47,7 +47,7 @@
             echo "$errormsg".'<br/>';
     }
 ?>
-        <a href="">Register</a><br/>
+        <a href="/views/regist.php">Register</a><br/>
         <a href="">Forgot Password</a><br/>
 </body>
 </html>

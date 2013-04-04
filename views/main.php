@@ -16,7 +16,8 @@
         <div>
             <form name="logout" method="post" action="../controllers/Logout.php" >
                 <p>
-<?php echo var_export($_SESSION['id']); echo "has logined!!!! (yay)";?>
+<?php echo var_export($_SESSION['id']); echo "has logined!!!! (yay)";
+var_dump($_SESSION)?>
                     <input type="submit" value="登出" /><p>                             
             </form>
         </div>
