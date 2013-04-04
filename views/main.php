@@ -1,10 +1,11 @@
 <?php
     session_start();
-    $path = '../controllers/SessionCheckAfterLogin.php';
+    $path = '../controllers/Session.php';
     require_once("$path");
     if(array_key_exists('id', $_SESSION))
     {
-        echo 'user: ';
+        echo 'user: ' . $_SESSION['id'] . ' has logined!!! <br />' ;
+        var_dump($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="zh">                                                                   
@@ -16,9 +17,7 @@
         <div>
             <form name="logout" method="post" action="../controllers/Logout.php" >
                 <p>
-<?php echo var_export($_SESSION['id']); echo "has logined!!!! (yay)";
-var_dump($_SESSION)?>
-                    <input type="submit" value="登出" /><p>                             
+                    <input type="submit" value="登出" /><p>
             </form>
         </div>
     </body>                                                                        

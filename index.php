@@ -1,6 +1,8 @@
 <?php
     session_start();
     var_dump($_SESSION);
+    require_once('models/User.php');
+    if (CheckId($_SESSION['id'])) header('Location: views/main.php');
 ?>
 <!DOCTYPE html>
 <html lang="zh">
@@ -17,27 +19,26 @@
 </style>
 </head>
 <body>
-<h1>歡迎使用選課系統</h1>
+<h1 text="#">歡迎使用選課系統</h1>
 <p>If you see this page, our server is successfully working. ^q^</p>
 
-<p>Your IP:<p>
+<p>Your IP is:<p>
 <?php
     echo $_SERVER['REMOTE_ADDR'];
 ?>
 
 <!-- login -->
 
-<form method="post" action="controllers/LoginController.php">
+<form method="post" action="controllers/Login.php">
     <p>
-        <label>User account:</label>
-        <input type="text" id="account" name="account" placeholder="r00t" required>
+        <label>帳號:</label>
+        <input type="text" id="account" name="account" required>
     </p>
-  <br/>
-  <p>
-  <label>Pa55wd:</label>
-  <input type="password" id="passwd" name="passwd" required>
-  </p>
-  <p><button type="submit">Sign in now!</button></p>
+    <p>
+        <label>密碼:</label>
+        <input type="password" id="passwd" name="passwd" required>
+    </p>
+    <p><button type="submit">登入</button></p>
 </form>
 
 <?php 
@@ -47,7 +48,8 @@
             echo "$errormsg".'<br/>';
     }
 ?>
-        <a href="/views/regist.php">Register</a><br/>
-        <a href="">Forgot Password</a><br/>
+        <a href="/views/stu_regist.php">學生申請帳號</a><br/>
+        <a href="/views/pro_regist.php">教授申請帳號</a><br/>
+        <a href="">課程列表</a><br/>
 </body>
 </html>
