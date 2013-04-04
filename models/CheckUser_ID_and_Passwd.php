@@ -1,6 +1,9 @@
 <?php
 
 function CheckUser_ID_and_Passwd($link, $id, $passwd) {
+    require_once("../include/salt.php");
+    $passwd = $passwd . $salt;
+
     $result = false;
     $adm_id = false;
     $pro_id = false;
