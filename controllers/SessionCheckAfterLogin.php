@@ -7,8 +7,7 @@
     
     $illegal = 'http://140.113.27.34:5566/index.php';
 
-    if(!CheckId($_SESSION['id']) ||
-       !CheckUserList_Id_Exist($link, $_SESSION['id'])) {
+    if(!CheckId($_SESSION['id'])) {
        header('Location: '."$illegal");
     }
 ?>
