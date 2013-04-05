@@ -4,7 +4,7 @@
 
 HOME=`pwd`
 DIRS=`echo $HOME`
-USER="gh40402"
+USER=`whoami`
 GROUP="team" # set to the right group name
 
 chown -R $USER:$GROUP $DIRS
