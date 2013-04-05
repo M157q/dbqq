@@ -1,4 +1,9 @@
 <?php
+    require_once("../models/Adm.php");
+    require_once("../models/Course.php");
+            GetStudentInfoTable();
+            GetProfessorInfoTable();
+            GetCourseInfoTable();
   /*require_once('models/MysqliOpen.php');
   $Section = 'Read';
   $link = MysqliOpen($Section);
