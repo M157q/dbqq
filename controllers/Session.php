@@ -1,4 +1,5 @@
 <?php
+/*
     require_once('../models/User.php');
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read'); // ??
@@ -9,6 +10,7 @@
     if(!CheckId($_SESSION['id'])) {
        header('Location: '."$illegal");
     }
+ */
 
     function CheckPermAndRedirect($perm, $need) {
         if ($perm != $need) {
