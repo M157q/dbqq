@@ -16,6 +16,8 @@ session_start();
         $errmsg = '您輸入的學號格式有誤';
     elseif(!CheckPasswd($_POST['passwd']))
         $errmsg = '請輸入您的密碼';
+    elseif(strlen($_POST['passwd']) > 10)
+        $errmsg = 'Spec 規定: 密碼最大長度為 10 碼 ^.<';
     elseif(CheckIDExist($_POST['account'])) {
         $errmsg = '此帳號已被使用';
     elseif(CheckNumberExist($_POST['stu_id'])) {

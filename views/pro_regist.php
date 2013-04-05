@@ -23,16 +23,16 @@
 
 <form method="post" action="../controllers/ProRegist.php">
     <label>帳號:</label>
-    <input type="text" id="account" name="account" placeholder="請輸入10個字以內的數字" required />
+    <input type="text" id="account" name="account" maxlength="10" placeholder="請輸入10個字以內的數字" required />
     <br /><br />
     <label>密碼:</label>
-    <input type="password" id="passwd" name="passwd" required />
+    <input type="password" id="passwd" name="passwd" maxlength="10" required />
     <br /><br />
     <label>姓名:</label>
     <input type="text" id="name" name="name" placeholder="芃蚊子" required />
     <br /><br />
     <label>教職員編號:</label>
-    <input type="text" id="pro_id" name="pro_id" placeholder="請輸入教職員編號" required />
+    <input type="text" id="pro_id" name="pro_id" maxlength="10" placeholder="請輸入教職員編號" required />
     <br /><br />
     <label>系所:</label>
     <select name="department" required />
