@@ -1,17 +1,17 @@
 <?php
-   session_start(); 
+   session_start();
 
-   require_once('../models/User.php'); 
-   require_once('../components/Mysqli.php'); 
-   
+   require_once('../models/User.php');
+   require_once('../components/Mysqli.php');
+
    $redirect_url = 'http://140.113.27.34:5566/index.php';
    $link = MysqliConnection('Read');
 
-   //user input error detection and error message return
+   // user input error detection and error message return
    $errmsg = '';
-   if(!CheckId($_POST['account'])) 
+   if(!CheckId($_POST['account']))
        $errmsg = 'Your ID format is wrong.';
-   elseif(!CheckPasswd($_POST['passwd'])) 
+   elseif(!CheckPasswd($_POST['passwd']))
        $errmsg = 'You have to enter your password.';
    elseif(!CheckUser_ID_and_Passwd($link, $_POST['account'], $_POST['passwd'])) {
        $errmsg = 'Login failed.';

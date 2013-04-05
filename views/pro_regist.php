@@ -6,8 +6,8 @@
 <!DOCTYPE html>
 <html lang="zh">
 <title>User Registration</title>
-<head>                                                                         
-    <meta charset="utf-8">                                                     
+<head>
+    <meta charset="utf-8">
 <style>
     body {
         width: 35em;

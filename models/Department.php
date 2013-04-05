@@ -14,7 +14,7 @@
                echo '<option value="'.$depart_id.'"> '.$depart_name.' </option>';
            }
            mysqli_stmt_close($stmt);
-       } 
-   }     
-?>       
-         
+       }
+   }
+?>
+
