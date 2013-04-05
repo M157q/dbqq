@@ -3,15 +3,13 @@
     $path = '../controllers/Session.php';
     require_once("$path");
     require_once("../models/User.php");
+    CheckPermAndRedirect($_SESSION['perm'], 'pro');
     if(array_key_exists('id', $_SESSION))
     {
         echo '<h2>user: ' . $_SESSION['id'] . ' has logined!!! </h2><br />' ;
         echo "Debug: ";
         var_dump($_SESSION);
         // check illegal users, and force to logout
-        if ($_SESSION['perm'] != 'pro') {
-            header('Location: '."../controllers/Logout.php");
-        }
 ?>
 <!DOCTYPE html>
 <html lang="zh">

@@ -7,15 +7,7 @@
         echo 'user: ' . $_SESSION['id'] . ' has logined!!! <br />' ;
         var_dump($_SESSION);
         // redirect the page
-        if ($_SESSION['perm'] == 'adm')
-            header('Location: '."./adm.php");
-        elseif ($_SESSION['perm'] == 'pro')
-            header('Location: '."./pro.php");
-        elseif ($_SESSION['perm'] == 'stu')
-            header('Location: '."./stu.php");
-        else {
-            header('Location: '."../controllers/Logout.php");
-        }
+        CheckPermAndRedirect($_SESSION['perm']);   // $need  == NULL
 ?>
 <!DOCTYPE html>
 <html lang="zh">
