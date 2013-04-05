@@ -20,7 +20,10 @@ function CheckPasswd($passwd)
     return $result;
 }
 
-function CheckUser_ID_and_Passwd($link, $id, $passwd) {
+function CheckUser_ID_and_Passwd($id, $passwd) {
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+
     require_once('../components/utility.php');
     $passwd = salted($passwd);
 

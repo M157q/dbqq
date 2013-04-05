@@ -14,7 +14,6 @@ session_start();
     }
     
     require_once('../components/Mysqli.php');
-    $link = MysqliConnection('Read');
     $errmsg = '';
     if (!CheckPasswd($old_passwd))
        $errmsg = 'You have to enter your old password.';
@@ -26,7 +25,7 @@ session_start();
         $errmsg = 'two password not match';
     //elseif(!CheckId($new_passwd))
     //    $errmsg = '新密碼必須全為數字並且最大長度為10';
-    elseif (!CheckUser_ID_and_Passwd($link, $id, $old_passwd)) {
+    elseif (!CheckUser_ID_and_Passwd($id, $old_passwd)) {
         //$errmsg = CheckUserByType($id, $old_passwd, "stu");
         $errmsg = 'old password error.';
     }
