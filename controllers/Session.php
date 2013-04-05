@@ -1,7 +1,7 @@
 <?php
     require_once('../models/User.php');
     require_once('../components/Mysqli.php');
-    $link = MysqliConnection('Read');
+    $link = MysqliConnection('Read'); // ??
     
     $illegal = 'http://140.113.27.34:5566/index.php';
 
