@@ -149,4 +149,48 @@ function CheckNumberExist($number) {
     }
     return ($stu_result or $pro_result);
 }
+
+function ShowStudentInfo($id) {
+    $link = MysqliConnection('Read');
+
+    // get department list
+    $query = 'SELECT Name FROM Department';
+    $stmt = mysqli_stmt_init($link);
+    $depart_list = array();
+    $depart_list_index = 1;
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $depart);
+        while (mysqli_stmt_fetch($stmt)) {
+            $depart_list[$depart_list_index++] = $depart;
+        }
+        mysqli_stmt_close($stmt);
+    }
+
+    // get student information
+    $query = 'SELECT ID, Name, StudentNumber, department, grade From Student WHERE ID=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $stu_id, $stu_name, $stu_num, $stu_depart, $stu_grade);
+        mysqli_stmt_fetch($stmt);
+        echo "<ul>";
+        echo "<li>ID:   $stu_id  </li>";
+        echo "<li>姓名: $stu_name</li>";
+        echo "<li>學號: $stu_num </li>";
+        if (array_key_exists($stu_depart, $depart_list)) {
+            echo "<li>系所: " . $depart_list[$stu_depart] . "</li>";
+        }
+        else {
+            echo "<li>系所資料好像怪怪的 :~</li>";
+        }
+        echo "<li>年級: $stu_grade</li>";
+        echo "</ul>";
+        mysqli_stmt_close($stmt);
+    }
+}
 ?>
