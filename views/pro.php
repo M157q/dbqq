@@ -22,6 +22,24 @@
         <div>
             <?php ShowProfessorInfo($_SESSION['id'])?>
         </div>
+        <hr>
+        <div>
+        <h2>修改資料</h2>
+        <p> <form method="post" action="../controllers/ProEditName.php">
+            <label>姓名:</label>
+            <input type="text" id="name" name="name" placeholder="芃蚊子" required />
+            <button type="submit">更改姓名</button>
+        </form> </p>
+
+        <p> <form method="post" action="../controllers/ProEditPass.php">
+            <label>密碼: (請輸入10個字以內的密碼)</label>
+            <input type="password" id="passwd" name="old_passwd" maxlength="10" placeholder="原本密碼" required />
+            <input type="password" id="passwd" name="new_passwd" maxlength="10" placeholder="新的密碼" required />
+            <input type="password" id="passwd" name="confirm_passwd" maxlength="10" placeholder="
+密碼確認" required />
+            <button type="submit">更改密碼</button>
+        </form> </p>
+        </div>
         <div>
             <form name="logout" method="post" action="../controllers/Logout.php" >
                 <p>
