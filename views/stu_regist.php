@@ -26,7 +26,7 @@
     <input type="text" id="account" name="account" maxlength="10" placeholder="請輸入10個字以內的數字" required />
     <br /><br />
     <label>密碼:</label>
-    <input type="password" id="passwd" name="passwd" maxlength="10" required />
+    <input type="password" id="passwd" name="passwd" maxlength="10" placeholder="請輸入10個字以內的密碼" required />
     <br /><br />
     <label>姓名:</label>
     <input type="text" id="name" name="name" placeholder="芃蚊子" required />
