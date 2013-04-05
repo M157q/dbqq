@@ -2,9 +2,11 @@
     session_start();
     $path = '../controllers/Session.php';
     require_once("$path");
+    require_once("../models/User.php");
     if(array_key_exists('id', $_SESSION))
     {
-        echo 'user: ' . $_SESSION['id'] . ' has logined!!! <br />' ;
+        echo '<h2>user: ' . $_SESSION['id'] . ' has logined!!! </h2><br />' ;
+        echo "Debug: ";
         var_dump($_SESSION);
         // check illegal users, and force to logout
         if ($_SESSION['perm'] != 'adm') {
@@ -15,10 +17,19 @@
 <html lang="zh">
     <head>
         <meta charset="utf-8">
-        <title>Main</title>
+        <title>超級使用者 Main</title>
     </head>
     <body>
     <h1>安安我是 adm</h1>
+    <p>
+<ul>
+<li> <a href="../views/adm_user_admin.php">使用者管理</a> </li>
+<li> <a href="../views/adm_course_admin.php">課程管理</a> </li>
+</ul>
+        <hr>
+        <div>
+            <?php ?>
+        </div>
         <div>
             <form name="logout" method="post" action="../controllers/Logout.php" >
                 <p>
