@@ -2,14 +2,14 @@
     session_start();
     var_dump($_SESSION);
     require_once('models/User.php');
-    if (CheckId($_SESSION['id'])) header('Location: views/main.php');
+    if (isset($_SESSION['id']) && CheckId($_SESSION['id'])) header('Location: views/main.php');
 ?>
 <!DOCTYPE html>
 <html lang="zh">
 <title>Welcome to dbqq!</title>
-<head>                                                                         
-    <meta charset="utf-8">                                                     
-    <title>Login</title>                                                       
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
 <style>
     body {
         width: 35em;
@@ -50,6 +50,6 @@
 ?>
         <a href="/views/stu_regist.php">學生申請帳號</a><br/>
         <a href="/views/pro_regist.php">教授申請帳號</a><br/>
-        <a href="">課程列表</a><br/>
+        <a href="/views/course_list.php">課程列表</a><br/>
 </body>
 </html>
