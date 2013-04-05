@@ -21,6 +21,8 @@
        $_SESSION['id'] = $_POST['account'];
    }
 
+   mysqli_close($link);
+
    $_SESSION['errmsg'] = $errmsg;
    header("Location: $redirect_url");
 ?>

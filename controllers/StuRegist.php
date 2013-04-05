@@ -39,6 +39,7 @@ session_start();
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
         }
+        mysqli_close($link);
         // if regitstration is ok, then goto the main page
         $redirect_url = '../views/main.php';
         $_SESSION['id'] = $_POST['account'];
