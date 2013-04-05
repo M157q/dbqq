@@ -118,6 +118,7 @@ function CheckIDExist($id) {
         mysqli_stmt_fetch($stmt);
         mysqli_stmt_close($stmt);
     }
+    mysqli_close($link);
     return ($stu_result or $pro_result);
 }
 
@@ -147,29 +148,16 @@ function CheckNumberExist($number) {
         mysqli_stmt_fetch($stmt);
         mysqli_stmt_close($stmt);
     }
+    mysqli_close($link);
     return ($stu_result or $pro_result);
 }
 
 function ShowStudentInfo($id) {
-    $link = MysqliConnection('Read');
-
-    // get department list
-    $query = 'SELECT Name FROM Department';
-    $stmt = mysqli_stmt_init($link);
-    $depart_list = array();
-    $depart_list_index = 1;
-    if (mysqli_stmt_prepare($stmt, $query))
-    {
-        mysqli_stmt_bind_param($stmt, "s", $id);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $depart);
-        while (mysqli_stmt_fetch($stmt)) {
-            $depart_list[$depart_list_index++] = $depart;
-        }
-        mysqli_stmt_close($stmt);
-    }
+    require_once('../models/Department.php');
+    $depart_list = GetDepartmentList();
 
     // get student information
+    $link = MysqliConnection('Read');
     $query = 'SELECT ID, Name, StudentNumber, department, grade From Student WHERE ID=?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
@@ -192,5 +180,36 @@ function ShowStudentInfo($id) {
         echo "</ul>";
         mysqli_stmt_close($stmt);
     }
+    mysqli_close($link);
+}
+
+function ShowProfessorInfo($id) {
+    require_once('../models/Department.php');
+    $depart_list = GetDepartmentList();
+
+    // get student information
+    $link = MysqliConnection('Read');
+    $query = 'SELECT ID, Name, ProfessorNumber, department From Professor WHERE ID=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $pro_id, $pro_name, $pro_num, $pro_depart);
+        mysqli_stmt_fetch($stmt);
+        echo "<ul>";
+        echo "<li>ID:   $pro_id  </li>";
+        echo "<li>姓名: $pro_name</li>";
+        echo "<li>教職員編號: $pro_num </li>";
+        if (array_key_exists($pro_depart, $depart_list)) {
+            echo "<li>系所: " . $depart_list[$pro_depart] . "</li>";
+        }
+        else {
+            echo "<li>系所資料好像怪怪的 :~</li>";
+        }
+        echo "</ul>";
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
 }
 ?>
