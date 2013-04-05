@@ -13,11 +13,11 @@
     function CheckPermAndRedirect($perm, $need) {
         if ($perm != $need) {
             if ($_SESSION['perm'] == 'adm')
-                header('Location: '."./adm.php");
+                header('Location: '."../views/adm.php");
             elseif ($_SESSION['perm'] == 'pro')
-                header('Location: '."./pro.php");
+                header('Location: '."../views/pro.php");
             elseif ($_SESSION['perm'] == 'stu')
-                header('Location: '."./stu.php");
+                header('Location: '."../views/stu.php");
             else {
                 header('Location: '."../controllers/Logout.php");
             }
