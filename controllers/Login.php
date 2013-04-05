@@ -13,9 +13,8 @@
        $errmsg = 'Your ID format is wrong.';
    elseif(!CheckPasswd($_POST['passwd']))
        $errmsg = 'You have to enter your password.';
-   elseif(!CheckUser_ID_and_Passwd($link, $_POST['account'], $_POST['passwd'])) {
+   elseif(!CheckUser_ID_and_Passwd($link, $_POST['account'], $_POST['passwd']))
        $errmsg = 'Login failed.';
-   }
    else {
        $redirect_url = 'http://140.113.27.34:5566/views/main.php';
        $_SESSION['id'] = $_POST['account'];

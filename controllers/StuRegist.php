@@ -3,7 +3,7 @@ session_start();
 
     require_once('../models/User.php');
     require_once('../components/Mysqli.php');
-    require_once('../include/salt.php');
+    require_once('../components/utility.php');
 
     // redirect to the home page by default
     $redirect_url = '../views/stu_regist.php';
@@ -18,13 +18,16 @@ session_start();
         $errmsg = '請輸入您的密碼';
     elseif(strlen($_POST['passwd']) > 10)
         $errmsg = 'Spec 規定: 密碼最大長度為 10 碼 ^.<';
+    // WTF is that?
+    /*elseif(!CheckId($_POST['passwd']))
+        $errmsg = '您輸入的密碼格式有誤'; */
     elseif(CheckIDExist($_POST['account']))
         $errmsg = '此帳號已被使用';
     elseif(CheckNumberExist($_POST['stu_id']))
         $errmsg = '此學號已被使用';
     else {
         $id = $_POST['account'];
-        $passwd = $_POST['passwd'] . $salt;
+        $passwd = salted($_POST['passwd']);
         $name = $_POST['name'];
         $stu_id = $_POST['stu_id'];
         $department = $_POST['department'];

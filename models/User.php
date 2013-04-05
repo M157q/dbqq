@@ -1,12 +1,11 @@
 <?php
-
 function CheckId($id)
 {
     $result = false;
     if( !is_null($id) && !empty($id) )
     {
         if(preg_match("/^[0-9]{1,10}$/", $id) === 1) $result = true;
-        if($id == "r00t") $result = true;
+        if($id == 'r00t') $result = true;
     }
     return $result;
 }
@@ -22,8 +21,8 @@ function CheckPasswd($passwd)
 }
 
 function CheckUser_ID_and_Passwd($link, $id, $passwd) {
-    require_once("../include/salt.php");
-    $passwd = $passwd . $salt;
+    require_once('../components/utility.php');
+    $passwd = salted($passwd);
 
     $result = false;
     $adm_id = false;
@@ -67,13 +66,15 @@ function CheckUser_ID_and_Passwd($link, $id, $passwd) {
         mysqli_stmt_fetch($stmt);
         mysqli_stmt_close($stmt);
     }
+    mysqli_close($link);
 
     // set user's permission in session
     if ($adm_id)   $_SESSION['perm'] = 'adm';
     if ($pro_id)   $_SESSION['perm'] = 'pro';
     if ($stu_id)   $_SESSION['perm'] = 'stu';
-    return $adm_id || $pro_id || $stu_id;
-    
+
+    $result = ($adm_id or $pro_id or $stu_id);
+    return $result;
 }
 
 function Select_UserList($link){

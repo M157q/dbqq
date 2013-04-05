@@ -3,7 +3,7 @@ session_start();
 
     require_once('../models/User.php');
     require_once('../components/Mysqli.php');
-    require_once('../include/salt.php');
+    require_once('../components/utility.php');
 
     // redirect to the home page by default
     $redirect_url = '../views/pro_regist.php';
@@ -24,7 +24,7 @@ session_start();
         $errmsg = '此教職員編號已被使用';
     else {
         $id = $_POST['account'];
-        $passwd = $_POST['passwd'] . $salt;
+        $passwd = salted($_POST['passwd']);
         $name = $_POST['name'];
         $pro_id = $_POST['pro_id'];
         $department = $_POST['department'];

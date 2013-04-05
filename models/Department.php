@@ -19,6 +19,7 @@ function DepartListGen () {
 }
 
 function GetDepartmentList() {
+    require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');
 
     // get department list
