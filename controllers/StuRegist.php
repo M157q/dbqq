@@ -18,11 +18,10 @@ session_start();
         $errmsg = '請輸入您的密碼';
     elseif(strlen($_POST['passwd']) > 10)
         $errmsg = 'Spec 規定: 密碼最大長度為 10 碼 ^.<';
-    elseif(CheckIDExist($_POST['account'])) {
+    elseif(CheckIDExist($_POST['account']))
         $errmsg = '此帳號已被使用';
-    elseif(CheckNumberExist($_POST['stu_id'])) {
+    elseif(CheckNumberExist($_POST['stu_id']))
         $errmsg = '此學號已被使用';
-    }
     else {
         $id = $_POST['account'];
         $passwd = $_POST['passwd'] . $salt;
