@@ -3,6 +3,7 @@
     $path = '../controllers/Session.php';
     require_once("$path");
     require_once("../models/User.php");
+    require_once("../models/Adm.php");
     CheckPermAndRedirect($_SESSION['perm'], 'adm');
     if(array_key_exists('id', $_SESSION))
     {
@@ -25,7 +26,9 @@
 </ul>
         <hr>
         <div>
-            <?php ?>
+            <?php GetStudentInfoTable() ?>
+            <hr>
+            <?php GetProfessorInfoTable(); ?>
         </div>
         <div>
             <form name="logout" method="post" action="../controllers/Logout.php" >
