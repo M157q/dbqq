@@ -23,7 +23,7 @@
 
 <form method="post" action="../controllers/StuRegist.php">
     <label>帳號:</label>
-    <input type="text" id="account" name="account" placeholder="請輸入10個字以內的數字" required />
+    <input type="text" id="account" name="account" maxlength="10" placeholder="請輸入10個字以內的數字" required />
     <br /><br />
     <label>密碼:</label>
     <input type="password" id="passwd" name="passwd" maxlength="10" required />
@@ -32,7 +32,7 @@
     <input type="text" id="name" name="name" placeholder="芃蚊子" required />
     <br /><br />
     <label>學號:</label>
-    <input type="text" id="stu_id" name="stu_id" placeholder="請輸入學號" required />
+    <input type="text" id="stu_id" name="stu_id" maxlength="10" placeholder="請輸入學號" required />
     <br /><br />
     <label>系所:</label>
     <select name="department" required />
