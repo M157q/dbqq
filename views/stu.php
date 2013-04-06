@@ -40,6 +40,7 @@
         </form> </p>
         </div>
 
+        <a href="/views/course_list.php">所有課程列表</a><br/>
         <div>
             <form name="logout" method="post" action="../controllers/Logout.php" >
                 <p>
