@@ -10,7 +10,7 @@ session_start();
 
     // you're not a professor!!!
     if ($_SESSION['perm'] != 'pro') {
-        CheckPermAndRedirect($id, 'pro');
+        CheckPermAndRedirect($_SESSION['perm'], 'pro');
     }
     
     require_once('../components/Mysqli.php');
@@ -47,5 +47,5 @@ session_start();
     }
 
     $_SESSION['errmsg'] = $errmsg;
-    CheckPermAndRedirect($_SESSION['id'], "pro");
+    RedirectByPerm($_SESSION['perm']);
 ?>

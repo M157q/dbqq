@@ -8,7 +8,7 @@ session_start();
 
     // you're not a professor!!!
     if ($_SESSION['perm'] != 'pro') {
-        CheckPermAndRedirect($_SESSION['id'], "pro");
+        CheckPermAndRedirect($_SESSION['perm'], "pro");
     }
 
     // update the data in the database
@@ -21,5 +21,5 @@ session_start();
         mysqli_stmt_close($stmt);
     }
     mysqli_close($link);
-    CheckPermAndRedirect($_SESSION['id'], "stu");
+    RedirectByPerm($_SESSION['perm']);
 ?>
