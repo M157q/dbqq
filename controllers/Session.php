@@ -13,16 +13,20 @@
  */
 
     function CheckPermAndRedirect($perm, $need) {
-        if ($perm != $need) {
-            if ($perm == 'adm')
-                header('Location: http://140.113.27.34:5566/views/adm.php');
-            elseif ($perm == 'pro')
-                header('Location: http://140.113.27.34:5566/views/pro.php');
-            elseif ($perm == 'stu')
-                header('Location: http://140.113.27.34:5566/views/stu.php');
-            else 
-                header('Location: http://140.113.27.34:5566/controllers/Logout.php');
+        if ($perm !== $need) {
+            RedirectByPerm($perm);
         }
+    }
+
+    function RedirectByPerm($perm) {
+        if ($perm == 'adm')
+            header('Location: http://140.113.27.34:5566/views/adm.php');
+        elseif ($perm == 'pro')
+            header('Location: http://140.113.27.34:5566/views/pro.php');
+        elseif ($perm == 'stu')
+            header('Location: http://140.113.27.34:5566/views/stu.php');
+        else
+            header('Location: http://140.113.27.34:5566/controllers/Logout.php');
     }
 
 ?>
