@@ -1,7 +1,6 @@
 <?php
     session_start();
-    $path = '../controllers/Session.php';
-    require_once("$path");
+    require_once('../controllers/Session.php');
     if(array_key_exists('id', $_SESSION))
     {
         echo 'user: ' . $_SESSION['id'] . ' has logined!!! <br />' ;
