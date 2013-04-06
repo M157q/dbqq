@@ -12,7 +12,7 @@ session_start();
     if ($_SESSION['perm'] !== 'adm') {
         CheckPermAndRedirect($_SESSION['perm'], 'adm');
     }
-    
+
     require_once('../components/Mysqli.php');
     $errmsg = '';
     if (($perm == 'stu') and (!CheckStudentIDExist($id)))
@@ -43,7 +43,7 @@ session_start();
             $_SESSION['errmsg'] = $errmsg;
             CheckPermAndRedirect($_SESSION['perm'], "adm");
         }
-            
+
         $stmt = mysqli_stmt_init($link);
         if (mysqli_stmt_prepare($stmt, $query)) {
             mysqli_stmt_bind_param($stmt, "ss", $new_passwd, $id);
