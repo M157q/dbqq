@@ -14,15 +14,15 @@
 
     function CheckPermAndRedirect($perm, $need) {
         if ($perm != $need) {
-            if ($_SESSION['perm'] == 'adm')
-                header('Location: '."../views/adm.php");
-            elseif ($_SESSION['perm'] == 'pro')
-                header('Location: '."../views/pro.php");
-            elseif ($_SESSION['perm'] == 'stu')
-                header('Location: '."../views/stu.php");
-            else {
-                header('Location: '."../controllers/Logout.php");
-            }
+            if ($perm == 'adm')
+                header('Location: http://140.113.27.34:5566/views/adm.php');
+            elseif ($perm == 'pro')
+                header('Location: http://140.113.27.34:5566/views/pro.php');
+            elseif ($perm == 'stu')
+                header('Location: http://140.113.27.34:5566/views/stu.php');
+            else 
+                header('Location: http://140.113.27.34:5566/controllers/Logout.php');
         }
     }
+
 ?>
