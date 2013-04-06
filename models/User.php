@@ -97,6 +97,7 @@ function Select_UserList($link){
 }
 
 function CheckStudentIDExist($id) {
+    require_once('../components/Mysqli.php');
     $stu_result = false;
     $link = MysqliConnection('Read');
 
@@ -112,10 +113,11 @@ function CheckStudentIDExist($id) {
     }
 
     mysqli_close($link);
-    return $stu_result;
+    return $stu_result or false;
 }
 
 function CheckProfessorIDExist($id) {
+    require_once('../components/Mysqli.php');
     $pro_result = false;
     $link = MysqliConnection('Read');
 
@@ -131,7 +133,7 @@ function CheckProfessorIDExist($id) {
     }
 
     mysqli_close($link);
-    return $pro_result;
+    return $pro_result or false;
 }
 
 function CheckIDExist($id) {
