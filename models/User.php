@@ -96,9 +96,8 @@ function Select_UserList($link){
     return $result;
 }
 
-function CheckIDExist($id) {
+function CheckStudentIDExist($id) {
     $stu_result = false;
-    $pro_result = true;
     $link = MysqliConnection('Read');
 
     $query = 'SELECT ID From Student WHERE ID=?';
@@ -112,6 +111,14 @@ function CheckIDExist($id) {
         mysqli_stmt_close($stmt);
     }
 
+    mysqli_close($link);
+    return $stu_result;
+}
+
+function CheckProfessorIDExist($id) {
+    $pro_result = false;
+    $link = MysqliConnection('Read');
+
     $query = 'SELECT ID From Professor WHERE ID=?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
@@ -122,8 +129,13 @@ function CheckIDExist($id) {
         mysqli_stmt_fetch($stmt);
         mysqli_stmt_close($stmt);
     }
+
     mysqli_close($link);
-    return ($stu_result or $pro_result);
+    return $pro_result;
+}
+
+function CheckIDExist($id) {
+    return (CheckStudentIDExist($id) or CheckProfessorIDExist($id));
 }
 
 function CheckNumberExist($number) {
