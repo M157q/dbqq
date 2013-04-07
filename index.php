@@ -51,5 +51,6 @@
         <a href="/views/stu_regist.php">學生申請帳號</a><br/>
         <a href="/views/pro_regist.php">教授申請帳號</a><br/>
         <a href="/views/course_list.php">課程列表</a><br/>
+    <h3>部份功能有用到 html5 故有些瀏覽器可能無法支援 :-(</h3>
 </body>
 </html>
