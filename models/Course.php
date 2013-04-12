@@ -121,6 +121,9 @@ function ChooseCourse($studentID, $IDs) {
     $course_list = array();
 
     foreach ($IDs as $cid) {
+        if (CheckIfChosen($studentID, $cid)) {
+            continue;
+        }
         $query = 'INSERT INTO Course_taken (StudentID, CourseID) VALUES (?, ?)';
         $stmt = mysqli_stmt_init($link);
         if (mysqli_stmt_prepare($stmt, $query))
@@ -132,6 +135,26 @@ function ChooseCourse($studentID, $IDs) {
         echo "$studentID, $cid<br>";
     }
     mysqli_close($link);
+}
+
+// check if this student has chosen the course
+function CheckIfChosen($stu_id, $cid) {
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+
+    $result = false;
+
+    $query = 'SELECT CourseID FROM Course_taken WHERE StudentID=? and CourseID=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query)) {
+        mysqli_stmt_bind_param($stmt, "ss", $stu_id, $cid);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $result);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+    return $result or false;
 }
 
 function ListStudentCourse($id) {
