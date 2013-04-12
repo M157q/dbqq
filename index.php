@@ -51,6 +51,13 @@
         <a href="/views/stu_regist.php">學生申請帳號</a><br/>
         <a href="/views/pro_regist.php">教授申請帳號</a><br/>
         <a href="/views/course_list.php">課程列表</a><br/>
-    <h3>部份功能有用到 html5 故有些瀏覽器可能無法支援 :-(</h3>
+    <h3>部份功能有用到 html5 故有些瀏覽器可能無法支援:-(</h3>
+ <p class="codeblock">
+
+      <!-- Oh noes, you found it! -->
+      hey, <span style="position: absolute; left: -100px; top: -100px">阿哈哈你看看你</span>
+    try to copy this line XD
+    </p>
+    <p>
 </body>
 </html>
