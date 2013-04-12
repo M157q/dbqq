@@ -1,2 +1,3 @@
 # ignore vim's temp files
 *.swp
+views/test2.php
