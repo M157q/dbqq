@@ -2,9 +2,9 @@
 function CheckId($id)
 {
     $result = false;
-    if( !is_null($id) && !empty($id) )
+    if( isset($id) && !is_null($id) )
     {
-        if(preg_match("/^[0-9]{1,10}$/", $id) === 1) $result = true;
+        if(preg_match('/^[0-9]{1,10}$/', $id) === 1) $result = true;
         if($id == 'r00t') $result = true;
     }
     return $result;
@@ -13,7 +13,7 @@ function CheckId($id)
 function CheckPasswd($passwd)
 {
     $result = false;
-    if( !is_null($passwd) && !empty($passwd) )
+    if( isset($passwd) && !is_null($passwd) )
     {
         $result = true;
     }
