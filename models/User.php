@@ -136,6 +136,26 @@ function CheckProfessorIDExist($id) {
     return $pro_result or false;
 }
 
+function CheckAdminIDExist($id) {
+    require_once('../components/Mysqli.php');
+    $pro_result = false;
+    $link = MysqliConnection('Read');
+
+    $query = 'SELECT ID From Administrator WHERE ID=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $pro_result);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+
+    mysqli_close($link);
+    return $pro_result or false;
+}
+
 function CheckIDExist($id) {
     return (CheckStudentIDExist($id) or CheckProfessorIDExist($id));
 }
