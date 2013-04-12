@@ -30,6 +30,8 @@
             <hr>
             <?php GetProfessorInfoTable(); ?>
         </div>
+
+        <hr>
         <div>
             <form name="logout" method="post" action="../controllers/Logout.php" >
                 <p>
