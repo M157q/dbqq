@@ -2,6 +2,7 @@
    session_start();
 
    require_once('../models/User.php');
+   require_once('../controllers/Session.php');
 
    $redirect_url = 'http://140.113.27.34:5566/index.php';
 

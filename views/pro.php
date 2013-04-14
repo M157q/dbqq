@@ -15,7 +15,7 @@
 <html lang="zh">
     <head>
         <meta charset="utf-8">
-        <title>Professor;s Main</title>
+        <title>Professor's Main</title>
     </head>
     <body>
     <h1>安安我是 教授ㄉㄉ</h1>
@@ -40,6 +40,10 @@
             <button type="submit">更改密碼</button>
         </form> </p>
         </div>
+
+
+        <a href="../views/pro_add_course.php">新增課程</a><br/>
+
         <div>
             <form name="logout" method="post" action="../controllers/Logout.php" >
                 <p>
