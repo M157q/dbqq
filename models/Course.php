@@ -179,4 +179,21 @@ function ListStudentCourse($id) {
     GetCourseInfoTableByIDs($course_list);
 }
 
+function CheckProIfCollision($pro_id, $class_hours) {
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+
+    $result = false;
+
+    $query = 'SELECT class_hours FROM Course WHERE pro_id=? and class_hours=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query)) {
+    	mysqli_stmt_bind_param($stmt, "ss", $pro_id, $class_hours);
+	mysqli_stmt_execute($stmt);
+	mysqli_stmt_bind_result($stmt, $result);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+    return $result or false;
+}
 ?>
