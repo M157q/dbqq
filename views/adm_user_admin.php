@@ -1,5 +1,6 @@
 <?php
     session_start();
+    var_dump($_SESSION);
     // check illegal users, and force to logout
     if ($_SESSION['perm'] != 'adm') {
         header('Location: '."../controllers/Logout.php");
