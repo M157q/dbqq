@@ -183,17 +183,72 @@ function CheckProIfCollision($pro_id, $class_hours) {
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');
 
-    $result = false;
-
-    $query = 'SELECT class_hours FROM Course WHERE pro_id=? and class_hours=?';
+    $query = 'SELECT class_hours FROM Course WHERE pro_id=?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query)) {
-    	mysqli_stmt_bind_param($stmt, "ss", $pro_id, $class_hours);
+    	mysqli_stmt_bind_param($stmt, "s", $pro_id);
 	mysqli_stmt_execute($stmt);
-	mysqli_stmt_bind_result($stmt, $result);
+	mysqli_stmt_bind_result($stmt, $chrs);
+	while(mysqli_stmt_fetch($stmt)) {
+	    if(CheckCourseConfliction($class_hours, $chrs)) {
+		mysqli_stmt_close($stmt);
+		mysqli_close($link);
+		return true;
+	    }
+	}
         mysqli_stmt_close($stmt);
     }
     mysqli_close($link);
-    return $result or false;
+    return false;
+}
+
+
+// return ture if two course are conflict
+function CheckCourseConfliction($c1, $c2) {
+    $result = false;
+    // force len($c1) >= len($c2)
+    if (strlen($c1) < strlen($c2)) {
+        $t = $c1; $c1 = $c2; $c2 = $t;
+    }
+
+    $cc1 = array(substr($c1, 0, 9), substr($c1, 9, 18));
+    $cc2 = array(substr($c2, 0, 9), substr($c2, 9, 18));
+    echo "<h1>begin test</h1>";
+    var_dump($cc1);
+    echo "<br>";
+    var_dump($cc2);
+    echo "<hr>";
+    foreach ($cc1 as $i) {
+        foreach ($cc2 as $j) {
+            echo "comparing ";
+            var_dump($i);
+            var_dump($j);
+            if (CompareCourse($i, $j)) {
+                echo "confliction ^_^";
+                $result = true;
+            }
+            else {
+                echo "no confliction";
+            }
+            echo "<br>";
+        }
+    }
+    echo "<hr>";
+    return $result;
+}
+
+function CompareCourse($c1, $c2) {
+    if (substr($c1, 0, 1) == substr($c2, 0, 1)) {
+        foreach (range(1, 9) as $i) {
+            echo substr($c1, $i, 1);
+            echo "/";
+            echo substr($c2, $i, 1);
+            echo "<br>";
+            if (substr($c1, $i, 1) == "Y" and substr($c2, $i, 1) == "Y")
+                return true;
+        }
+        return false;
+    }
+    return false;
 }
 ?>

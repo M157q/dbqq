@@ -29,6 +29,45 @@
     <label>教室</label>
     <input type="text" id="class_room" name="class_room" placeholder="EC 115" required />
     <br /><br />
+    <label>時段一</label>
+    <select name="day1">
+	<option value="1"> 星期一 </option>
+	<option value="2"> 星期二 </option>
+	<option value="3"> 星期三 </option>
+	<option value="4"> 星期四 </option>
+	<option value="5"> 星期五 </option>
+	<option value="6"> 星期六 </option>
+	<option value="7"> 星期日 </option>
+    </select>
+    <input type="checkbox" name="d1[]" value="0">A
+    <input type="checkbox" name="d1[]" value="1">B
+    <input type="checkbox" name="d1[]" value="2">C
+    <input type="checkbox" name="d1[]" value="3">D
+    <input type="checkbox" name="d1[]" value="4">E
+    <input type="checkbox" name="d1[]" value="5">F
+    <input type="checkbox" name="d1[]" value="6">G
+    <input type="checkbox" name="d1[]" value="7">H
+    <br /><br />
+    <label>時段二</label>
+    <select name="day2">
+        <option value="0"> 無 </option>
+        <option value="1"> 星期一 </option>
+        <option value="2"> 星期二 </option>
+        <option value="3"> 星期三 </option>
+        <option value="4"> 星期四 </option>
+        <option value="5"> 星期五 </option>
+        <option value="6"> 星期六 </option>
+        <option value="7"> 星期日 </option>
+    </select>
+    <input type="checkbox" name="d2[]" value="0">A
+    <input type="checkbox" name="d2[]" value="1">B
+    <input type="checkbox" name="d2[]" value="2">C
+    <input type="checkbox" name="d2[]" value="3">D
+    <input type="checkbox" name="d2[]" value="4">E
+    <input type="checkbox" name="d2[]" value="5">F
+    <input type="checkbox" name="d2[]" value="6">G
+    <input type="checkbox" name="d2[]" value="7">H
+    <br /><br />
     <label>年度:</label>
     <input type="text" id="year" name="year" maxlength="10" placeholder="年度" required />
     <br /><br />
