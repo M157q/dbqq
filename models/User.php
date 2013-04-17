@@ -101,7 +101,7 @@ function CheckStudentIDExist($id) {
     $stu_result = false;
     $link = MysqliConnection('Read');
 
-    $query = 'SELECT ID From Student WHERE ID=?';
+    $query = 'SELECT COUNT(ID) From Student WHERE ID=?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
@@ -121,7 +121,7 @@ function CheckProfessorIDExist($id) {
     $pro_result = false;
     $link = MysqliConnection('Read');
 
-    $query = 'SELECT ID From Professor WHERE ID=?';
+    $query = 'SELECT COUNT(ID) From Professor WHERE ID=?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
@@ -141,7 +141,7 @@ function CheckAdminIDExist($id) {
     $pro_result = false;
     $link = MysqliConnection('Read');
 
-    $query = 'SELECT ID From Administrator WHERE ID=?';
+    $query = 'SELECT COUNT(ID) From Administrator WHERE ID=?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
