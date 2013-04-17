@@ -20,6 +20,7 @@
 <h2>刪除使用者</h2>
 <p>
 <form id="delete" method="post" action="../controllers/AdmDeleteUser.php">
+    <label>帳號: </label>
     <input type="text" id="account" name="account" maxlength="10" placeholder="帳號" required />
     <button form="delete" type="submit">刪除使用者</button>
 </form>
