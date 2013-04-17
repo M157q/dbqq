@@ -1,9 +1,8 @@
 <?php
     session_start();
-    $path = '../controllers/Session.php';
-    require_once("$path");
-    require_once("../models/User.php");
-    require_once("../models/Adm.php");
+    require_once("../controllers/Session.php");
+    //require_once("../models/User.php");
+    //require_once("../models/Adm.php");
     CheckPermAndRedirect($_SESSION['perm'], 'adm');
     if(array_key_exists('id', $_SESSION))
     {
@@ -24,20 +23,12 @@
 <li> <a href="../views/adm_user_admin.php">使用者管理</a> </li>
 <li> <a href="../views/adm_course_admin.php">課程管理</a> </li>
 </ul>
-        <hr>
-        <div>
-            <?php GetStudentInfoTable() ?>
-            <hr>
-            <?php GetProfessorInfoTable(); ?>
-        </div>
-
-        <hr>
-        <div>
-            <form name="logout" method="post" action="../controllers/Logout.php" >
-                <p>
-                    <input type="submit" value="登出" /><p>
-            </form>
-        </div>
+<div>
+    <form name="logout" method="post" action="../controllers/Logout.php" >
+        <p>
+            <input type="submit" value="登出" /><p>
+    </form>
+</div>
     </body>
 </html>
 <?php

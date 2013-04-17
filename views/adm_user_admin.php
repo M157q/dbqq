@@ -2,12 +2,20 @@
     session_start();
     // check illegal users, and force to logout
     if ($_SESSION['perm'] != 'adm') {
-        //header('Location: '."../controllers/Logout.php");
+        header('Location: '."../controllers/Logout.php");
     }
+    require_once("../models/Adm.php");
 ?>
 <html>
 <body>
 <?php echo "user admin"; ?>
+<hr>
+<div>
+    <?php GetStudentInfoTable() ?>
+    <hr>
+    <?php GetProfessorInfoTable(); ?>
+</div>
+
 <hr>
 <h2>刪除使用者</h2>
 <p>
