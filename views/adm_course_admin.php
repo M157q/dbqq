@@ -26,6 +26,23 @@
 </form>
 </p>
 <hr>
+<h2>新增/刪除課程內學生</h2>
+<p>
+<form id="edit_course_stu" method="post" action="../controllers/AdmEditCourseTaken.php">
+    <p>
+    <input type="radio" name="action" value="add" required />新增<br />
+    <input type="radio" name="action" value="delete" required />刪除
+    </p>
+    <label>課號: </label>
+    <input type="text" name="course_id" placeholder="課號" required />
+    <label>年度: </label>
+    <input type="text" name="course_year" placeholder="年度" required />
+    <label>學生帳號: </label>
+    <input type="text" name="stu_id" placeholder="學生帳號" required />
+    <button form="edit_course_stu" type="submit">確定</button>
+</form>
+</p>
+<hr>
 <a href="../views/adm.php">back</a>
 </body>
 </html>
