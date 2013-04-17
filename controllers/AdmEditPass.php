@@ -1,5 +1,5 @@
 <?php
-session_start();
+    session_start();
     require_once('../controllers/Session.php');
     require_once('../models/User.php');
 
@@ -61,5 +61,6 @@ session_start();
     }
 
     $_SESSION['errmsg'] = $errmsg;
-    RedirectByPerm($_SESSION['perm']);
+    //RedirectByPerm($_SESSION['perm']);
+    header('Location: ../views/adm_user_admin.php');
 ?>

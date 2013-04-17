@@ -49,5 +49,6 @@ session_start();
     }
 
     $_SESSION['errmsg'] = $errmsg;
-    RedirectByPerm($_SESSION['perm']);
+    //RedirectByPerm($_SESSION['perm']);
+    header('Location: ../views/adm_user_admin.php');
 ?>
