@@ -251,4 +251,25 @@ function CompareCourse($c1, $c2) {
     }
     return false;
 }
+
+function CheckCourseIDExist($course_id, $course_year)
+{
+    require_once('../components/Mysqli.php');
+    $result = false;
+    $link = MysqliConnection('Read');
+
+    $query = 'SELECT COUNT(ID) From Course WHERE ID=? AND Year=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "ss", $course_id, $course_year);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $result);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+
+    mysqli_close($link);
+    return $result or false;
+}
 ?>

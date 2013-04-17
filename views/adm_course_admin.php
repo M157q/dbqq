@@ -1,12 +1,31 @@
 <?php
     session_start();
+    var_dump($_SESSION);
     // check illegal users, and force to logout
     if ($_SESSION['perm'] != 'adm') {
-        //header('Location: '."../controllers/Logout.php");
+        header('Location: '."../controllers/Logout.php");
     }
 ?>
 <html>
 <body>
-<?php echo "course admin"; ?>
-<body>
+<h1>課程管理</h1>
+<hr>
+<?php
+    require_once("../models/Course.php");
+    GetCourseInfoTable();
+?>
+<hr>
+<h2>刪除課程</h2>
+<p>
+<form id="delete_course" method="post" action="../controllers/AdmDeleteCourse.php">
+    <label>課號: </label>
+    <input type="text" id="course_id" name="course_id" placeholder="課號" required />
+    <label>年度: </label>
+    <input type="text" id="course_year" name="course_year" placeholder="年度" required />
+    <button form="delete_course" type="submit">刪除該課程</button>
+</form>
+</p>
+<hr>
+<a href="../views/adm.php">back</a>
+</body>
 </html>
