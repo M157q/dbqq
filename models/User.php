@@ -123,14 +123,14 @@ function CheckUser_ID_and_Passwd($id, $passwd) {
 function Select_UserList($link){
     $stmt = mysqli_stmt_init($link);
     $result = false;
-    if (mysqli_stmt_prepare($stmt, 'SELECT * FROM `UserList`')) 
+    if (mysqli_stmt_prepare($stmt, 'SELECT * FROM `UserList`'))
     {
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $UserList_ID, $UserList_Password, $UserList_Name);
         while(mysqli_stmt_fetch($stmt))
         {
             $result[] = array($UserList_ID, $UserList_Password, $UserList_Name);
-        }    
+        }
         mysqli_stmt_close($stmt);
     }
     return $result;
@@ -208,6 +208,33 @@ function ReturnUserPerm($id) {
     if (CheckStudentIDExist($id)) $perm = 'stu';
     if (CheckProfessorIDExist($id)) $perm = 'pro';
     return $perm;
+}
+
+function ReturnUserName($id) {
+    $perm = ReturnUserPerm($id);
+    $name = '';
+    if ($perm != '')
+    {
+        $link = MysqliConnection('Read');
+
+        if ($perm == 'stu')
+            $query = 'SELECT Name From Student WHERE ID=?';
+        if ($perm == 'pro')
+            $query = 'SELECT Name From Professor WHERE ID=?';
+
+        $stmt = mysqli_stmt_init($link);
+        if (mysqli_stmt_prepare($stmt, $query))
+        {
+            mysqli_stmt_bind_param($stmt, "s", $id);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $name);
+            mysqli_stmt_fetch($stmt);
+            mysqli_stmt_close($stmt);
+        }
+        mysqli_close($link);
+    }
+
+    return $name;
 }
 
 function CheckNumberExist($number) {
