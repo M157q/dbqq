@@ -19,6 +19,14 @@
     </head>
     <body>
     <h1>安安我是 教授ㄉㄉ</h1>
+
+<?php if ($_SESSION['adm']): ?>
+<ul>
+<li> <a href="../views/adm_user_admin.php">使用者管理</a> </li>
+<li> <a href="../views/adm_course_admin.php">課程管理</a> </li>
+</ul>
+<?php endif ?>
+
         <div>
             <?php ShowProfessorInfo($_SESSION['id'])?>
         </div>

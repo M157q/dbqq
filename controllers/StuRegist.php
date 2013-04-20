@@ -45,6 +45,7 @@ session_start();
         $redirect_url = '../views/main.php';
         $_SESSION['id'] = $_POST['account'];
         $_SESSION['perm'] = 'stu';
+        $_SESSION['adm'] = false;
     }
 
     $_SESSION['errmsg'] = $errmsg;

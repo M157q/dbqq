@@ -19,9 +19,9 @@
     }
 
     function RedirectByPerm($perm) {
-        if ($perm == 'adm')
-            header('Location: http://140.113.27.34:5566/views/adm.php');
-        elseif ($perm == 'pro')
+        //if ($perm == 'adm')
+        //    header('Location: http://140.113.27.34:5566/views/adm.php');
+        if ($perm == 'pro')
             header('Location: http://140.113.27.34:5566/views/pro.php');
         elseif ($perm == 'stu')
             header('Location: http://140.113.27.34:5566/views/stu.php');

@@ -3,7 +3,8 @@
     require_once("../controllers/Session.php");
     //require_once("../models/User.php");
     //require_once("../models/Adm.php");
-    CheckPermAndRedirect($_SESSION['perm'], 'adm');
+    if(!$SESSION['adm'])
+        RedirectByPerm($_SESSION['perm']);
     if(array_key_exists('id', $_SESSION))
     {
         echo '<h2>user: ' . $_SESSION['id'] . ' has logined!!! </h2><br />' ;

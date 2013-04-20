@@ -2,9 +2,10 @@
     session_start();
     var_dump($_SESSION);
     // check illegal users, and force to logout
-    if ($_SESSION['perm'] != 'adm') {
-        header('Location: '."../controllers/Logout.php");
-    }
+
+    require_once("../controllers/Session.php");
+    if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
+
     require_once("../models/Adm.php");
 ?>
 <html>

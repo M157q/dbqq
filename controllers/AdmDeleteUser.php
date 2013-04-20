@@ -6,9 +6,11 @@ session_start();
     $id = $_POST['account'];
 
     // you're not a administrator, go away!
-    if ($_SESSION['perm'] !== 'adm') {
-        CheckPermAndRedirect($_SESSION['perm'], 'adm');
-    }
+    if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
+
+    //if ($_SESSION['perm'] !== 'adm') {
+    //    CheckPermAndRedirect($_SESSION['perm'], 'adm');
+    //}
 
     require_once('../components/Mysqli.php');
     $errmsg = '';

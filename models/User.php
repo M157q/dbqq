@@ -20,6 +20,45 @@ function CheckPasswd($passwd)
     return $result;
 }
 
+function isAdmin($id)
+{
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+    $stu = 0;
+    $pro = 0;
+
+    // check the Student table
+    $query = 'SELECT COUNT(ID) FROM Student WHERE ID=? AND AdminFlag=1';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $stu);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+
+    // check the Professor table
+    $query = 'SELECT COUNT(ID) FROM Professor WHERE ID=? AND AdminFlag=1';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $pro);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+
+    if ($stu or $pro) return true;
+    else return false;
+
+    //if ($stu or $pro) $_SESSION['adm'] = true;
+    //else $_SESSION['adm'] = false;
+}
+
 function CheckUser_ID_and_Passwd($id, $passwd) {
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');
@@ -33,18 +72,19 @@ function CheckUser_ID_and_Passwd($id, $passwd) {
     $stu_id = false;
 
     // query three tables and get user's id
-
+    //  Administrator is now presented as a flag in the table Student and Professor.
+    //  Not a table anymore.
     // check the Administrator table
-    $query = 'SELECT ID FROM Administrator WHERE ID=? AND Password=SHA1(?)';
-    $stmt = mysqli_stmt_init($link);
-    if (mysqli_stmt_prepare($stmt, $query))
-    {
-        mysqli_stmt_bind_param($stmt, "ss", $id, $passwd);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $adm_id);
-        mysqli_stmt_fetch($stmt);
-        mysqli_stmt_close($stmt);
-    }
+    //$query = 'SELECT ID FROM Administrator WHERE ID=? AND Password=SHA1(?)';
+    //$stmt = mysqli_stmt_init($link);
+    //if (mysqli_stmt_prepare($stmt, $query))
+    //{
+    //    mysqli_stmt_bind_param($stmt, "ss", $id, $passwd);
+    //    mysqli_stmt_execute($stmt);
+    //    mysqli_stmt_bind_result($stmt, $adm_id);
+    //    mysqli_stmt_fetch($stmt);
+    //    mysqli_stmt_close($stmt);
+    //}
 
     // check the Professor table
     $query = 'SELECT ID FROM Professor WHERE ID=? AND Password=SHA1(?)';
@@ -72,7 +112,7 @@ function CheckUser_ID_and_Passwd($id, $passwd) {
     mysqli_close($link);
 
     // set user's permission in session
-    if ($adm_id)   $_SESSION['perm'] = 'adm';
+    //if ($adm_id)   $_SESSION['perm'] = 'adm';
     if ($pro_id)   $_SESSION['perm'] = 'pro';
     if ($stu_id)   $_SESSION['perm'] = 'stu';
 
@@ -136,25 +176,28 @@ function CheckProfessorIDExist($id) {
     return $pro_result or false;
 }
 
-function CheckAdminIDExist($id) {
-    require_once('../components/Mysqli.php');
-    $pro_result = false;
-    $link = MysqliConnection('Read');
-
-    $query = 'SELECT COUNT(ID) From Administrator WHERE ID=?';
-    $stmt = mysqli_stmt_init($link);
-    if (mysqli_stmt_prepare($stmt, $query))
-    {
-        mysqli_stmt_bind_param($stmt, "s", $id);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $pro_result);
-        mysqli_stmt_fetch($stmt);
-        mysqli_stmt_close($stmt);
-    }
-
-    mysqli_close($link);
-    return $pro_result or false;
-}
+//  Administrator is now presented as a flag in the table Student and Professor.
+//  Not a table anymore.
+//
+//function CheckAdminIDExist($id) {
+//    require_once('../components/Mysqli.php');
+//    $pro_result = false;
+//    $link = MysqliConnection('Read');
+//
+//    $query = 'SELECT COUNT(ID) From Administrator WHERE ID=?';
+//    $stmt = mysqli_stmt_init($link);
+//    if (mysqli_stmt_prepare($stmt, $query))
+//    {
+//        mysqli_stmt_bind_param($stmt, "s", $id);
+//        mysqli_stmt_execute($stmt);
+//        mysqli_stmt_bind_result($stmt, $pro_result);
+//        mysqli_stmt_fetch($stmt);
+//        mysqli_stmt_close($stmt);
+//    }
+//
+//    mysqli_close($link);
+//    return $pro_result or false;
+//}
 
 function CheckIDExist($id) {
     return (CheckStudentIDExist($id) or CheckProfessorIDExist($id));

@@ -4,6 +4,7 @@
     require_once("$path");
     require_once("../models/User.php");
     require_once("../models/Course.php");
+    $SESSION['adm'] = isAdmin($_SESSION['id']);
     CheckPermAndRedirect($_SESSION['perm'], 'stu');
     if(array_key_exists('id', $_SESSION))
     {
@@ -19,6 +20,14 @@
     </head>
     <body>
     <h1>安安我是 student</h1>
+
+<?php if ($_SESSION['adm']): ?>
+<p><ul>
+<li> <a href="../views/adm_user_admin.php">使用者管理</a> </li>
+<li> <a href="../views/adm_course_admin.php">課程管理</a> </li>
+</ul></p>
+<?php endif ?>
+
         <?php ShowStudentInfo($_SESSION['id'])?>
         <hr>
 
