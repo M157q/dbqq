@@ -1,22 +1,17 @@
 <?php
-session_start();
+    session_start();
+    // you're not a administrator, go away!
+    if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
+
     require_once('../controllers/Session.php');
     require_once('../models/Course.php');
     require_once('../models/User.php');
+    require_once('../components/Mysqli.php');
 
     $action = $_POST['action']; //add or delete
     $course_id = $_POST['course_id'];
     $course_year = $_POST['course_year'];
     $stu_id = $_POST['stu_id'];
-
-    // you're not a administrator, go away!
-    if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
-
-    //if ($_SESSION['perm'] !== 'adm') {
-    //    CheckPermAndRedirect($_SESSION['perm'], 'adm');
-    //}
-
-    require_once('../components/Mysqli.php');
     $errmsg = '';
 
     if (!CheckCourseIDExist($course_id, $course_year))
@@ -39,10 +34,9 @@ session_start();
                     mysqli_stmt_bind_param($stmt, "sss", $stu_id, $course_id, $course_year);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
-                    $errmsg = '您已成功將該學生加入此課程';
                 }
                 mysqli_close($link);
-                $errmsg = '更改資料庫失敗';
+                $errmsg = '您已成功將該學生加入此課程';
             }
         }
 
@@ -60,10 +54,9 @@ session_start();
                     mysqli_stmt_bind_param($stmt, "sss", $stu_id, $course_id, $course_year);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
-                    $errmsg = '您已成功將該學生從此課程中刪除';
                 }
                 mysqli_close($link);
-                $errmsg = '更改資料庫失敗';
+                $errmsg = '您已成功將該學生從此課程中刪除';
             }
         }
     }
