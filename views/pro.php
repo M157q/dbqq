@@ -20,8 +20,14 @@
     <body>
     <h1>安安我是 教授ㄉㄉ</h1>
 
-<?php if ($_SESSION['adm']) ShowAdminArea(); ?>
-
+<?php 
+if (isAdmin($_SESSION['id'])) {
+    $_SESSION['adm'] = true;
+    ShowAdminArea(); 
+}
+else
+    $_SESSION['adm'] = false;
+?>
 
         <div>
             <?php ShowProfessorInfo($_SESSION['id'])?>
