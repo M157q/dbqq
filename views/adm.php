@@ -3,7 +3,7 @@
     require_once("../controllers/Session.php");
     //require_once("../models/User.php");
     //require_once("../models/Adm.php");
-    if(!$SESSION['adm'])
+    if(!$_SESSION['adm'])
         RedirectByPerm($_SESSION['perm']);
     if(array_key_exists('id', $_SESSION))
     {
