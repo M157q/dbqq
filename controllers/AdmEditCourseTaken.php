@@ -39,9 +39,10 @@ session_start();
                     mysqli_stmt_bind_param($stmt, "sss", $stu_id, $course_id, $course_year);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
+                    $errmsg = '您已成功將該學生加入此課程';
                 }
                 mysqli_close($link);
-                $errmsg = '您已成功將該學生加入此課程';
+                $errmsg = '更改資料庫失敗';
             }
         }
 
@@ -59,9 +60,10 @@ session_start();
                     mysqli_stmt_bind_param($stmt, "sss", $stu_id, $course_id, $course_year);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
+                    $errmsg = '您已成功將該學生從此課程中刪除';
                 }
                 mysqli_close($link);
-                $errmsg = '您已成功將該學生從此課程中刪除';
+                $errmsg = '更改資料庫失敗';
             }
         }
     }
