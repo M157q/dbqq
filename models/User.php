@@ -247,6 +247,8 @@ function ShowStudentInfo($id) {
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $stu_id, $stu_name, $stu_num, $stu_depart, $stu_grade);
         mysqli_stmt_fetch($stmt);
+        echo "<hr>";
+        echo "<h2>基本資料</h2>";
         echo "<ul>";
         echo "<li>ID:   $stu_id  </li>";
         echo "<li>姓名: $stu_name</li>";
@@ -278,6 +280,8 @@ function ShowProfessorInfo($id) {
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $pro_id, $pro_name, $pro_num, $pro_depart);
         mysqli_stmt_fetch($stmt);
+        echo "<hr>";
+        echo "<h2>基本資料</h2>";
         echo "<ul>";
         echo "<li>ID:   $pro_id  </li>";
         echo "<li>姓名: $pro_name</li>";
