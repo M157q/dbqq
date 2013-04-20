@@ -31,7 +31,7 @@
 <form id="edit_course_stu" method="post" action="../controllers/AdmEditCourseTaken.php">
     <p>
     <input type="radio" name="action" value="add" required />新增<br />
-    <input type="radio" name="action" value="delete" required />刪除
+    <input type="radio" name="action" value="delete" required />刪除<br />
     </p>
     <label>課號: </label>
     <input type="text" name="course_id" placeholder="課號" required />
