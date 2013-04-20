@@ -35,6 +35,85 @@ function GetCourseInfoTable() {
     mysqli_close($link);
 }
 
+function RequireToStroing($req) {
+    if ($req == 0)
+        return "必修";
+    else
+        return "選修";
+}
+
+// convert classhours from strings to human readable format
+//    3NNYYNNNN5NNNNNNYN -> 二FGH 三CD六G
+//    2NNNNNYYY -> 二FGH
+function ClassHoursToStroing($hours) {
+    $ret = "";
+    $weekday = array("一", "二", "三", "四", "五", "六", "日");
+    $hour_name = array("A", "B", "C", "D", "E", "F", "G", "H");
+    $ret .= $weekday[substr($hours, 0, 1)-1];
+
+    foreach (range(1, 9) as $i) {
+        if (substr($hours, $i, 1) == "Y")
+            $ret .= $hour_name[$i-1];
+    }
+
+    if (strlen($hours) > 9) {
+        $ret .= $weekday[substr($hours, 9, 1)];
+        foreach (range(10, 17) as $i) {
+            if (substr($hours, $i, 1) == "Y")
+                $ret .= $hour_name[$i-10];
+        }
+    }
+    return $ret;
+}
+
+function GetCourseInfoTabletry() {
+    require_once('../models/Department.php');
+    require_once('../models/User.php');
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+
+    $course_list = array();
+    $depart_list = GetDepartmentList();
+
+    // get course data
+    $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $id, $year, $name, $pro_id, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info);
+        while(mysqli_stmt_fetch($stmt)) {
+            array_push($course_list, array($id, $year, $name, $pro_id, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info));
+        }
+        array_multisort($course_list);
+        echo "<table border=5><caption>課程清單</caption>";
+        echo "<tr>";
+        echo "<th>ID</th><th>年度</th><th>課名</th><th>開課教授</th>" . 
+             "<th>修課人數上限</th><th>教室</th><th>學分</th>" . 
+             "<th>開課系所</th><th>年級</th><th>必選修</th><th>時間</th>" . 
+             "<th>備註</th>";
+        echo "</tr>";
+        foreach($course_list as $row) {
+            echo "<tr>";
+            echo "<td>$row[0]</td>";
+            echo "<td>$row[1]</td>";
+            echo "<td>$row[2]</td>";
+            echo "<td>" . ReturnUserName($row[3]) . "</td>";
+            echo "<td>$row[4]</td>";
+            echo "<td>$row[5]</td>";
+            echo "<td>$row[6]</td>";
+            echo "<td>" . $depart_list[$row[7]] . "</td>";
+            echo "<td>$row[8]</td>";
+            echo "<td>" . RequireToStroing($row[9]) . "</td>";
+            echo "<td>" . ClassHoursToStroing($row[10]) . "</td>";
+            echo "<td>$row[11]</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+}
 
 function GetCourseInfoTableWithCheckBox() {
     require_once('../components/Mysqli.php');
