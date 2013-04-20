@@ -6,7 +6,7 @@
         echo 'user: ' . $_SESSION['id'] . ' has logined!!! <br />' ;
         var_dump($_SESSION);
         // redirect the page
-        CheckPermAndRedirect($_SESSION['perm'], "");   // $need  == NULL
+        RedirectByPerm($_SESSION['perm']);
 ?>
 <!DOCTYPE html>
 <html lang="zh">
