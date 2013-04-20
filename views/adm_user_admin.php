@@ -30,8 +30,7 @@
 </p>
 <hr>
 <h2>更改使用者密碼</h2>
-<p> 
-<form id="passwd" method="post" action="../controllers/AdmEditPass.php">
+<p><form id="passwd" method="post" action="../controllers/AdmEditPass.php">
     <pre><font color="red">密碼長度必須為10以內</font></pre>
     <label>帳號: </label>
     <input type="text" id="account" name="account" maxlength="10" placeholder="帳號" required />
@@ -41,9 +40,19 @@
     <input type="password" id="passwd" name="confirm_passwd" maxlength="10" placeholder="
 密碼確認" required />
     <button form="passwd" type="submit">更改密碼</button>
- </form>
- </p>
+</form></p>
 <hr>
-<a href="../views/adm.php">back</a>
+<h2>更改使用者身份</h2>
+<p><form id="identity" method="post" action="../controllers/AdmIdentityChange.php">
+    <label>帳號: </label>
+    <input type="text" id="account" name="account" maxlength="10" placeholder="帳號" required />
+    <p>
+    <input type="radio" name="action" value="admin" required />系統管理員<br />
+    <input type="radio" name="action" value="user" required />一般使用者<br />
+    </p>
+    <button form="identity" type="submit">更改身份</button>
+</form> </p>
+<hr>
+<a href="../index.php">back</a>
 </body>
 </html>

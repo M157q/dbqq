@@ -203,6 +203,13 @@ function CheckIDExist($id) {
     return (CheckStudentIDExist($id) or CheckProfessorIDExist($id));
 }
 
+function ReturnUserPerm($id) {
+    $perm = '';
+    if (CheckStudentIDExist($id)) $perm = 'stu';
+    if (CheckProfessorIDExist($id)) $perm = 'pro';
+    return $perm;
+}
+
 function CheckNumberExist($number) {
     $stu_result = false;
     $pro_result = true;
