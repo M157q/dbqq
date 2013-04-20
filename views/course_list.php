@@ -5,10 +5,15 @@
     <title>Login</title>
 <style>
     body {
-        width: 35em;
-        margin: 0 auto;
+        width: auto;
         font-family: Tahoma, Verdana, Arial, sans-serif;
     }
+    th {
+        width: auto;
+    }
+    table {
+        width: 100%;
+    } 
 </style>
 </head>
 <body>
@@ -18,6 +23,7 @@
 <?php
     require_once("../models/Course.php");
     GetCourseInfoTable();
+    GetCourseInfoTabletry();
 ?>
 </body>
 </html>
