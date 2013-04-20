@@ -51,7 +51,8 @@ else
         </form> </p>
         </div>
 
-
+        <hr>
+        <h2>教授專區</h2>
         <a href="../views/pro_add_course.php">新增課程</a><br/>
 
         <div>
