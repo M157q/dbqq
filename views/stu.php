@@ -21,54 +21,49 @@
     <body>
     <h1>安安我是 student</h1>
 
-<?php if ($_SESSION['adm']): ?>
-<p><ul>
-<li> <a href="../views/adm_user_admin.php">使用者管理</a> </li>
-<li> <a href="../views/adm_course_admin.php">課程管理</a> </li>
-</ul></p>
-<?php endif ?>
+    <?php if ($_SESSION['adm']) ShowAdminArea(); ?>
 
-        <?php ShowStudentInfo($_SESSION['id'])?>
-        <hr>
+    <?php ShowStudentInfo($_SESSION['id'])?>
+    <hr>
 
-        <h2>修改資料</h2>
-        <p> <form method="post" action="../controllers/StuEditName.php">
-            <label>姓名:</label>
-            <input type="text" id="name" name="name" placeholder="芃蚊子" required />
-            <button type="submit">更改姓名</button>
-        </form> </p> 
+    <h2>修改資料</h2>
+    <p> <form method="post" action="../controllers/StuEditName.php">
+        <label>姓名:</label>
+        <input type="text" id="name" name="name" placeholder="芃蚊子" required />
+        <button type="submit">更改姓名</button>
+    </form> </p> 
 
-        <p> <form method="post" action="../controllers/StuEditPass.php">
-            <label>密碼: (請輸入10個字以內的密碼)</label>
-            <input type="password" id="old_passwd" name="old_passwd" maxlength="10" placeholder="原本密碼" required />
-            <input type="password" id="new_passwd" name="new_passwd" maxlength="10" placeholder="新的密碼" required />
-            <input type="password" id="confirm_passwd" name="confirm_passwd" maxlength="10" placeholder="
+    <p> <form method="post" action="../controllers/StuEditPass.php">
+        <label>密碼: (請輸入10個字以內的密碼)</label>
+        <input type="password" id="old_passwd" name="old_passwd" maxlength="10" placeholder="原本密碼" required />
+        <input type="password" id="new_passwd" name="new_passwd" maxlength="10" placeholder="新的密碼" required />
+        <input type="password" id="confirm_passwd" name="confirm_passwd" maxlength="10" placeholder="
 密碼確認" required />
-            <button type="submit">更改密碼</button>
-        </form> </p>
+        <button type="submit">更改密碼</button>
+    </form> </p>
 
-        <hr>
-        <h2>已選課程</h2>
-        <?php ListStudentCourse($_SESSION['id']); ?>
-        <hr>
+    <hr>
+    <h2>已選課程</h2>
+    <?php ListStudentCourse($_SESSION['id']); ?>
+    <hr>
 
-        <h2>開始課程</h2>
-        <form method="post" action="../controllers/CourseSelect.php">
-            <?php
-                GetCourseInfoTableWithCheckBox();
-            ?>
-            <button type="submit">選課安安</button>
+    <h2>開始課程</h2>
+    <form method="post" action="../controllers/CourseSelect.php">
+        <?php
+            GetCourseInfoTableWithCheckBox();
+        ?>
+        <button type="submit">選課安安</button>
+    </form>
+
+    <hr>
+
+    <a href="/views/course_list.php">所有課程列表</a><br/>
+    <div>
+        <form name="logout" method="post" action="../controllers/Logout.php" >
+            <p>
+                <input type="submit" value="登出" /><p>
         </form>
-
-        <hr>
-
-        <a href="/views/course_list.php">所有課程列表</a><br/>
-        <div>
-            <form name="logout" method="post" action="../controllers/Logout.php" >
-                <p>
-                    <input type="submit" value="登出" /><p>
-            </form>
-        </div>
+    </div>
     </body>
 </html>
 <?php

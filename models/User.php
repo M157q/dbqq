@@ -297,4 +297,14 @@ function ShowProfessorInfo($id) {
     }
     mysqli_close($link);
 }
+
+function ShowAdminArea()
+{
+    echo "<h2>管理員專區</h2>";
+    echo "<p><ul>";
+    echo "<li> <a href=\"../views/adm_user_admin.php\">使用者管理</a> </li>";
+    echo "<li> <a href=\"../views/adm_course_admin.php\">課程管理</a> </li>";
+    echo "</ul></p>";
+}
+
 ?>
