@@ -20,6 +20,41 @@ function CheckPasswd($passwd)
     return $result;
 }
 
+function numberOfAdmin()
+{
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+    $stu = 0;
+    $pro = 0;
+
+    // check the Student table
+    $query = 'SELECT COUNT(*) FROM Student WHERE AdminFlag=1';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $stu);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+
+    // check the Professor table
+    $query = 'SELECT COUNT(*) FROM Professor WHERE AdminFlag=1';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $pro);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+
+    return ($stu+$pro);
+}
+
 function isAdmin($id)
 {
     require_once('../components/Mysqli.php');

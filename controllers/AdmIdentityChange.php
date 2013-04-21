@@ -46,6 +46,8 @@
         {
             if(!isAdmin($account))
                 $errmsg = '此帳號已是一般使用者';
+            elseif(numberOfAdmin() == 1)
+                $errmsg = '將此帳號變更為一般使用者將造成系統沒有系統管理員，故此動作無效。';
             else
             {
                 // let the account become admin
