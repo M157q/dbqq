@@ -1,9 +1,16 @@
 <?php
     session_start();
-    $path = '../controllers/Session.php';
-    require_once("$path");
-    require_once("../models/Course.php");
-    require_once("../models/User.php");
+    require_once('../controllers/Session.php');
+    require_once('../models/User.php');
+    require_once('../models/Course.php');
+    $_SESSION['adm'] = isAdmin($_SESSION['id']);
+    $_SESSION['ban'] = isBanned($_SESSION['id']);
+    
+    if ($_SESSION['ban'])
+        $errmsg = '您正在被停權中';
+    else
+        $errmsg = '';
+
     CheckPermAndRedirect($_SESSION['perm'], 'pro');
     if(array_key_exists('id', $_SESSION))
     {
@@ -21,20 +28,14 @@
     <body>
     <h1>安安我是 教授ㄉㄉ</h1>
 
-<?php 
-if (isAdmin($_SESSION['id'])) {
-    $_SESSION['adm'] = true;
-    ShowAdminArea(); 
-}
-else
-    $_SESSION['adm'] = false;
-?>
+<?php if ($_SESSION['adm']) ShowAdminArea(); ?>
 
         <div>
             <?php ShowProfessorInfo($_SESSION['id'])?>
         </div>
         <hr>
 
+<?php if (!$_SESSION['ban']): ?>
         <div>
         <h2>修改資料</h2>
         <p> <form method="post" action="../controllers/ProEditName.php">
@@ -68,6 +69,7 @@ else
             <button type="submit">編輯此課程</button>
 	    </form> </p>
         </div>
+<?php endif ?>
 
         <div><form name="logout" method="post" action="../controllers/Logout.php" >
         <p> <input type="submit" value="登出" /><p>
