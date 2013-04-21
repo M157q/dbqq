@@ -1,16 +1,15 @@
 <?php
     session_start();
-    // you're not a administrator, go away!
-    if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
-
     require_once('../controllers/Session.php');
     require_once('../models/User.php');
     require_once('../components/Mysqli.php');
 
+    // you're not a administrator, go away!
+    if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
+
     $action = $_POST['action'];     //admin or user
     $account = $_POST['account'];
     $errmsg = '';
-
     $perm = ReturnUserPerm($account);
 
     if (!CheckIDExist($account))
