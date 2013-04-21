@@ -94,6 +94,42 @@ function isAdmin($id)
     //else $_SESSION['adm'] = false;
 }
 
+function isBanned($id)
+{
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+    $stu = 0;
+    $pro = 0;
+
+    // check the Student table
+    $query = 'SELECT COUNT(ID) FROM Student WHERE ID=? AND ban=1';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $stu);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+
+    // check the Professor table
+    $query = 'SELECT COUNT(ID) FROM Professor WHERE ID=? AND ban=1';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $pro);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+
+    if ($stu or $pro) return true;
+    else return false;
+}
+
 function CheckUser_ID_and_Passwd($id, $passwd) {
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');

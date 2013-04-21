@@ -18,6 +18,7 @@
        $redirect_url = 'http://140.113.27.34:5566/views/main.php';
        $_SESSION['id'] = $_POST['account'];
        $_SESSION['adm'] = isAdmin($_POST['account']);
+       $_SESSION['ban'] = isBanned($_POST['account']);
    }
    
    $_SESSION['errmsg'] = $errmsg;
