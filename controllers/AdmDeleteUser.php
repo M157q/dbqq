@@ -24,9 +24,6 @@ session_start();
 
     if (isset($perm) and !empty($perm))
     {
-        require_once('../components/utility.php');
-        $new_passwd = salted($new_passwd);
-
         // update the data in the database
         $link = MysqliConnection('Write');
 
