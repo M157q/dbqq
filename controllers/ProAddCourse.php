@@ -9,7 +9,12 @@ session_start();
    
     // user input error detection and error message return
     $errmsg = '';
-    if($_POST['day1'] == $_POST['day2'])
+    
+    if($_POST['student_upper_bound'] < 1)
+	$errmsg = '人數上限必須大於零';
+    elseif($_POST['credit'] < 0)
+        $errmsg = '學分數不能為負值';
+    elseif($_POST['day1'] == $_POST['day2'])
         $errmsg = '時段一與時段二不能在同一天';
     elseif(!isset($_POST['d1']))
         $errmsg = '時段一之時間未填';
@@ -40,17 +45,21 @@ session_start();
 	else {
             $name = $_POST['name'];
             $class_room = $_POST['class_room'];
+	    $student_upper_bound = $_POST['student_upper_bound'];
+	    $required = $_POST['required'];
+	    $credit = $_POST['credit'];
             $year = $_POST['year'];
             $department = $_POST['department'];
             $grade = $_POST['grade'];
+	    $additional_info = $_POST['additional_info'];
 
             // insert the data to the database
             $link = MysqliConnection('Write');
-            $query = 'INSERT INTO Course (Year, Name, pro_id, class_room, department, grade, class_hours) VALUES ( ?, ?, ?, ?, ?, ?, ?)';
+            $query = 'INSERT INTO Course (Year, Name, pro_id, class_room, student_upper_bound, credit, required, department, grade, class_hours, additional_info) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
             $stmt = mysqli_stmt_init($link);
             if (mysqli_stmt_prepare($stmt, $query))
             {
-	        mysqli_stmt_bind_param($stmt, "sssssss", $year, $name, $_SESSION['id'], $class_room, $department, $grade, $class_hours);
+	        mysqli_stmt_bind_param($stmt, "sssdsddssss", $year, $name, $_SESSION['id'], $student_upper_bound, $class_room, $credit, $required, $department, $grade, $class_hours, $additional_info);
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
             }

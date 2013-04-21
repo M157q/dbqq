@@ -33,6 +33,10 @@ else
             <?php ShowProfessorInfo($_SESSION['id'])?>
         </div>
         <hr>
+	<div>
+	    
+	</div>
+	<hr>
         <div>
         <h2>修改資料</h2>
         <p> <form method="post" action="../controllers/ProEditName.php">
