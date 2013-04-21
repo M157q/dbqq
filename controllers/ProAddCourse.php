@@ -55,7 +55,7 @@ session_start();
 
             // insert the data to the database
             $link = MysqliConnection('Write');
-            $query = 'INSERT INTO Course (Year, Name, pro_id, class_room, student_upper_bound, credit, required, department, grade, class_hours, additional_info) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            $query = 'INSERT INTO Course (Year, Name, pro_id, student_upper_bound, class_room, credit, required, department, grade, class_hours, additional_info) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
             $stmt = mysqli_stmt_init($link);
             if (mysqli_stmt_prepare($stmt, $query))
             {

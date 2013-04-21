@@ -29,7 +29,6 @@
     <h1>安安我是 教授ㄉㄉ</h1>
 
 <?php if ($_SESSION['adm']) ShowAdminArea(); ?>
-
         <div>
             <?php ShowProfessorInfo($_SESSION['id'])?>
         </div>
@@ -61,7 +60,7 @@
 	    <h3>教授課程</h3>
 	    <?php ListProfessorCourse($_SESSION['id'])?>
 	    <h3>編輯課程</h3>
-        <p> <form method="post" action="../controllers/ProEditCourse.php">
+        <p> <form method="post" action="../views/pro_edit_course.php">
 	    <label>課號:</label>
 	    <input type="text" id="id" name="id" placeholder="4699" required />
 	    <label>年度:</label>
