@@ -2,6 +2,7 @@
     session_start();
     $path = '../controllers/Session.php';
     require_once("$path");
+    require_once("../models/Course.php");
     require_once("../models/User.php");
     CheckPermAndRedirect($_SESSION['perm'], 'pro');
     if(array_key_exists('id', $_SESSION))
@@ -33,10 +34,7 @@ else
             <?php ShowProfessorInfo($_SESSION['id'])?>
         </div>
         <hr>
-	<div>
-	    
-	</div>
-	<hr>
+
         <div>
         <h2>修改資料</h2>
         <p> <form method="post" action="../controllers/ProEditName.php">
@@ -58,13 +56,22 @@ else
         <hr>
         <h2>教授專區</h2>
         <a href="../views/pro_add_course.php">新增課程</a><br/>
-
         <div>
-            <form name="logout" method="post" action="../controllers/Logout.php" >
-                <p>
-                    <input type="submit" value="登出" /><p>
-            </form>
+	    <h3>教授課程</h3>
+	    <?php ListProfessorCourse($_SESSION['id'])?>
+	    <h3>編輯課程</h3>
+        <p> <form method="post" action="../controllers/ProEditCourse.php">
+	    <label>課號:</label>
+	    <input type="text" id="id" name="id" placeholder="4699" required />
+	    <label>年度:</label>
+	    <input type="number" id="year" name="year" placeholder="21XX" required />
+            <button type="submit">編輯此課程</button>
+	    </form> </p>
         </div>
+
+        <div><form name="logout" method="post" action="../controllers/Logout.php" >
+        <p> <input type="submit" value="登出" /><p>
+        </form> </div>
     </body>
 </html>
 <?php

@@ -258,6 +258,55 @@ function ListStudentCourse($id) {
     GetCourseInfoTableByIDs($course_list);
 }
 
+function ListProfessorCourse($pro_id) {
+    require_once('../models/Department.php');
+    require_once('../models/User.php');
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+
+    $course_list = array();
+    $depart_list = GetDepartmentList();
+
+    // get course data
+    $query = 'SELECT ID, Year, Name, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course Where pro_id=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+	mysqli_stmt_bind_param($stmt, "s", $pro_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $id, $year, $name, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info);
+        while(mysqli_stmt_fetch($stmt)) {
+            array_push($course_list, array($id, $year, $name, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info));
+        }
+        array_multisort($course_list);
+	echo "<table border=5><caption></caption>";
+        echo "<tr>";
+        echo "<th>ID</th><th>年度</th><th>課名</th>" .
+             "<th>修課人數上限</th><th>教室</th><th>學分</th>" .
+             "<th>開課系所</th><th>年級</th><th>必選修</th><th>時間</th>" .
+             "<th>備註</th>";
+        echo "</tr>";
+        foreach($course_list as $row) {
+            echo "<tr>";
+            echo "<td>$row[0]</td>";
+            echo "<td>$row[1]</td>";
+            echo "<td>$row[2]</td>";
+            echo "<td>$row[3]</td>";
+            echo "<td>$row[4]</td>";
+            echo "<td>$row[5]</td>";
+            echo "<td>" . $depart_list[$row[6]] . "</td>";
+            echo "<td>$row[7]</td>";
+            echo "<td>" . RequireToStroing($row[8]) . "</td>";
+            echo "<td>" . ClassHoursToStroing($row[9]) . "</td>";
+            echo "<td>$row[10]</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+}
+
 function CheckProIfCollision($pro_id, $class_hours) {
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');

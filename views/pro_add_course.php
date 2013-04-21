@@ -81,7 +81,7 @@
     </select>
     <br /><br />
     <label>年度:</label>
-    <input type="text" id="year" name="year" maxlength="10" placeholder="21XX" required />
+    <input type="number" id="year" name="year" placeholder="21XX" required />
     <br /><br />
     <label>系所:</label>
     <select name="department" required />

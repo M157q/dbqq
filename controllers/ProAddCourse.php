@@ -59,7 +59,7 @@ session_start();
             $stmt = mysqli_stmt_init($link);
             if (mysqli_stmt_prepare($stmt, $query))
             {
-	        mysqli_stmt_bind_param($stmt, "sssdsddssss", $year, $name, $_SESSION['id'], $student_upper_bound, $class_room, $credit, $required, $department, $grade, $class_hours, $additional_info);
+	        mysqli_stmt_bind_param($stmt, "dssdsddssss", $year, $name, $_SESSION['id'], $student_upper_bound, $class_room, $credit, $required, $department, $grade, $class_hours, $additional_info);
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
             }
