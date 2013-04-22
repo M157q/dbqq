@@ -23,7 +23,6 @@
 <?php
     require_once("../models/Course.php");
     GetCourseInfoTable();
-    GetCourseInfoTabletry();
 ?>
 </body>
 </html>
