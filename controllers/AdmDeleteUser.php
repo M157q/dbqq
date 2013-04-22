@@ -1,18 +1,13 @@
 <?php
-session_start();
+    session_start();
     require_once('../controllers/Session.php');
     require_once('../models/User.php');
-
-    $id = $_POST['account'];
+    require_once('../components/Mysqli.php');
 
     // you're not a administrator, go away!
     if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
 
-    //if ($_SESSION['perm'] !== 'adm') {
-    //    CheckPermAndRedirect($_SESSION['perm'], 'adm');
-    //}
-
-    require_once('../components/Mysqli.php');
+    $id = $_POST['account'];
     $errmsg = '';
 
     if (CheckStudentIDExist($id))

@@ -1,12 +1,13 @@
 <?php
     session_start();
-    // you're not a administrator, go away!
-    if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
-
     require_once('../controllers/Session.php');
     require_once('../models/Course.php');
     require_once('../models/User.php');
     require_once('../components/Mysqli.php');
+
+    // you're not a administrator, go away!
+    if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
+
 
     $action = $_POST['action']; //add or delete
     $course_id = $_POST['course_id'];

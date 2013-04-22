@@ -1,5 +1,5 @@
 <?php
-session_start();
+    session_start();
     require_once('../controllers/Session.php');
     require_once('../models/User.php');
     require_once('../components/Mysqli.php');

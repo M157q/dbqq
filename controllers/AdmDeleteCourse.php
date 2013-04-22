@@ -1,19 +1,14 @@
 <?php
-session_start();
+    session_start();
     require_once('../controllers/Session.php');
     require_once('../models/Course.php');
-
-    $course_id = $_POST['course_id'];
-    $course_year = $_POST['course_year'];
+    require_once('../components/Mysqli.php');
 
     // you're not a administrator, go away!
     if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
 
-    //if ($_SESSION['perm'] !== 'adm') {
-    //    CheckPermAndRedirect($_SESSION['perm'], 'adm');
-    //}
-
-    require_once('../components/Mysqli.php');
+    $course_id = $_POST['course_id'];
+    $course_year = $_POST['course_year'];
     $errmsg = '';
 
     if (!CheckCourseIDExist($course_id, $course_year))
