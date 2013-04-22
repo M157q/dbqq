@@ -54,7 +54,7 @@
     <?php ListStudentCourse($_SESSION['id']); ?>
     <hr>
 
-    <h2>開始課程</h2>
+    <h2>開始選課</h2>
     <form method="post" action="../controllers/CourseSelect.php">
         <?php
             GetCourseInfoTableWithCheckBox();
