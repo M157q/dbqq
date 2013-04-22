@@ -12,7 +12,7 @@
 <hr>
 <?php
     require_once("../models/Course.php");
-    GetCourseInfoTable();
+    GetCourseInfoTabletry();
 ?>
 <hr>
 <h2>刪除課程</h2>
