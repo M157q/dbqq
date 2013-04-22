@@ -1,40 +1,4 @@
 <?php
-function GetCourseInfoTable() {
-    require_once('../components/Mysqli.php');
-    $link = MysqliConnection('Read');
-
-    $course_list = array();
-
-    // get course data
-    $query = 'SELECT ID, Year, Name, Additional_Info FROM Course';
-    $stmt = mysqli_stmt_init($link);
-    if (mysqli_stmt_prepare($stmt, $query))
-    {
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $id, $year, $name, $add_info);
-        while(mysqli_stmt_fetch($stmt)) {
-            array_push($course_list, array($id, $year, $name, $add_info));
-        }
-        array_multisort($course_list);
-        echo "<table border=5><caption>課程清單</caption>";
-        echo "<tr>";
-        echo "<th>ID</th>" . "<th>年度</th>" . "<th>課名</th>" .
-             "<th>備註</th>";
-        echo "</tr>";
-        foreach($course_list as $row) {
-            echo "<tr>";
-            echo "<td>$row[0]</td>";
-            echo "<td>$row[1]</td>";
-            echo "<td>$row[2]</td>";
-            echo "<td>$row[3]</td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-        mysqli_stmt_close($stmt);
-    }
-    mysqli_close($link);
-}
-
 function RequireToStroing($req) {
     if ($req == 0)
         return "必修";
@@ -66,7 +30,7 @@ function ClassHoursToStroing($hours) {
     return $ret;
 }
 
-function GetCourseInfoTabletry() {
+function GetCourseInfoTable() {
     require_once('../models/Department.php');
     require_once('../models/User.php');
     require_once('../components/Mysqli.php');
@@ -76,21 +40,27 @@ function GetCourseInfoTabletry() {
     $depart_list = GetDepartmentList();
 
     // get course data
-    $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course';
+    $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound,
+              class_room, credit, department, grade, required, class_hours,
+              Additional_Info FROM Course';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $id, $year, $name, $pro_id, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info);
+        mysqli_stmt_bind_result($stmt, $id, $year, $name, $pro_id, $sub,
+                                $classroom, $credit, $dep, $grade, $req,
+                                $class_hours, $add_info);
         while(mysqli_stmt_fetch($stmt)) {
-            array_push($course_list, array($id, $year, $name, $pro_id, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info));
+            array_push($course_list, array($id, $year, $name, $pro_id, $sub,
+                                           $classroom, $credit, $dep, $grade,
+                                            $req, $class_hours, $add_info));
         }
         array_multisort($course_list);
         echo "<table border=5><caption>課程清單</caption>";
         echo "<tr>";
-        echo "<th>ID</th><th>年度</th><th>課名</th><th>開課教授</th>" . 
-             "<th>修課人數上限</th><th>教室</th><th>學分</th>" . 
-             "<th>開課系所</th><th>年級</th><th>必選修</th><th>時間</th>" . 
+        echo "<th>ID</th><th>年度</th><th>課名</th><th>開課教授</th>" .
+             "<th>修課人數上限</th><th>教室</th><th>學分</th>" .
+             "<th>開課系所</th><th>年級</th><th>必選修</th><th>時間</th>" .
              "<th>備註</th>";
         echo "</tr>";
         foreach($course_list as $row) {
@@ -116,19 +86,28 @@ function GetCourseInfoTabletry() {
 }
 
 function GetCourseInfoTableWithCheckBox() {
+    require_once('../models/Department.php');
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');
 
     $course_list = array();
+    $depart_list = GetDepartmentList();
 
-    $query = 'SELECT ID, Year, Name, Additional_Info FROM Course';
+    // get course data
+    $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound,
+              class_room, credit, department, grade, required, class_hours,
+              Additional_Info FROM Course';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $id, $year, $name, $add_info);
+        mysqli_stmt_bind_result($stmt, $id, $year, $name, $pro_id, $sub,
+                                $classroom, $credit, $dep, $grade, $req,
+                                $class_hours, $add_info);
         while(mysqli_stmt_fetch($stmt)) {
-            array_push($course_list, array($id, $year, $name, $add_info));
+            array_push($course_list, array($id, $year, $name, $pro_id, $sub,
+                                           $classroom, $credit, $dep, $grade,
+                                            $req, $class_hours, $add_info));
         }
         mysqli_stmt_close($stmt);
     }
@@ -137,16 +116,26 @@ function GetCourseInfoTableWithCheckBox() {
     array_multisort($course_list);
     echo "<table border=5><caption>課程清單</caption>";
     echo "<tr>";
-    echo "<th>選擇</th><th>ID</th>" . "<th>年度</th>" . "<th>課名</th>" .
+    echo "<th>選擇</th><th>ID</th><th>年度</th><th>課名</th><th>開課教授</th>" .
+         "<th>修課人數上限</th><th>教室</th><th>學分</th>" .
+         "<th>開課系所</th><th>年級</th><th>必選修</th><th>時間</th>" .
          "<th>備註</th>";
     echo "</tr>";
     foreach($course_list as $row) {
         echo "<tr>";
-        echo "<td><input type=\"checkbox\" name=\"$row[0]\" style=\"text-align:center; vertical-align: middle;\"> </td>";
+        echo "<td><input type=\"checkbox\" name=\"$row[0]_$row[1]\" style=\"text-align:center; vertical-align: middle;\"> </td>";
         echo "<td>$row[0]</td>";
         echo "<td>$row[1]</td>";
         echo "<td>$row[2]</td>";
-        echo "<td>$row[3]</td>";
+        echo "<td>" . ReturnUserName($row[3]) . "</td>";
+        echo "<td>$row[4]</td>";
+        echo "<td>$row[5]</td>";
+        echo "<td>$row[6]</td>";
+        echo "<td>" . $depart_list[$row[7]] . "</td>";
+        echo "<td>$row[8]</td>";
+        echo "<td>" . RequireToStroing($row[9]) . "</td>";
+        echo "<td>" . ClassHoursToStroing($row[10]) . "</td>";
+        echo "<td>$row[11]</td>";
         echo "</tr>";
     }
     echo "</table>";
@@ -156,20 +145,29 @@ function GetCourseInfoTableWithCheckBox() {
 
 function GetCourseInfoTableByIDs($IDs) {
     require_once('../components/Mysqli.php');
+    require_once('../models/Department.php');
     $link = MysqliConnection('Read');
 
     $course_list = array();
+    $depart_list = GetDepartmentList();
 
     foreach ($IDs as $cid) {
-        $query = 'SELECT ID, Year, Name, Additional_Info FROM Course WHERE id=?';
+    // get course data
+        $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound,
+                  class_room, credit, department, grade, required, class_hours,
+                  Additional_Info FROM Course WHERE id=?';
         $stmt = mysqli_stmt_init($link);
         if (mysqli_stmt_prepare($stmt, $query))
         {
             mysqli_stmt_bind_param($stmt, "s", $cid);
             mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, $id, $year, $name, $add_info);
+            mysqli_stmt_bind_result($stmt, $id, $year, $name, $pro_id, $sub,
+                                    $classroom, $credit, $dep, $grade, $req,
+                                    $class_hours, $add_info);
             mysqli_stmt_fetch($stmt);
-            array_push($course_list, array($id, $year, $name, $add_info));
+            array_push($course_list, array($id, $year, $name, $pro_id, $sub,
+                                           $classroom, $credit, $dep, $grade,
+                                            $req, $class_hours, $add_info));
             mysqli_stmt_close($stmt);
         }
     }
@@ -178,7 +176,9 @@ function GetCourseInfoTableByIDs($IDs) {
     array_multisort($course_list);
     echo "<table border=5><caption>課程清單</caption>";
     echo "<tr>";
-    echo "<th>ID</th>" . "<th>年度</th>" . "<th>課名</th>" .
+    echo "<th>ID</th><th>年度</th><th>課名</th><th>開課教授</th>" .
+         "<th>修課人數上限</th><th>教室</th><th>學分</th>" .
+         "<th>開課系所</th><th>年級</th><th>必選修</th><th>時間</th>" .
          "<th>備註</th>";
     echo "</tr>";
     foreach($course_list as $row) {
@@ -186,32 +186,40 @@ function GetCourseInfoTableByIDs($IDs) {
         echo "<td>$row[0]</td>";
         echo "<td>$row[1]</td>";
         echo "<td>$row[2]</td>";
-        echo "<td>$row[3]</td>";
+        echo "<td>" . ReturnUserName($row[3]) . "</td>";
+        echo "<td>$row[4]</td>";
+        echo "<td>$row[5]</td>";
+        echo "<td>$row[6]</td>";
+        echo "<td>" . $depart_list[$row[7]] . "</td>";
+        echo "<td>$row[8]</td>";
+        echo "<td>" . RequireToStroing($row[9]) . "</td>";
+        echo "<td>" . ClassHoursToStroing($row[10]) . "</td>";
+        echo "<td>$row[11]</td>";
         echo "</tr>";
     }
     echo "</table>";
 }
 
 
-function ChooseCourse($studentID, $IDs) {
+function ChooseCourse($studentID, $ID_years) {
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Write');
 
     $course_list = array();
 
-    foreach ($IDs as $cid) {
+    foreach ($ID_years as $idy) {
+        list ($cid, $year) = explode('_', $idy);
         if (CheckIfChosen($studentID, $cid)) {
             continue;
         }
-        $query = 'INSERT INTO Course_taken (StudentID, CourseID) VALUES (?, ?)';
+        $query = 'INSERT INTO Course_taken (StudentID, CourseID, CourseYear) VALUES (?, ?, ?)';
         $stmt = mysqli_stmt_init($link);
         if (mysqli_stmt_prepare($stmt, $query))
         {
-            mysqli_stmt_bind_param($stmt, "ss", $studentID, $cid);
+            mysqli_stmt_bind_param($stmt, "sss", $studentID, $cid, $year);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
         }
-        echo "$studentID, $cid<br>";
     }
     mysqli_close($link);
 }
@@ -341,37 +349,19 @@ function CheckCourseConfliction($c1, $c2) {
 
     $cc1 = array(substr($c1, 0, 9), substr($c1, 9, 18));
     $cc2 = array(substr($c2, 0, 9), substr($c2, 9, 18));
-    echo "<h1>begin test</h1>";
-    var_dump($cc1);
-    echo "<br>";
-    var_dump($cc2);
-    echo "<hr>";
     foreach ($cc1 as $i) {
         foreach ($cc2 as $j) {
-            echo "comparing ";
-            var_dump($i);
-            var_dump($j);
             if (CompareCourse($i, $j)) {
-                echo "confliction ^_^";
                 $result = true;
             }
-            else {
-                echo "no confliction";
-            }
-            echo "<br>";
         }
     }
-    echo "<hr>";
     return $result;
 }
 
 function CompareCourse($c1, $c2) {
     if (substr($c1, 0, 1) == substr($c2, 0, 1)) {
         foreach (range(1, 9) as $i) {
-            echo substr($c1, $i, 1);
-            echo "/";
-            echo substr($c2, $i, 1);
-            echo "<br>";
             if (substr($c1, $i, 1) == "Y" and substr($c2, $i, 1) == "Y")
                 return true;
         }
