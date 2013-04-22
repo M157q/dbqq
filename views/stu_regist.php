@@ -2,6 +2,8 @@
     session_start();
     var_dump($_SESSION);
     require_once('../models/Department.php');
+    require_once('../controllers/Session.php');
+    if (isset($_SESSION['perm'])) RedirectByPerm($_SESSION['perm']);
 ?>
 <!DOCTYPE html>
 <html lang="zh">
