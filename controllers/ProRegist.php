@@ -3,13 +3,8 @@
     require_once('../models/User.php');
     require_once('../components/Mysqli.php');
     require_once('../components/utility.php');
-    require_once('../controllers/Session.php');
-    if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
-    if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
 
-    // redirect to the home page by default
     $redirect_url = '../views/pro_regist.php';
-    // user input error detection and error message return
     $errmsg = '';
 
     if(!CheckId($_POST['account']))

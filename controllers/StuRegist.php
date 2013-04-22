@@ -1,11 +1,9 @@
 <?php
-session_start();
-
+    session_start();
     require_once('../models/User.php');
     require_once('../components/Mysqli.php');
     require_once('../components/utility.php');
 
-    // redirect to the home page by default
     $redirect_url = '../views/stu_regist.php';
 
     // user input error detection and error message return

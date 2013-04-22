@@ -1,15 +1,12 @@
 <?php
-session_start();
+    session_start();
     require_once('../controllers/Session.php');
     require_once('../components/Mysqli.php');
+    if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
+    if ($_SESSION['perm'] != 'stu') RedirectByPerm($_SESSION['perm']);
 
     $id = $_SESSION['id'];
     $name = $_POST['name'];
-
-    // you're not a student!!!
-    if ($_SESSION['perm'] != 'stu') {
-        CheckPermAndRedirect($_SESSION['perm'], "stu");
-    }
 
     // update the data in the database
     $link = MysqliConnection('Write');
