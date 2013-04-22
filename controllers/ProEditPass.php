@@ -1,19 +1,17 @@
 <?php
-session_start();
+    session_start();
     require_once('../controllers/Session.php');
     require_once('../models/User.php');
+    require_once('../components/Mysqli.php');
+    if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
+    if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
 
     $id = $_SESSION['id'];
     $old_passwd = $_POST['old_passwd'];
     $new_passwd = $_POST['new_passwd'];
     $confirm_passwd = $_POST['confirm_passwd'];
 
-    // you're not a professor!!!
-    if ($_SESSION['perm'] != 'pro') {
-        CheckPermAndRedirect($_SESSION['perm'], 'pro');
-    }
     
-    require_once('../components/Mysqli.php');
     $errmsg = '';
     if (!CheckPasswd($old_passwd))
        $errmsg = 'You have to enter your old password.';

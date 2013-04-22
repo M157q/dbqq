@@ -2,6 +2,9 @@
     session_start();
     require_once('../models/Course.php');
     require_once('../models/Department.php');
+    require_once('../controllers/Session.php');
+    if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
+    if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
 
 ?>
 <!DOCTYPE html>

@@ -1,9 +1,12 @@
 <?php
     session_start();    
-
     require_once('../models/Department.php');
     require_once('../models/User.php');
     require_once('../components/Mysqli.php');
+    require_once('../controllers/Session.php');
+    if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
+    if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
+
     $link = MysqliConnection('Read');
 
     $course_list = array();
