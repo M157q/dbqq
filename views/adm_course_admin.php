@@ -1,6 +1,5 @@
 <?php
     session_start();
-    var_dump($_SESSION);
 
     // check illegal users, and force to logout
     require_once("../controllers/Session.php");

@@ -4,7 +4,6 @@
     if(array_key_exists('id', $_SESSION))
     {
         echo 'user: ' . $_SESSION['id'] . ' has logined!!! <br />' ;
-        var_dump($_SESSION);
         // redirect the page
         RedirectByPerm($_SESSION['perm']);
 ?>
@@ -15,6 +14,7 @@
         <title>Main</title>
     </head>
     <body>
+        <h1>時空傳送門</h1>
         <div>
             <form name="logout" method="post" action="../controllers/Logout.php" >
                 <p>
