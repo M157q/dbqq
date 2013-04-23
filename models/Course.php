@@ -207,19 +207,19 @@ function ChooseCourse($studentID, $ID_years) {
 
     $course_list = array();
 
-    foreach ($ID_years as $idy) {
-        list ($cid, $year) = explode('_', $idy);
-        if (CheckIfChosen($studentID, $cid)) {
-            continue;
-        }
-        $query = 'INSERT INTO Course_taken (StudentID, CourseID, CourseYear) VALUES (?, ?, ?)';
-        $stmt = mysqli_stmt_init($link);
-        if (mysqli_stmt_prepare($stmt, $query))
-        {
-            mysqli_stmt_bind_param($stmt, "sss", $studentID, $cid, $year);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        }
+    list ($cid, $year) = explode('_', $ID_years);
+    // if the course is chosen, then close mysqli link and return
+    if (CheckIfChosen($studentID, $cid)) {
+        mysqli_close($link);
+        return;
+    }
+    $query = 'INSERT INTO Course_taken (StudentID, CourseID, CourseYear) VALUES (?, ?, ?)';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "ssd", $studentID, $cid, $year);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
     }
     mysqli_close($link);
 }
