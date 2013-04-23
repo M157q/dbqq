@@ -15,8 +15,12 @@
     if(array_key_exists('id', $_SESSION))
     {
         echo '<h2>user: ' . $_SESSION['id'] . ' has logined!!! </h2><br />' ;
-        echo "Debug: ";
-        var_dump($_SESSION);
+        //echo "Debug: ";
+        //var_dump($_SESSION);
+        if ($_SESSION['errmsg'] !== '') {
+            echo "錯誤信息：" . $_SESSION['errmsg'];
+            $_SESSION['errmsg'] = '';
+        }
 ?>
 <!DOCTYPE html>
 <html lang="zh">
@@ -60,8 +64,17 @@
             GetCourseInfoTableWithCheckBox();
         ?>
         <button type="submit">選課安安</button>
+        <pre><img src="http://statics.plurk.com/1bd653e166492e40e214ef6ce4dd716f.png"></pre>
     </form>
 
+    <hr>
+    <h2>取消選課</h2>
+    <form method="post" action="../controllers/CourseDelete.php">
+	    <label>課程 ID :</label>
+	    <input type="text" id="id" name="id" placeholder="5566" required />
+        <button type="submit">教授ㄅㄅ~ </button>
+        <img src="http://statics.plurk.com/a55bdb344892676b0fea545354654a49.gif">
+    </form>
     <hr>
 
     <a href="/views/course_list.php">所有課程列表</a><br/>
