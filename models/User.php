@@ -406,6 +406,7 @@ function ShowProfessorInfo($id) {
 function ShowAdminArea()
 {
     echo "<h2>管理員專區</h2>";
+    echo "<img src=\"http://emos.plurk.com/f02b24f881e56d1d67b9b0e1e9f188a4_w48_h48.gif\">";
     echo "<p><ul>";
     echo "<li> <a href=\"../views/adm_user_admin.php\">使用者管理</a> </li>";
     echo "<li> <a href=\"../views/adm_course_admin.php\">課程管理</a> </li>";
