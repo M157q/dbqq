@@ -70,6 +70,8 @@
     <form method="post" action="../controllers/CourseDelete.php">
 	    <label>課程 ID :</label>
 	    <input type="text" id="id" name="id" placeholder="5566" required />
+	    <label>年度 :</label>
+	    <input type="text" id="year" name="year" placeholder="21XX" required />
         <button type="submit">教授ㄅㄅ~ </button>
         <img src="http://statics.plurk.com/a55bdb344892676b0fea545354654a49.gif">
     </form>
