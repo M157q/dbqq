@@ -24,6 +24,11 @@
         mysqli_stmt_close($stmt);
     }
     
+    if(!isset($name)) {
+	$_SESSION['errmsg'] = '你沒有教授此課程';
+        header("Location: ../views/pro.php");
+    }
+
     mysqli_close($link);
 
     //recover the data pro input into form  
