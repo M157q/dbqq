@@ -291,13 +291,14 @@ function ListProfessorCourse($pro_id) {
         array_multisort($course_list);
 	echo "<table border=5><caption></caption>";
         echo "<tr>";
-        echo "<th>ID</th><th>年度</th><th>課名</th>" .
+        echo "<th>選擇</th><th>ID</th><th>年度</th><th>課名</th>" .
              "<th>修課人數上限</th><th>教室</th><th>學分</th>" .
              "<th>開課系所</th><th>年級</th><th>必選修</th><th>時間</th>" .
              "<th>備註</th>";
         echo "</tr>";
         foreach($course_list as $row) {
             echo "<tr>";
+            echo "<td><input type=\"radio\" name=\"id_year\" value=\"$row[0]_$row[1]\" style=\"text-align:center; vertical-align: middle;\"></option> </td>";
             echo "<td>$row[0]</td>";
             echo "<td>$row[1]</td>";
             echo "<td>$row[2]</td>";

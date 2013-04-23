@@ -48,8 +48,7 @@
             <label>密碼: (請輸入10個字以內的密碼)</label>
             <input type="password" id="passwd" name="old_passwd" maxlength="10" placeholder="原本密碼" required />
             <input type="password" id="passwd" name="new_passwd" maxlength="10" placeholder="新的密碼" required />
-            <input type="password" id="passwd" name="confirm_passwd" maxlength="10" placeholder="
-密碼確認" required />
+            <input type="password" id="passwd" name="confirm_passwd" maxlength="10" placeholder="密碼確認" required />
             <button type="submit">更改密碼</button>
         </form> </p>
         </div>
@@ -59,7 +58,10 @@
         <a href="../views/pro_add_course.php">新增課程</a><br/>
         <div>
 	    <h3>教授課程</h3>
+	    <form method="post" action="../views/pro_view_student.php">
 	    <?php ListProfessorCourse($_SESSION['id'])?>
+            <button type="submit">學生列表</button>
+            </form>
 	    <h3>編輯課程</h3>
         <p> <form method="post" action="../views/pro_edit_course.php">
 	    <label>課號:</label>
