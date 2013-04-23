@@ -15,9 +15,10 @@
     if(array_key_exists('id', $_SESSION))
     {
         echo '<h2>user: ' . $_SESSION['id'] . ' has logined!!! </h2><br />' ;
-        echo "Debug: ";
-        var_dump($_SESSION);
-        // check illegal users, and force to logout
+        if ($_SESSION['errmsg'] !== '') {
+            echo "錯誤信息：" . $_SESSION['errmsg'];
+            $_SESSION['errmsg'] = '';
+        }
 ?>
 <!DOCTYPE html>
 <html lang="zh">
