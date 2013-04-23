@@ -6,11 +6,6 @@
     $_SESSION['adm'] = isAdmin($_SESSION['id']);
     $_SESSION['ban'] = isBanned($_SESSION['id']);
     
-    if ($_SESSION['ban'])
-        $errmsg = '您正在被停權中';
-    else
-        $errmsg = '';
-
     CheckPermAndRedirect($_SESSION['perm'], 'pro');
     if(array_key_exists('id', $_SESSION))
     {
@@ -19,6 +14,7 @@
             echo "錯誤信息：" . $_SESSION['errmsg'];
             $_SESSION['errmsg'] = '';
         }
+        if ($_SESSION['ban']) echo '您正在被停權中';
 ?>
 <!DOCTYPE html>
 <html lang="zh">
