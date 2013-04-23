@@ -86,6 +86,7 @@ function GetCourseInfoTable() {
 }
 
 function GetCourseInfoTableWithCheckBox() {
+    require_once('../models/User.php');
     require_once('../models/Department.php');
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');
@@ -145,6 +146,7 @@ function GetCourseInfoTableWithCheckBox() {
 
 function GetCourseInfoTableByIDs($IDs) {
     require_once('../components/Mysqli.php');
+    require_once('../models/User.php');
     require_once('../models/Department.php');
     $link = MysqliConnection('Read');
 
