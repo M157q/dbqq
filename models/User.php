@@ -366,6 +366,7 @@ function ShowStudentInfo($id) {
         }
         echo "<li>年級: $stu_grade</li>";
         echo "<li>總修課學分: " . creditSum($stu_id) . "</li>";
+        echo "<li>總修課時數: " . courseHourCount($stu_id) . "</li>";
         echo "</ul>";
         mysqli_stmt_close($stmt);
     }
@@ -442,4 +443,34 @@ function creditSum($id) {
         return 0;
 }
 
+function courseHourCount ($id){
+    require_once('../components/Mysqli.php');
+
+    $link = MysqliConnection('Read');
+    $query = ' SELECT class_hours
+        FROM  `Course`
+        WHERE ID
+        IN (
+
+            SELECT CourseID
+            FROM  `Course_taken`
+            WHERE StudentID =?
+        )';
+
+    $chr = "";
+
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $hr);
+        while (mysqli_stmt_fetch($stmt)) {
+            $chr .= $hr;
+        }
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+    return (substr_count($chr, 'Y'));
+}
 ?>
