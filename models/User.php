@@ -365,6 +365,7 @@ function ShowStudentInfo($id) {
             echo "<li>系所資料好像怪怪的 :~</li>";
         }
         echo "<li>年級: $stu_grade</li>";
+        echo "<li>總修課學分: " . creditSum($stu_id) . "</li>";
         echo "</ul>";
         mysqli_stmt_close($stmt);
     }
@@ -411,6 +412,34 @@ function ShowAdminArea()
     echo "<li> <a href=\"../views/adm_user_admin.php\">使用者管理</a> </li>";
     echo "<li> <a href=\"../views/adm_course_admin.php\">課程管理</a> </li>";
     echo "</ul></p>";
+}
+
+function creditSum($id) {
+    require_once('../components/Mysqli.php');
+
+    $link = MysqliConnection('Read');
+    $query = 'SELECT SUM( credit )
+        FROM  `Course`
+        WHERE ID
+        IN (
+            SELECT CourseID
+            FROM  `Course_taken`
+            WHERE StudentID =?
+        )';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $sum);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+    if ($sum)
+        return $sum;
+    else
+        return 0;
 }
 
 ?>
