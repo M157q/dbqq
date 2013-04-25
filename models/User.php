@@ -5,7 +5,6 @@ function CheckId($id)
     if( isset($id) && !is_null($id) )
     {
         if(preg_match('/^[0-9]{1,10}$/', $id) === 1) $result = true;
-        if($id == 'r00t') $result = true;
     }
     return $result;
 }
