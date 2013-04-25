@@ -488,4 +488,27 @@ function showLoginMessage()
     echo '<h2>user: ' . $_SESSION['id'] . ' has logined!!! </h2>' ;
 }
 
+function proGetCourseInfo ($pro_id, $course_id, $course_year) {
+    require_once('../components/Mysqli.php');
+    require_once('../models/Department.php');
+
+    $link = MysqliConnection('Read');
+
+    $course_list = array();
+    $depart_list = GetDepartmentList();
+ 
+    // get course data
+    $query = 'SELECT Name, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course Where pro_id=? AND id=? AND year=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "sss", $pro_id, $course_id, $course_year);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $name, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+    return array($name, $sub, $classroom, $credit, $grade, $req, $class_hours, $add_info);
+}
 ?>

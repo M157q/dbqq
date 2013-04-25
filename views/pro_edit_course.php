@@ -1,36 +1,22 @@
 <?php
-    session_start();    
+    session_start();
     require_once('../models/Department.php');
     require_once('../models/User.php');
-    require_once('../components/Mysqli.php');
     require_once('../controllers/Session.php');
     if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
     if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
     showErrorMessage($_SESSION);
 
-    $link = MysqliConnection('Read');
+    list($name, $sub, $classroom, $credit, $grade, $req, $class_hours, $add_info) =
+        proGetCourseInfo($_SESSION['id'], $_POST['id'], $_POST['year']);
 
-    $course_list = array();
-    $depart_list = GetDepartmentList();
     
-    // get course data
-    $query = 'SELECT Name, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course Where pro_id=? AND id=? AND year=?';
-    $stmt = mysqli_stmt_init($link);
-    if (mysqli_stmt_prepare($stmt, $query))
-    {
-        mysqli_stmt_bind_param($stmt, "ssd", $_SESSION['id'], $_POST['id'], $_POST['year']);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $name, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info);
-        mysqli_stmt_fetch($stmt);
-        mysqli_stmt_close($stmt);
-    }
-    
+    // if no such course, then go back
     if(!isset($name)) {
 	$_SESSION['errmsg'] = '你沒有教授此課程';
         header("Location: ../views/pro.php");
     }
 
-    mysqli_close($link);
 
     //recover the data pro input into form  
     $req0 = $req=="0" ? "SELECTED" : "";
