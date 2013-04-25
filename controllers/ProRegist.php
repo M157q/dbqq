@@ -10,7 +10,7 @@
     if(!CheckId($_POST['account']))
         $errmsg = '您輸入的帳號格式有誤';
     elseif(!CheckId($_POST['pro_id']))
-        $errmsg = '您輸入的教職員編號號格式有誤';
+        $errmsg = '您輸入的教職員編號格式有誤';
     elseif(!CheckPasswd($_POST['passwd']))
         $errmsg = '請輸入您的密碼';
     elseif(strlen($_POST['passwd']) > 10)
