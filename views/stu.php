@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="zh">
 <?php
     session_start();
     require_once('../controllers/Session.php');
@@ -9,15 +11,9 @@
     CheckPermAndRedirect($_SESSION['perm'], 'stu');
     if(array_key_exists('id', $_SESSION))
     {
-        echo '<h2>user: ' . $_SESSION['id'] . ' has logined!!! </h2><br />' ;
-        if ($_SESSION['errmsg'] !== '') {
-            echo "錯誤信息：" . $_SESSION['errmsg'];
-            $_SESSION['errmsg'] = '';
-        }
-        if ($_SESSION['ban']) echo '您正在被停權中';
+        showLoginMessage();
+        showErrorMessage();
 ?>
-<!DOCTYPE html>
-<html lang="zh">
     <head>
         <meta charset="utf-8">
         <title>Student's Main page</title>

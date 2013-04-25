@@ -473,4 +473,20 @@ function courseHourCount ($id){
     mysqli_close($link);
     return (substr_count($chr, 'Y'));
 }
+
+function showErrorMessage()
+{
+    if ($_SESSION['errmsg'] !== '')                                          
+    {
+        echo '<font color="red">錯誤信息：' . $_SESSION['errmsg'] . '</font>';                               
+        $_SESSION['errmsg'] = '';                                              
+    }                                                                          
+    if ($_SESSION['ban']) echo '<font color="red">您正在被停權中</font>'; 
+}
+
+function showLoginMessage()
+{
+    echo '<h2>user: ' . $_SESSION['id'] . ' has logined!!! </h2>' ;
+}
+
 ?>
