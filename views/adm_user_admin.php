@@ -3,9 +3,12 @@
     // check illegal users, and force to logout
 
     require_once("../controllers/Session.php");
-    if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
-
+    require_once("../models/User.php");
     require_once("../models/Adm.php");
+
+    if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
+    showErrorMessage($_SESSION);
+
 ?>
 <html>
 <body>
