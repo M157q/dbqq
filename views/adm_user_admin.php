@@ -6,7 +6,7 @@
     require_once("../models/User.php");
     require_once("../models/Adm.php");
 
-    if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
+    if (!isAdmin($_SESSION['id'])) RedirectByPerm($_SESSION['perm']);
     showErrorMessage($_SESSION);
 
 ?>
