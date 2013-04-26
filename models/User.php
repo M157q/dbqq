@@ -477,10 +477,19 @@ function showErrorMessage()
 {
     if (isset($_SESSION['errmsg']) && $_SESSION['errmsg'] !== '')
     {
-        echo '<font color="red">錯誤信息：' . $_SESSION['errmsg'] . '</font>';
+        echo '<font color="red">錯誤訊息：' . $_SESSION['errmsg'] . '</font>';
         $_SESSION['errmsg'] = '';                                              
     }                                                                          
     if ($_SESSION['ban']) echo '<font color="red">您正在被停權中</font>'; 
+}
+
+function showAdminMessage()
+{
+    if (isset($_SESSION['errmsg']) && $_SESSION['errmsg'] !== '')
+    {
+        echo '<font color="red">提醒訊息：' . $_SESSION['errmsg'] . '</font>';
+        $_SESSION['errmsg'] = '';                                              
+    }                                                                          
 }
 
 function showLoginMessage()
