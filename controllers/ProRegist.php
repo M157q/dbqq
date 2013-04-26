@@ -38,7 +38,7 @@
         }
         mysqli_close($link);
         // if regitstration is ok, then goto the main page
-        $redirect_url = '../views/main.php';
+        $redirect_url = '../index.php';
         $_SESSION['id'] = $_POST['account'];
         $_SESSION['perm'] = 'pro';
         $_SESSION['adm'] = false;

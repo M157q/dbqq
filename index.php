@@ -2,7 +2,8 @@
     session_start();
 #    var_dump($_SESSION);
     require_once('models/User.php');
-    if (isset($_SESSION['id']) && CheckId($_SESSION['id'])) header('Location: views/main.php');
+    require_once('controllers/Session.php');
+    if (isset($_SESSION['id']) && CheckId($_SESSION['id'])) RedirectByPerm($_SESSION['perm']);
 ?>
 <!DOCTYPE html>
 <html lang="zh">
