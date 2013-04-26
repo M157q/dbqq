@@ -20,5 +20,5 @@
    }
    
    $_SESSION['errmsg'] = $errmsg;
-   header("Location: $redirect_url");
+   RedirectByPerm($_SESSION['perm']);
 ?>
