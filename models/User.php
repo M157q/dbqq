@@ -475,9 +475,9 @@ function courseHourCount ($id){
 
 function showErrorMessage()
 {
-    if ($_SESSION['errmsg'] !== '')                                          
+    if (isset($_SESSION['errmsg']) && $_SESSION['errmsg'] !== '')
     {
-        echo '<font color="red">錯誤信息：' . $_SESSION['errmsg'] . '</font>';                               
+        echo '<font color="red">錯誤信息：' . $_SESSION['errmsg'] . '</font>';
         $_SESSION['errmsg'] = '';                                              
     }                                                                          
     if ($_SESSION['ban']) echo '<font color="red">您正在被停權中</font>'; 
