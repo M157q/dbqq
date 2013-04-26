@@ -71,5 +71,5 @@
 
     $_SESSION['errmsg'] = $errmsg;
     //RedirectByPerm($_SESSION['perm']);
-    header('Location: http://140.113.27.34:5566/views/adm_user_admin.php')
+    header('Location: http://dbqq.nctucs.net:5566/views/adm_user_admin.php')
 ?>

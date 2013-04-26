@@ -22,11 +22,11 @@
         //if ($perm == 'adm')
         //    header('Location: http://140.113.27.34:5566/views/adm.php');
         if ($perm == 'pro')
-            header('Location: http://140.113.27.34:5566/views/pro.php');
+            header('Location: http://dbqq.nctucs.net:5566/views/pro.php');
         elseif ($perm == 'stu')
-            header('Location: http://140.113.27.34:5566/views/stu.php');
+            header('Location: http://dbqq.nctucs.net:5566/views/stu.php');
         else
-            header('Location: http://140.113.27.34:5566/controllers/Logout.php');
+            header('Location: http://dbqq.nctucs.net:5566/controllers/Logout.php');
     }
 
 ?>

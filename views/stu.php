@@ -10,7 +10,7 @@
         $_SESSION['ban'] = isBanned($_SESSION['id']);
     }
     else {
-        header('Location: http://140.113.27.34:5566/index.php');
+        header('Location: http://dbqq.nctucs.net:5566/index.php');
     }
     
     CheckPermAndRedirect($_SESSION['perm'], 'stu');

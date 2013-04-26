@@ -4,8 +4,6 @@
    require_once('../models/User.php');
    require_once('../controllers/Session.php');
 
-   $redirect_url = 'http://140.113.27.34:5566/index.php';
-
    // user input error detection and error message return
    $errmsg = '';
    if(!CheckId($_POST['account']))
@@ -15,7 +13,6 @@
    elseif(!CheckUser_ID_and_Passwd($_POST['account'], $_POST['passwd']))
        $errmsg = 'Login failed.';
    else {
-       $redirect_url = 'http://140.113.27.34:5566/views/main.php';
        $_SESSION['id'] = $_POST['account'];
    }
    
