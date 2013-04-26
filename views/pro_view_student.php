@@ -2,7 +2,8 @@
 <title>學生列表</title>
 <head>
     <meta charset="utf-8">
-    <title>Login</title>
+    <title>student list</title>
+</head>
 <style>
     body {
         width: auto;
@@ -15,8 +16,8 @@
         width: 100%;
     }
 </style>
-</head>
 <body>
+
 <?php
     session_start();
     require_once("../models/Course.php");
@@ -26,7 +27,7 @@
     require_once("../controllers/Session.php");
     if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
     if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
-    showErrorMessage($_SESSION);
+    showWarning();
 
     list($CourseID, $CourseYear) = explode('_', $_POST['id_year']);
     $sid_list = array();

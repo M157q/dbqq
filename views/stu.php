@@ -5,14 +5,19 @@
     require_once('../controllers/Session.php');
     require_once('../models/User.php');
     require_once('../models/Course.php');
-    $_SESSION['adm'] = isAdmin($_SESSION['id']);
-    $_SESSION['ban'] = isBanned($_SESSION['id']);
+    if (isset($_SESSION['id'])) {
+        $_SESSION['adm'] = isAdmin($_SESSION['id']);
+        $_SESSION['ban'] = isBanned($_SESSION['id']);
+    }
+    else {
+        header('Location: http://140.113.27.34:5566/index.php');
+    }
     
     CheckPermAndRedirect($_SESSION['perm'], 'stu');
     if(array_key_exists('id', $_SESSION))
     {
         showLoginMessage();
-        showErrorMessage();
+        showWarning();
 ?>
     <head>
         <meta charset="utf-8">

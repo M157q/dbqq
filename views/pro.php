@@ -12,7 +12,7 @@
     if(array_key_exists('id', $_SESSION))
     {
         showLoginMessage();
-        showErrorMessage();
+        showWarning();
 ?>
     <head>
         <meta charset="utf-8">

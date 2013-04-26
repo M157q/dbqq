@@ -5,7 +5,7 @@
     require_once('../controllers/Session.php');
     if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
     if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
-    showErrorMessage($_SESSION);
+    showWarning();
 
     list($name, $sub, $classroom, $credit, $grade, $req, $class_hours, $add_info) =
         proGetCourseInfo($_SESSION['id'], $_POST['id'], $_POST['year']);

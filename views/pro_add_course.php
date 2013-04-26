@@ -6,8 +6,7 @@
     require_once('../controllers/Session.php');
     if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
     if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
-    showErrorMessage($_SESSION);
-
+    showWarning();
 ?>
 <!DOCTYPE html>
 <html lang="zh">

@@ -4,7 +4,7 @@
     require_once('../models/User.php');
     require_once('../controllers/Session.php');
     if (isset($_SESSION['perm'])) RedirectByPerm($_SESSION['perm']);
-    showErrorMessage($_SESSION);
+    showWarning();
 ?>
 <!DOCTYPE html>
 <html lang="zh">
