@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh">
+<title>Student's Main page</title>
+    <head>
+        <meta charset="utf-8">
+        <link href="../views/css/bootstrap.css" rel="stylesheet">
+    </head>
+    <body>
+
+    <div class="container">
 <?php
     session_start();
     require_once('../controllers/Session.php');
@@ -19,12 +27,8 @@
         showLoginMessage();
         showWarning();
 ?>
-    <head>
-        <meta charset="utf-8">
-        <title>Student's Main page</title>
-    </head>
-    <body>
     <h1>安安我是 student</h1>
+    <hr>
 
 <?php if ($_SESSION['adm']) ShowAdminArea(); ?>
 
@@ -36,7 +40,7 @@
     <p> <form method="post" action="../controllers/StuEditName.php">
         <label>姓名:</label>
         <input type="text" id="name" name="name" placeholder="芃蚊子" required />
-        <button type="submit">更改姓名</button>
+        <button class="btn btn-success" type="submit">更改姓名</button>
     </form> </p> 
 
     <p> <form method="post" action="../controllers/StuEditPass.php">
@@ -45,7 +49,7 @@
         <input type="password" id="new_passwd" name="new_passwd" maxlength="10" placeholder="新的密碼" required />
         <input type="password" id="confirm_passwd" name="confirm_passwd" maxlength="10" placeholder="
 密碼確認" required />
-        <button type="submit">更改密碼</button>
+        <button class="btn btn-danger" type="submit">更改密碼</button>
     </form> </p>
 
     <hr>
@@ -58,8 +62,10 @@
         <?php
             GetCourseInfoTableWithCheckBox();
         ?>
-        <button type="submit">選課安安</button>
-        <pre><img src="http://statics.plurk.com/1bd653e166492e40e214ef6ce4dd716f.png"></pre>
+        <br>
+        <button class="btn btn-danger" type="submit">選課安安</button><br>
+        <img src="http://statics.plurk.com/1bd653e166492e40e214ef6ce4dd716f.png">
+        <br>
     </form>
 
     <hr>
@@ -69,18 +75,19 @@
 	    <input type="text" id="id" name="id" placeholder="5566" required />
 	    <label>年度 :</label>
 	    <input type="text" id="year" name="year" placeholder="21XX" required />
-        <button type="submit">教授ㄅㄅ~ </button>
+        <button class="btn btn-success btn-large" type="submit">教授ㄅㄅ~ </button>
         <img src="http://statics.plurk.com/a55bdb344892676b0fea545354654a49.gif">
     </form>
     <hr>
 
-    <a href="/views/course_list.php">所有課程列表</a><br/>
+    <a class="btn btn-info" href="/views/course_list.php">所有課程列表</a><br/>
 <?php endif ?>
 
     <div><form name="logout" method="post" action="../controllers/Logout.php" >
-        <p><input type="submit" value="登出" /><p>
+        <p><input class="btn btn-info" type="submit" value="登出" /><p>
     </form> </div>
 
+    </div>
     </body>
 </html>
 <?php
