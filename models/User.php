@@ -359,7 +359,7 @@ function ShowProfessorInfo($id) {
     require_once('../models/Department.php');
     $depart_list = GetDepartmentList();
 
-    // get student information
+    // get professor information
     $link = MysqliConnection('Read');
     $query = 'SELECT ID, Name, ProfessorNumber, department From Professor WHERE ID=?';
     $stmt = mysqli_stmt_init($link);
