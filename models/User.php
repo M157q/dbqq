@@ -334,7 +334,6 @@ function ShowStudentInfo($id) {
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $stu_id, $stu_name, $stu_num, $stu_depart, $stu_grade);
         mysqli_stmt_fetch($stmt);
-        echo "<hr>";
         echo "<h2>基本資料</h2>";
         echo "<ul>";
         echo "<li>ID:   $stu_id  </li>";
@@ -388,12 +387,14 @@ function ShowProfessorInfo($id) {
 
 function ShowAdminArea()
 {
+    echo '<div class="well">';
     echo "<h2>管理員專區</h2>";
     echo "<img src=\"http://emos.plurk.com/f02b24f881e56d1d67b9b0e1e9f188a4_w48_h48.gif\">";
     echo "<p><ul>";
     echo "<li> <a href=\"../views/adm_user_admin.php\">使用者管理</a> </li>";
     echo "<li> <a href=\"../views/adm_course_admin.php\">課程管理</a> </li>";
     echo "</ul></p>";
+    echo '</div>';
 }
 
 function creditSum($id) {
@@ -459,10 +460,10 @@ function showWarning()
 {
     if (isset($_SESSION['errmsg']) && $_SESSION['errmsg'] !== '')
     {
-        echo '<font color="red">提醒訊息：' . $_SESSION['errmsg'] . '</font>';
+        echo '<div class="alert alert-error">提醒訊息：' . $_SESSION['errmsg'] . '</div>';
         $_SESSION['errmsg'] = '';                                              
     }                                                                          
-    if ($_SESSION['ban']) echo '<font color="red">您正在被停權中</font>'; 
+    if ($_SESSION['ban']) echo '<div class="alert alert-block">您正在被停權中</div>'; 
 }
 
 function showLoginMessage()
