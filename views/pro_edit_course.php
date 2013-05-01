@@ -71,18 +71,14 @@
 
 <!DOCTYPE html>
 <html lang="zh">
-    <head>
-        <meta charset="utf-8">
-        <title>Professor Edit Course</title>
-    </head>
-    <style>
-        body {
-            width: 35em;
-            margin: 0 auto;
-            font-family: Tahoma, Verdana, Arial, sans-serif;
-        }
-    </style>
-    <body>
+<title>Professor Edit Course</title>
+<head>
+    <meta charset="utf-8">
+    <link href="../views/css/bootstrap.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
     <h1>修改課程</h1>
     <br>
     <form method="POST" action="../controllers/ProEditCourse.php">
@@ -176,6 +172,7 @@
         <button type="submit">修改</button>
     </form>
 
-    <a href="../views/pro.php">回上頁</a><br/>
-    </body>
+    <a class="btn btn-success" href="../views/pro.php">回上頁</a><br/>
+    </div>
+</body>
 </html>

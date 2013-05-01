@@ -2,21 +2,19 @@
 <title>學生列表</title>
 <head>
     <meta charset="utf-8">
-    <title>student list</title>
+    <link href="../views/css/bootstrap.css" rel="stylesheet">
+    <style>
+          .jumbotron {
+            margin: 60px 0;
+            text-align: left;
+          }
+    </style>
 </head>
-<style>
-    body {
-        width: auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
-    th {
-        width: auto;
-    }
-    table {
-        width: 100%;
-    }
-</style>
 <body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>檢視修課學生列表</h1>
+            <hr>
 
 <?php
     session_start();
@@ -74,7 +72,8 @@
     mysqli_close($link);
 
     array_multisort($stu_list);
-       echo "<table border=5><caption>學生列表</caption>";
+       echo "<table border=5 class=\"table table-striped table-bordered\">";
+       echo "<caption>學生列表</caption>";
        echo "<tr>";
        echo "<th>學號</th><th>姓名</th><th>系所</th><th>年級</th>";
        echo "</tr>";
@@ -88,7 +87,9 @@
        }
        echo "</table>";
 ?>
-<a href="../views/pro.php">回上頁</a>
+        <a class="btn btn-info" href="../views/pro.php">回上頁</a>
+    </div>
+</div>
 </body>
 </html>
 
