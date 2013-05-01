@@ -6,27 +6,30 @@
     require_once('../controllers/Session.php');
     if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
     if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
-    showWarning();
 ?>
+
 <!DOCTYPE html>
 <html lang="zh">
+
 <title>Professor add course</title>
+
 <head>
     <meta charset="utf-8">
     <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
-<style>
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
-</style>
+    <style>
+        body {
+            width: 35em;
+            margin: 0 auto;
+            font-family: Tahoma, Verdana, Arial, sans-serif;
+        }
+    </style>
 </head>
+
 <body>
 <h1>教授新增課程</h1>
+<?php showWarning(); ?>
 
-<!-- login -->
-
+<div class="form-actions">
 <form method="post" action="../controllers/ProAddCourse.php">
     <label>課程名稱:</label>
     <input type="text" id="name" name="name" maxlength="30" placeholder="世界雷資料庫" required />
@@ -104,12 +107,12 @@
     </select>
     <br /><br />
     <label>備註:</label>
-    <br />
     <textarea name="additional_info" cols=56 rows=4></textarea>
     <br /><br />
-    <button type="submit">開課</button>
+    <button class="btn btn-primary" type="submit">開課</button>
 </form>
+</div>
 
-    <a href="../views/pro.php">回上頁</a><br/>
+    <a class="btn btn-info" href="../views/pro.php">回上頁</a><br/>
 </body>
 </html>
