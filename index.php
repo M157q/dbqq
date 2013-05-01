@@ -1,37 +1,70 @@
 <?php
     session_start();
-#    var_dump($_SESSION);
     require_once('models/User.php');
     require_once('controllers/Session.php');
-    if (isset($_SESSION['id']) && CheckId($_SESSION['id'])) RedirectByPerm($_SESSION['perm']);
+    if (isset($_SESSION['id']) && CheckId($_SESSION['id']))
+        RedirectByPerm($_SESSION['perm']);
 ?>
+
 <!DOCTYPE html>
 <html lang="zh">
 <title>Welcome to dbqq!</title>
 <head>
     <meta charset="utf-8">
     <title>Login</title>
-<style>
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
-</style>
+    <style type="text/css">
+          body {
+            padding-top: 20px;
+            padding-bottom: 60px;
+          }
+
+          /* Custom container */
+          .container {
+            margin: 0 auto;
+            max-width: 1000px;
+          }
+          .container > hr {
+            margin: 60px 0;
+          }
+
+          /* 嘎蹦脆 */
+          .jumbotron {
+            margin: 40px 0;
+            text-align: center;
+          }
+          .jumbotron h1 {
+            font-size: 100px;
+            line-height: 1;
+          }
+          .jumbotron .lead {
+            font-size: 24px;
+            line-height: 1.25;
+          }
+          .jumbotron .btn {
+            font-size: 21px;
+            padding: 14px 24px;
+          }
+
+        </style>
+<link href="./views/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
-<h1 text="#">歡迎使用選課系統</h1>
-<p>If you see this page, our server is successfully working. ^q^</p>
 
-<p>Your IP is:<p>
-<?php
-    echo $_SERVER['REMOTE_ADDR'];
-?>
+    <div class="container">
+      <div class="masthead">
+        <h1  class="muted" text="#">歡迎使用選課系統</h1>
+      </div>
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <h2>進擊の威儀</h2>
+        <p class="lead">If you see this page, our server is successfully working. ^q^</p>
+        <p class="lead">Your IP is: <?php echo $_SERVER['REMOTE_ADDR']; ?> </p>
+        <p></p><p></p><p></p><p></p>
+         <!-- 進擊の威儀 -->
+        <p><iframe width="853" height="480" src="https://www.youtube-nocookie.com/embed/YUMIoF8XGC4?rel=0&autoplay=1" frameborder="0" allowfullscreen style="margin: 0, auto"></iframe> </p>
+      </div>
 
-<!-- 進擊の威儀 -->
-<p><iframe width="853" height="480" src="https://www.youtube-nocookie.com/embed/YUMIoF8XGC4?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe> </p>
-
-<script>alert("助教安安，您累惹嗎？聽首歌吧")</script>
+      <script>alert("助教安安，您累惹嗎？聽首歌吧")</script>
 
 <!-- login -->
 
@@ -44,26 +77,25 @@
         <label>密碼:</label>
         <input type="password" id="passwd" name="passwd" required>
     </p>
-    <p><button type="submit">登入</button></p>
+    <p><button type="submit" class="btn btn-large btn-danger">異次元蟲洞入口</button></p>
 </form>
 
-<?php 
-    if(isset($_SESSION['errmsg']) && !empty($_SESSION['errmsg'])){
-            $errormsg = $_SESSION['errmsg'];
-            unset($_SESSION['errmsg']);
-            echo "$errormsg".'<br/>';
-    }
+<?php
+if(isset($_SESSION['errmsg']) && !empty($_SESSION['errmsg'])){
+    $errormsg = $_SESSION['errmsg'];
+    unset($_SESSION['errmsg']);
+    echo "$errormsg".'<br/>';
+}
 ?>
-        <a href="/views/stu_regist.php">學生申請帳號</a><br/>
-        <a href="/views/pro_regist.php">教授申請帳號</a><br/>
-        <a href="/views/course_list.php">課程列表</a><br/>
-    <h3>部份功能有用到 html5 故有些瀏覽器可能無法支援:-(</h3>
- <p class="codeblock">
-
-      <!-- Oh noes, you found it! -->
-      hey, <span style="position: absolute; left: -100px; top: -100px"> σ ﾟ∀ ﾟ) ﾟ∀ﾟ)σ  阿哈哈你看看你</span>
-    try to copy this line XD
-    </p>
-    <p>
+        <p><a class="btn btn-success" href="/views/stu_regist.php">學生申請帳號</a></p>
+        <p><a class="btn btn-success" href="/views/pro_regist.php">教授申請帳號</a></p>
+        <p><a class="btn btn-success" href="/views/course_list.php">課程列表</a></p>
+        <h3>部份功能有用到 html5 故有些瀏覽器可能無法支援:-(</h3>
+        <p class="codeblock">
+              <!-- Oh noes, you found it! -->
+              hey, <span style="position: absolute; left: -100px; top: -100px"> σ ﾟ∀ ﾟ) ﾟ∀ﾟ)σ  阿哈哈你看看你</span>
+            try to copy this line XD
+            </p>
+    </div>
 </body>
 </html>
