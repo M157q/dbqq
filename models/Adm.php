@@ -19,7 +19,8 @@ function GetStudentInfoTable() {
             array_push($stu_list, array($id, $name, $num, $depart, $grade));
         }
         array_multisort($stu_list);
-        echo "<table border=5 width=70% align=center><caption>學生清單</caption>";
+        echo "<table border=5 class=\"table table-striped table-bordered\">";
+        echo "<caption>學生清單</caption>";
         echo "<tr>";
         echo "<th>ID</th>" . "<th>姓名</th>" . "<th>學號</th>" . "<th>系所</th>" .
              "<th>年級</th>";
@@ -60,7 +61,8 @@ function GetProfessorInfoTable() {
     {
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $id, $name, $num, $depart);
-        echo "<table border=5 width=70% align=center><caption>教授清單</caption>";
+        echo "<table border=5 class=\"table table-striped table-bordered\">";
+        echo "<caption>教授清單</caption>";
         echo "<tr>";
         echo "<th>ID</th>" . "<th>姓名</th>" . "<th>教職員編號</th>" . "<th>系所</th>";
         echo "</tr>";
