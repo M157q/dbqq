@@ -5,7 +5,6 @@
     require_once('../controllers/Session.php');
     if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
     if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
-    showWarning();
 
     list($name, $sub, $classroom, $credit, $grade, $req, $class_hours, $add_info) =
         proGetCourseInfo($_SESSION['id'], $_POST['id'], $_POST['year']);
@@ -26,8 +25,6 @@
     $grade2 = $grade=="大二" ? "SELECTED" : "";
     $grade3 = $grade=="大三" ? "SELECTED" : "";
     $grade4 = $grade=="大四" ? "SELECTED" : "";
-    $grade5 = $grade=="碩一" ? "SELECTED" : "";
-    $grade6 = $grade=="碩二" ? "SELECTED" : "";
 
     $day1 = substr($class_hours, 0, 9);
     $day2 = substr($class_hours, 9, 9);
@@ -80,7 +77,8 @@
 <body>
     <div class="container">
     <h1>修改課程</h1>
-    <br>
+    <?php showWarning(); ?>
+    <div class="form-actions">
     <form method="POST" action="../controllers/ProEditCourse.php">
         <p>
         <label>課程名稱:</label>
@@ -158,8 +156,6 @@
             <option <?php echo $grade2;?> value="大二"> 大二 </option>
             <option <?php echo $grade3;?> value="大三"> 大三 </option>
             <option <?php echo $grade4;?> value="大四"> 大四 </option>
-            <option <?php echo $grade5;?> value="碩一"> 碩一 </option>
-            <option <?php echo $grade6;?> value="碩二"> 碩二 </option>
         </select>
         </p>
         <p>
@@ -169,8 +165,9 @@
         </p>
         <input type="hidden" id="id" name="id" value="<?php echo $_POST['id'];?>">
         <input type="hidden" id="year" name="year" value="<?php echo $_POST['year'];?>">
-        <button type="submit">修改</button>
+        <button class="btn btn-primary" type="submit">修改</button>
     </form>
+    </div>
 
     <a class="btn btn-success" href="../views/pro.php">回上頁</a><br/>
     </div>
