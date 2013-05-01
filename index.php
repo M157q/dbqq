@@ -28,6 +28,11 @@
     echo $_SERVER['REMOTE_ADDR'];
 ?>
 
+<!-- 進擊の威儀 -->
+<p><iframe width="853" height="480" src="https://www.youtube-nocookie.com/embed/YUMIoF8XGC4?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe> </p>
+
+<script>alert("助教安安，您累惹嗎？聽首歌吧")</script>
+
 <!-- login -->
 
 <form method="post" action="controllers/Login.php">
