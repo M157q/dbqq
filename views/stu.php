@@ -37,11 +37,14 @@
     <hr>
 
 <?php if ($_SESSION['adm']) ShowAdminArea(); ?>
-
+    
+    <div class="well">
     <?php ShowStudentInfo($_SESSION['id'])?>
+    </div>
     <hr>
 
 <?php if (!$_SESSION['ban']): ?>
+    <div class="form-actions">
     <h2>修改資料</h2>
     <p> <form method="post" action="../controllers/StuEditName.php">
         <label>姓名:</label>
@@ -57,10 +60,12 @@
 密碼確認" required />
         <button class="btn btn-danger" type="submit">更改密碼</button>
     </form> </p>
+    </div>
 
     <hr>
     <h2>已選課程</h2>
     <?php ListStudentCourse($_SESSION['id']); ?>
+    <a class="btn btn-info" href="/views/course_list.php">所有課程列表</a><br/>
     <hr>
 
     <h2>開始選課</h2>
@@ -68,25 +73,24 @@
         <?php
             GetCourseInfoTableWithCheckBox();
         ?>
-        <br>
         <button class="btn btn-danger" type="submit">選課安安</button><br>
         <img src="http://statics.plurk.com/1bd653e166492e40e214ef6ce4dd716f.png">
-        <br>
     </form>
 
     <hr>
+    <div class="form-actions">
     <h2>取消選課</h2>
     <form method="post" action="../controllers/CourseDelete.php">
 	    <label>課程 ID :</label>
 	    <input type="text" id="id" name="id" placeholder="5566" required />
 	    <label>年度 :</label>
 	    <input type="text" id="year" name="year" placeholder="21XX" required />
-        <button class="btn btn-success btn-large" type="submit">教授ㄅㄅ~ </button>
+        <button class="btn btn-success" type="submit">教授ㄅㄅ~ </button>
         <img src="http://statics.plurk.com/a55bdb344892676b0fea545354654a49.gif">
     </form>
+    </div>
     <hr>
 
-    <a class="btn btn-info" href="/views/course_list.php">所有課程列表</a><br/>
 <?php endif ?>
 
     <div><form name="logout" method="post" action="../controllers/Logout.php" >

@@ -27,13 +27,13 @@
     <h1>安安我是 教授ㄉㄉ</h1>
 
 <?php if ($_SESSION['adm']) ShowAdminArea(); ?>
-        <div>
-            <?php ShowProfessorInfo($_SESSION['id'])?>
+        <div class="well">
+        <?php ShowProfessorInfo($_SESSION['id'])?>
         </div>
         <hr>
 
 <?php if (!$_SESSION['ban']): ?>
-        <div>
+        <div class="form-actions">
         <h2>修改資料</h2>
         <p> <form method="post" action="../controllers/ProEditName.php">
             <label>姓名:</label>
@@ -51,23 +51,29 @@
         </div>
 
         <hr>
-        <h2>教授專區</h2>
-        <a href="../views/pro_add_course.php">新增課程</a><br/>
-        <div>
+
+<div class="well">
+    <h2>教授專區</h2>
+    <a class="btn btn-primary" href="../views/pro_add_course.php">新增課程</a><br/>
+    <hr>
+    <div>
 	    <h3>教授課程</h3>
 	    <form method="post" action="../views/pro_view_student.php">
 	    <?php ListProfessorCourse($_SESSION['id'])?>
             <br><button class="btn btn-info" type="submit">學生列表</button>
             </form>
+        <div class="form-actions">
 	    <h3>編輯課程</h3>
-        <p> <form method="post" action="../views/pro_edit_course.php">
+        <form method="post" action="../views/pro_edit_course.php">
 	    <label>課號:</label>
 	    <input type="text" id="id" name="id" placeholder="4699" required />
 	    <label>年度:</label>
-	    <input type="number" id="year" name="year" placeholder="21XX" required />
+	    <input type="number" id="year" name="year" placeholder="21XX" required /><br />
             <button class="btn btn-success" type="submit">編輯此課程</button>
-	    </form> </p>
+	    </form>
         </div>
+    </div>
+</div>
 <?php endif ?>
 
         <div><form name="logout" method="post" action="../controllers/Logout.php" >
