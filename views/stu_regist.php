@@ -12,20 +12,12 @@
 <head>
     <meta charset="utf-8">
     <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <style>
-          .jumbotron {
-            margin: 60px 0;
-            text-align: left;
-          }
-    </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="jumbotron">
-        <h1>學生申請帳號</h1>
-
-        <!-- login -->
+    <h1>學生申請帳號</h1>
+    <div class="form-actions">
         <form method="post" action="../controllers/StuRegist.php">
             <label>帳號:</label>
             <input type="text" id="account" name="account" maxlength="10" placeholder="請輸入10個字以內的數字" required />
@@ -54,8 +46,8 @@
             <br /><br />
             <button class="btn btn-success btn-large" type="submit">申請帳號</button>
         </form>
-        <a href="../index.php">回到首頁</a><br/>
-        </div>
+    </div>
+    <a class="btn btn-primary" href="../index.php">回到首頁</a><br/>
     </div>
 </body>
 </html>

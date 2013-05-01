@@ -12,19 +12,12 @@
 <head>
     <meta charset="utf-8">
     <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <style>
-          .jumbotron {
-            margin: 60px 0;
-            text-align: left;
-          }
-    </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="jumbotron">
         <h1>教授申請帳號</h1>
-
+        <div class="form-actions">
         <!-- login -->
         <form method="post" action="../controllers/ProRegist.php">
             <label>帳號:</label>
@@ -47,7 +40,8 @@
 
             <button class="btn btn-success btn-large" type="submit">申請帳號</button>
         </form>
-        <a href="../index.php">回到首頁</a><br/>
+        </div>
+        <a class="btn btn-primary" href="../index.php">回到首頁</a><br/>
         </div>
     </div>
 </body>

@@ -73,7 +73,7 @@
         <?php
             GetCourseInfoTableWithCheckBox();
         ?>
-        <button class="btn btn-danger" type="submit">選課安安</button><br>
+        <button class="btn btn-danger" type="submit"> 確定選課 </button>
         <img src="http://statics.plurk.com/1bd653e166492e40e214ef6ce4dd716f.png">
     </form>
 
@@ -85,7 +85,8 @@
 	    <input type="text" id="id" name="id" placeholder="5566" required />
 	    <label>年度 :</label>
 	    <input type="text" id="year" name="year" placeholder="21XX" required />
-        <button class="btn btn-success" type="submit">教授ㄅㄅ~ </button>
+        <br />
+        <button class="btn btn-success" type="submit"> 確定 </button>
         <img src="http://statics.plurk.com/a55bdb344892676b0fea545354654a49.gif">
     </form>
     </div>
