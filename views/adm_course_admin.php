@@ -7,6 +7,7 @@
     if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
         showWarning();
 ?>
+<!DOCTYPE html>
 <title>課程管理安安</title>
 <head>
     <meta charset="utf-8">
@@ -21,6 +22,8 @@
             GetCourseInfoTable();
         ?>
         <hr>
+
+        <div class="form-actions">
         <h2>刪除課程</h2>
         <p>
         <form id="delete_course" method="post" action="../controllers/AdmDeleteCourse.php">
@@ -32,7 +35,11 @@
             <button class="btn btn-success" form="delete_course" type="submit">刪除該課程</button>
         </form>
         </p>
+        </div>
+
         <hr>
+
+        <div class="form-actions">
         <h2>新增/刪除課程內學生</h2>
         <p>
         <form id="edit_course_stu" method="post" action="../controllers/AdmEditCourseTaken.php">
@@ -51,8 +58,12 @@
             <button form="edit_course_stu" type="submit">確定</button>
         </form>
         </p>
+        </div>
+
         <hr>
+
         <a class="btn btn-info" href="../index.php">back</a><br/>
         <hr>
+    </div>
 </body>
 </html>
