@@ -56,7 +56,8 @@ function GetCourseInfoTable() {
                                             $req, $class_hours, $add_info));
         }
         array_multisort($course_list);
-        echo "<table border=5><caption>課程清單</caption>";
+        echo "<table border=5 class=\"table table-striped table-bordered\">";
+        echo "<caption>課程清單</caption>";
         echo "<tr>";
         echo "<th>ID</th><th>年度</th><th>課名</th><th>開課教授</th>" .
              "<th>修課人數上限</th><th>教室</th><th>學分</th>" .
