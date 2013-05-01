@@ -7,11 +7,11 @@
    // user input error detection and error message return
    $errmsg = '';
    if(!CheckId($_POST['account']))
-       $errmsg = 'Your ID format is wrong.';
+       $errmsg = '您的帳號格式有錯誤';
    elseif(!CheckPasswd($_POST['passwd']))
-       $errmsg = 'You have to enter your password.';
+       $errmsg = '請輸入您的密碼';
    elseif(!CheckUser_ID_and_Passwd($_POST['account'], $_POST['passwd']))
-       $errmsg = 'Login failed.';
+       $errmsg = '登入失敗 帳號或密碼錯誤';
    else {
        $_SESSION['id'] = $_POST['account'];
    }
