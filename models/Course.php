@@ -21,7 +21,7 @@ function ClassHoursToStroing($hours) {
     }
 
     if (strlen($hours) > 9) {
-        $ret .= $weekday[substr($hours, 9, 1)];
+        $ret .= $weekday[substr($hours, 9, 1)-1];
         foreach (range(10, 17) as $i) {
             if (substr($hours, $i, 1) == "Y")
                 $ret .= $hour_name[$i-10];
