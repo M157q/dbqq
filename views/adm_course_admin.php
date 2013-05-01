@@ -55,7 +55,7 @@
             <input type="text" name="course_year" placeholder="年度" required />
             <label>學生帳號: </label>
             <input type="text" name="stu_id" placeholder="學生帳號" required />
-            <button form="edit_course_stu" type="submit">確定</button>
+            <button class="btn btn-success" form="edit_course_stu" type="submit">確定</button>
         </form>
         </p>
         </div>
