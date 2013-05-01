@@ -4,24 +4,23 @@
     // check illegal users, and force to logout
     require_once("../controllers/Session.php");
     require_once("../models/User.php");
+    require_once("../models/Course.php");
     if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
-        showWarning();
 ?>
 <!DOCTYPE html>
 <html>
-<title>課程管理安安</title>
+<title>課程管理</title>
 <head>
     <meta charset="utf-8">
     <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>課程管理</h1>
-        <hr>
-        <?php
-            require_once("../models/Course.php");
-            GetCourseInfoTable();
-        ?>
+        <div class="page-header"><h1>課程管理</h1></div>
+        <?php showWarning(); ?>
+    
+        <?php GetCourseInfoTable(); ?>
+
         <hr>
 
         <div class="form-actions">
@@ -42,8 +41,7 @@
 
         <div class="form-actions">
         <h2>新增/刪除課程內學生</h2>
-        <p>
-        <form id="edit_course_stu" method="post" action="../controllers/AdmEditCourseTaken.php">
+        <p><form id="edit_course_stu" method="post" action="../controllers/AdmEditCourseTaken.php">
             <p>
             <label class="radio">
                 <input type="radio" name="action" value="add" required />新增</label>
@@ -57,8 +55,7 @@
             <label>學生帳號: </label>
             <input type="text" name="stu_id" placeholder="學生帳號" required />
             <button class="btn btn-success" form="edit_course_stu" type="submit">確定</button>
-        </form>
-        </p>
+        </form></p>
         </div>
 
         <hr>

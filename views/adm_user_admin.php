@@ -9,15 +9,15 @@
 ?>
 <!DOCTYPE HTML>
 <html>
-<title>課程管理安安</title>
+<title>使用者管理</title>
 <head>
     <meta charset="utf-8">
     <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>使用者管理</h1>
-        <hr>
+        <div class="page-header"><h1>使用者管理</h1></div>
+        <?php showWarning(); ?>
         <h2>使用者清單</h2>
         <?php GetStudentInfoTable() ?>
         <br />
