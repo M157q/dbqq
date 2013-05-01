@@ -54,7 +54,7 @@
 
 <div class="well">
     <h2>教授專區</h2>
-    <a class="btn btn-primary" href="../views/pro_add_course.php">新增課程</a><br/>
+    <a class="btn btn-primary" href="./pro_add_course.php">新增課程</a><br/>
     <hr>
     <div>
 	    <h3>教授課程</h3>

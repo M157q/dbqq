@@ -16,16 +16,10 @@
 <head>
     <meta charset="utf-8">
     <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <style>
-        body {
-            width: 35em;
-            margin: 0 auto;
-            font-family: Tahoma, Verdana, Arial, sans-serif;
-        }
-    </style>
 </head>
 
 <body>
+<div class="container">
 <h1>教授新增課程</h1>
 <?php showWarning(); ?>
 
@@ -112,7 +106,7 @@
     <button class="btn btn-primary" type="submit">開課</button>
 </form>
 </div>
-
-    <a class="btn btn-info" href="../views/pro.php">回上頁</a><br/>
+    <a class="btn btn-info" href="./pro.php">回上頁</a><br/>
+</div>
 </body>
 </html>
