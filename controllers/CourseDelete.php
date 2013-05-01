@@ -1,24 +1,25 @@
 <?php
 session_start();
 
-require_once('../components/Mysqli.php');
 require_once("../models/Course.php");
 require_once('../controllers/Session.php');
 CheckPermAndRedirect($_SESSION['perm'], 'stu');
 
-
-$link = MysqliConnection('Read');
-
-$query = 'DELETE FROM Course_taken WHERE StudentID=? AND CourseID=? AND 
-         CourseYear=?';
-$stmt = mysqli_stmt_init($link);
-if (mysqli_stmt_prepare($stmt, $query))
+$stu_id = $_SESSION['id'];
+$course_id = $_POST['id'];
+$course_year = $_POST['year'];
+$errmsg = '';
+if (CheckCourseIDExist($course_id, $course_year))
 {
-    mysqli_stmt_bind_param($stmt, "sss", $_SESSION['id'], $_POST['id'],
-                                         $_POST['year']);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
+    if (CheckStudentInCourse($stu_id, $course_id, $course_year))
+    {
+        StudentDeleteCourse($stu_id, $course_id, $course_year);
+        $errmsg = '您已成功取消選擇此課程';
+    }
+    else $errmsg = '你並沒有選這門課';
 }
-mysqli_close($link);
+else $errmsg = '課號' . $course_id . ' 年度'. $course_year . ' 的課程並不存在';
+
+$_SESSION['errmsg'] = $errmsg;
 RedirectByPerm('stu');
 ?>

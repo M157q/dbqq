@@ -397,6 +397,23 @@ function CheckCourseIDExist($course_id, $course_year)
     return $result or false;
 }
 
+function StudentDeleteCourse($stu_id, $course_id, $course_year)
+{ 
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+
+    $query = 'DELETE FROM Course_taken WHERE StudentID=? AND CourseID=? AND 
+        CourseYear=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "sss", $stu_id, $course_id, $course_year);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+}
+
 function CheckStudentInCourse($stu_id, $course_id, $course_year)
 {
     require_once('../components/Mysqli.php');
