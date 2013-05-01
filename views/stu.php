@@ -4,6 +4,12 @@
     <head>
         <meta charset="utf-8">
         <link href="../views/css/bootstrap.css" rel="stylesheet">
+        <style>
+            .container .btn-large {
+                font-size: 40px;
+                padding: 14px 24px;
+            }
+        </style>
     </head>
     <body>
 
