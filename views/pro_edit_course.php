@@ -74,7 +74,7 @@
 <title>Professor Edit Course</title>
 <head>
     <meta charset="utf-8">
-    <link href="../views/css/bootstrap.css" rel="stylesheet">
+    <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
 </head>
 
 <body>

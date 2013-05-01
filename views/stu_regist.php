@@ -11,7 +11,7 @@
 <title>User Registration</title>
 <head>
     <meta charset="utf-8">
-    <link href="../views/css/bootstrap.css" rel="stylesheet">
+    <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
     <style>
           .jumbotron {
             margin: 60px 0;

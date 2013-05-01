@@ -2,7 +2,7 @@
 <title>毫無反應只是一個課程列表</title>
 <head>
     <meta charset="utf-8">
-    <link href="../views/css/bootstrap.css" rel="stylesheet">
+    <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
 

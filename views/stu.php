@@ -3,7 +3,7 @@
 <title>Student's Main page</title>
     <head>
         <meta charset="utf-8">
-        <link href="../views/css/bootstrap.css" rel="stylesheet">
+        <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
         <style>
             .container .btn-large {
                 font-size: 40px;

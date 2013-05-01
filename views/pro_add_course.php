@@ -13,6 +13,7 @@
 <title>Professor add course</title>
 <head>
     <meta charset="utf-8">
+    <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
 <style>
     body {
         width: 35em;
