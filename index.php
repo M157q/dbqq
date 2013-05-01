@@ -57,6 +57,7 @@
       <!-- Jumbotron -->
       <div class="jumbotron">
         <p class="codeblock">
+          <?php showWarning(); ?>
           <h3>部份功能有用到 html5 故有些瀏覽器可能無法支援:-(</h3>
               <!-- Oh noes, you found it! -->
               hey, <span style="position: absolute; left: -100px; top: -100px"> σ ﾟ∀ ﾟ) ﾟ∀ﾟ)σ  阿哈哈你看看你</span> try to copy this line XD
@@ -71,8 +72,7 @@
         <p><iframe width="853" height="480" src="https://www.youtube-nocookie.com/embed/YUMIoF8XGC4?rel=0&autoplay=1" frameborder="0" allowfullscreen style="margin: 0, auto"></iframe> </p>
       </div>
       </div>
-
-      <script>alert("助教安安，您累惹嗎？聽首歌吧")</script>
+      <script>//alert("助教安安，您累惹嗎？聽首歌吧")</script>
 
 <!-- login -->
 
@@ -89,13 +89,6 @@
     <p><button type="submit" class="btn btn-large btn-danger">異次元蟲洞入口</button></p>
 </form>
 
-<?php
-if(isset($_SESSION['errmsg']) && !empty($_SESSION['errmsg'])){
-    $errormsg = $_SESSION['errmsg'];
-    unset($_SESSION['errmsg']);
-    echo "$errormsg".'<br/>';
-}
-?>
     <hr>
     <div class="row-fluid">
         <a class="btn btn-success" href="/views/stu_regist.php">學生申請帳號</a>
