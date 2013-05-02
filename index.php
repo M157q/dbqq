@@ -78,6 +78,7 @@
 
 <div class="hero-unit">
 <form method="post" action="controllers/Login.php">
+    <fieldset>
     <legend>登入</legend>
     <p>
         <label>帳號:</label>
@@ -88,6 +89,7 @@
         <input type="password" id="passwd" name="passwd" required>
     </p>
     <p><button type="submit" class="btn btn-large btn-danger">異次元蟲洞入口</button></p>
+    </fieldset>
 </form>
 
     <hr>
