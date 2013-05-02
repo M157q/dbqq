@@ -78,6 +78,7 @@
 
 <div class="hero-unit">
 <form method="post" action="controllers/Login.php">
+    <legend>登入</legend>
     <p>
         <label>帳號:</label>
         <input type="text" id="account" name="account" required>
