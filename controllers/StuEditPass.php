@@ -13,18 +13,17 @@
     $errmsg = '';
 
     if (!CheckPasswd($old_passwd))
-       $errmsg = 'You have to enter your old password.';
+       $errmsg = '請輸入舊密碼';
     elseif (!CheckPasswd($new_passwd))
-       $errmsg = 'You have to enter your new password.';
+       $errmsg = '請輸入新密碼';
     elseif (!CheckPasswd($confirm_passwd))
-       $errmsg = 'You have to enter your password confirm.';
-    elseif ($new_passwd !== $confirm_passwd)
-        $errmsg = 'two password not match';
+       $errmsg = '請輸入確認密碼';
+    elseif (!CheckUser_ID_and_Passwd($id, $old_passwd))
+        $errmsg = '舊密碼輸入錯誤';
     elseif(strlen($new_passwd) > 10)
         $errmsg = '密碼最大長度為10碼';
-    elseif (!CheckUser_ID_and_Passwd($id, $old_passwd)) {
-        $errmsg = 'old password error.';
-    }
+    elseif ($new_passwd !== $confirm_passwd)
+        $errmsg = '新密碼與確認密碼不符';
     else {
         require_once('../components/utility.php');
         $new_passwd = salted($new_passwd);
