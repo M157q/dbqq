@@ -1,11 +1,3 @@
-<?php
-    session_start();
-    require_once('../models/Department.php');
-    require_once('../models/User.php');
-    require_once('../controllers/Session.php');
-    if (isset($_SESSION['perm'])) RedirectByPerm($_SESSION['perm']);
-    showWarning();
-?>
 <!DOCTYPE html>
 <html lang="zh">
 <title>User Registration</title>
@@ -17,6 +9,14 @@
 <body>
     <div class="container">
     <h1>學生申請帳號</h1>
+<?php
+    session_start();
+    require_once('../models/Department.php');
+    require_once('../models/User.php');
+    require_once('../controllers/Session.php');
+    if (isset($_SESSION['perm'])) RedirectByPerm($_SESSION['perm']);
+    showWarning(); 
+?>
     <div class="form-actions">
         <form method="post" action="../controllers/StuRegist.php">
             <label>帳號:</label>

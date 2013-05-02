@@ -1,11 +1,3 @@
-<?php
-    session_start();
-    require_once('../models/Department.php');
-    require_once('../models/User.php');
-    require_once('../controllers/Session.php');
-    if (isset($_SESSION['perm'])) RedirectByPerm($_SESSION['perm']);
-    showWarning();
-?>
 <!DOCTYPE html>
 <html lang="zh">
 <title>User Registration</title>
@@ -16,9 +8,16 @@
 
 <body>
     <div class="container">
-        <h1>教授申請帳號</h1>
-        <div class="form-actions">
-        <!-- login -->
+    <h1>教授申請帳號</h1>
+<?php
+    session_start();
+    require_once('../models/Department.php');
+    require_once('../models/User.php');
+    require_once('../controllers/Session.php');
+    if (isset($_SESSION['perm'])) RedirectByPerm($_SESSION['perm']);
+    showWarning();
+?>
+    <div class="form-actions">
         <form method="post" action="../controllers/ProRegist.php">
             <label>帳號:</label>
             <input type="text" id="account" name="account" maxlength="10" placeholder="請輸入10個字以內的數字" required />
