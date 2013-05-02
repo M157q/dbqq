@@ -463,12 +463,12 @@ function showWarning()
         echo '<div class="alert alert-error">提醒訊息：' . $_SESSION['errmsg'] . '</div>';
         $_SESSION['errmsg'] = '';                                              
     }                                                                          
-    if ($_SESSION['ban']) echo '<div class="alert alert-block">您正在被停權中</div>'; 
+    if (isset($_SESSION['id']) && isBanned($_SESSION['id'])) echo '<div class="alert alert-block">您正在被停權中</div>'; 
 }
 
 function showLoginMessage()
 {
-    echo '<h2>user: ' . $_SESSION['id'] . ' has logined!!! </h2>' ;
+    echo '<h2>' . $_SESSION['id'] . ' 歡迎登入</h2>' ;
 }
 
 function proGetCourseInfo ($pro_id, $course_id, $course_year) {
