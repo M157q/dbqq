@@ -15,7 +15,7 @@
     require_once('../models/Course.php');
     
     CheckPermAndRedirect($_SESSION['perm'], 'pro');
-    if(array_key_exists('id', $_SESSION))
+    if(CheckIDExist($_SESSION['id']))
     {
         showLoginMessage();
         showWarning();
