@@ -15,31 +15,36 @@
     elseif(CheckProfessorIDExist($id))
         $perm = 'pro';
     else 
-        $errmsg = "$id not found.";
+        $errmsg = "此帳號 $id 並不存在";
 
-    if (isset($perm) and !empty($perm))
+    if( (isAdmin($id)) && (numberOfAdmin() == 1) )
+        $errmsg = '將此帳號刪除將造成系統沒有系統管理員，故此動作無效。';
+    else
     {
-        // update the data in the database
-        $link = MysqliConnection('Write');
+        if (isset($perm) and !empty($perm))
+        {
+            // update the data in the database
+            $link = MysqliConnection('Write');
 
-        if ($perm == 'stu')
-            $query = 'DELETE FROM Student WHERE ID = ?';
-        elseif ($perm == 'pro')
-            $query = 'DELETE FROM Professor WHERE ID = ?';
-        else {
-            $errmsg = '權限有誤';
-            $_SESSION['errmsg'] = $errmsg;
-            CheckPermAndRedirect($_SESSION['perm'], "adm");
-        }
+            if ($perm == 'stu')
+                $query = 'DELETE FROM Student WHERE ID = ?';
+            elseif ($perm == 'pro')
+                $query = 'DELETE FROM Professor WHERE ID = ?';
+            else {
+                $errmsg = '權限有誤';
+                $_SESSION['errmsg'] = $errmsg;
+                CheckPermAndRedirect($_SESSION['perm'], "adm");
+            }
 
-        $stmt = mysqli_stmt_init($link);
-        if (mysqli_stmt_prepare($stmt, $query)) {
-            mysqli_stmt_bind_param($stmt, "s", $id);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
+            $stmt = mysqli_stmt_init($link);
+            if (mysqli_stmt_prepare($stmt, $query)) {
+                mysqli_stmt_bind_param($stmt, "s", $id);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
+            }
+            mysqli_close($link);
+            $errmsg = '您已成功刪除該使用者';
         }
-        mysqli_close($link);
-        $errmsg = '您已成功刪除該使用者';
     }
 
     $_SESSION['errmsg'] = $errmsg;
