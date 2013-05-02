@@ -96,8 +96,6 @@
         <option value="大二"> 大二 </option>
         <option value="大三"> 大三 </option>
         <option value="大四"> 大四 </option>
-        <option value="碩一"> 碩一 </option>
-        <option value="碩二"> 碩二 </option>
     </select>
     <br /><br />
     <label>備註:</label>
