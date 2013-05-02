@@ -5,7 +5,7 @@
     require_once("../controllers/Session.php");
     require_once("../models/User.php");
     require_once("../models/Course.php");
-    if ($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
+    if (!isAdmin($_SESSION['id'])) RedirectByPerm($_SESSION['perm']);
 ?>
 <!DOCTYPE html>
 <html>

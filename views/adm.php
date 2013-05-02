@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once("../controllers/Session.php");
-    if($_SESSION['adm'] == false) RedirectByPerm($_SESSION['perm']);
+    if (!isAdmin($_SESSION['id'])) RedirectByPerm($_SESSION['perm']);
     if(array_key_exists('id', $_SESSION))
     {
         echo '<h2>user: ' . $_SESSION['id'] . ' has logined!!! </h2><br />' ;

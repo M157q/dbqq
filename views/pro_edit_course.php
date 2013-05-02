@@ -3,7 +3,7 @@
     require_once('../models/Department.php');
     require_once('../models/User.php');
     require_once('../controllers/Session.php');
-    if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
+    if (isBanned($_SESSION['id'])) RedirectByPerm($_SESSION['perm']);
     if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
 
     list($name, $sub, $classroom, $credit, $grade, $req, $class_hours, $add_info) =

@@ -13,10 +13,6 @@
     require_once('../controllers/Session.php');
     require_once('../models/User.php');
     require_once('../models/Course.php');
-    if (isset($_SESSION['id'])) {
-    $_SESSION['adm'] = isAdmin($_SESSION['id']);
-    $_SESSION['ban'] = isBanned($_SESSION['id']);
-    }
     
     CheckPermAndRedirect($_SESSION['perm'], 'pro');
     if(array_key_exists('id', $_SESSION))
@@ -26,13 +22,13 @@
 ?>
     <h1>安安我是 教授ㄉㄉ</h1>
 
-<?php if ($_SESSION['adm']) ShowAdminArea(); ?>
+<?php if (isAdmin($_SESSION['id'])) ShowAdminArea(); ?>
         <div class="well">
         <?php ShowProfessorInfo($_SESSION['id'])?>
         </div>
         <hr>
 
-<?php if (!$_SESSION['ban']): ?>
+<?php if (!isBanned($_SESSION['id'])): ?>
         <div class="form-actions">
         <h2>修改資料</h2>
         <p> <form method="post" action="../controllers/ProEditName.php">
@@ -74,7 +70,7 @@
         </div>
     </div>
 </div>
-<?php endif ?>
+<?php endif; ?>
 
         <div><form name="logout" method="post" action="../controllers/Logout.php" >
         <p> <input class="btn btn-success" type="submit" value="登出" /><p>
@@ -84,4 +80,6 @@
 </html>
 <?php
     }
+    else
+        RedirectByPerm('illegal');
 ?>

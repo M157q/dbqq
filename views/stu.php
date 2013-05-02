@@ -13,15 +13,8 @@
     require_once('../controllers/Session.php');
     require_once('../models/User.php');
     require_once('../models/Course.php');
-    if (isset($_SESSION['id'])) {
-        $_SESSION['adm'] = isAdmin($_SESSION['id']);
-        $_SESSION['ban'] = isBanned($_SESSION['id']);
-    }
-    else {
-        header('Location: http://dbqq.nctucs.net:5566/index.php');
-    }
-    
     CheckPermAndRedirect($_SESSION['perm'], 'stu');
+    
     if(array_key_exists('id', $_SESSION))
     {
         showLoginMessage();
@@ -30,14 +23,14 @@
     <h1>安安我是 student</h1>
     <hr>
 
-<?php if ($_SESSION['adm']) ShowAdminArea(); ?>
+<?php if (isAdmin($_SESSION['id'])) ShowAdminArea(); ?>
     
     <div class="well">
     <?php ShowStudentInfo($_SESSION['id'])?>
     </div>
     <hr>
 
-<?php if (!$_SESSION['ban']): ?>
+<?php if (!isBanned($_SESSION['id'])): ?>
     <div class="form-actions">
     <h2>修改資料</h2>
     <p> <form method="post" action="../controllers/StuEditName.php">
@@ -86,7 +79,7 @@
     </div>
     <hr>
 
-<?php endif ?>
+<?php endif; ?>
 
     <div><form name="logout" method="post" action="../controllers/Logout.php" >
         <p><input class="btn btn-info" type="submit" value="登出" /><p>
@@ -97,4 +90,6 @@
 </html>
 <?php
     }
+    else 
+        RedirectByPerm('illegal');
 ?>

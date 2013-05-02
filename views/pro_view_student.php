@@ -23,7 +23,7 @@
     require_once("../models/User.php");
     require_once("../components/Mysqli.php");
     require_once("../controllers/Session.php");
-    if ($_SESSION['ban']) RedirectByPerm($_SESSION['perm']);
+    if (isBanned($_SESSION['id'])) RedirectByPerm($_SESSION['perm']);
     if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
     showWarning();
     if(!isset($_POST['id_year'])) {
