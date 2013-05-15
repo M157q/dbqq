@@ -326,7 +326,7 @@ function ShowStudentInfo($id) {
 
     // get student information
     $link = MysqliConnection('Read');
-    $query = 'SELECT ID, Name, StudentNumber, department, grade From Student WHERE ID=?';
+    $query = 'SELECT s.ID, s.Name, s.StudentNumber, s.department, g.Name From Student s LEFT JOIN Grade g ON s.grade = g.ID WHERE s.ID=?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
