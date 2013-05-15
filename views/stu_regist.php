@@ -12,6 +12,7 @@
 <?php
     session_start();
     require_once('../models/Department.php');
+    require_once('../models/Grade.php');
     require_once('../models/User.php');
     require_once('../controllers/Session.php');
     if (isset($_SESSION['perm'])) RedirectByPerm($_SESSION['perm']);
@@ -38,10 +39,7 @@
             <br /><br />
             <label>年級:</label>
             <select name="grade" required />
-                <option value="大一"> 大一 </option>
-                <option value="大二"> 大二 </option>
-                <option value="大三"> 大三 </option>
-                <option value="大四"> 大四 </option>
+                <?php GradeListGen(); ?>
             </select>
             <br /><br />
             <button class="btn btn-success btn-large" type="submit">申請帳號</button>
