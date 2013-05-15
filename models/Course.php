@@ -40,9 +40,9 @@ function GetCourseInfoTable() {
     $depart_list = GetDepartmentList();
 
     // get course data
-    $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound,
-              class_room, credit, department, grade, required, class_hours,
-              Additional_Info FROM Course';
+    $query = 'SELECT c.ID, c.Year, c.Name, c.pro_id, c.student_upper_bound,
+              c.class_room, c.credit, c.department, g.Name, c.required, c.class_hours,
+              c.Additional_Info FROM Course c LEFT JOIN Grade g ON c.grade = g.ID';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
@@ -96,9 +96,9 @@ function GetCourseInfoTableWithCheckBox() {
     $depart_list = GetDepartmentList();
 
     // get course data
-    $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound,
-              class_room, credit, department, grade, required, class_hours,
-              Additional_Info FROM Course';
+    $query = 'SELECT c.ID, c.Year, c.Name, c.pro_id, c.student_upper_bound,
+              c.class_room, c.credit, c.department, g.Name, c.required, c.class_hours,
+              c.Additional_Info FROM Course c LEFT JOIN Grade g ON c.grade = g.ID';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
@@ -157,9 +157,10 @@ function GetCourseInfoTableByIDs($IDs) {
 
     foreach ($IDs as $cid) {
     // get course data
-        $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound,
-                  class_room, credit, department, grade, required, class_hours,
-                  Additional_Info FROM Course WHERE id=?';
+        $query = 'SELECT c.ID, c.Year, c.Name, c.pro_id, c.student_upper_bound,
+              c.class_room, c.credit, c.department, g.Name, c.required, c.class_hours,
+              c.Additional_Info FROM Course c LEFT JOIN Grade g ON c.grade = g.ID 
+              WHERE c.ID = ?';
         $stmt = mysqli_stmt_init($link);
         if (mysqli_stmt_prepare($stmt, $query))
         {
@@ -281,7 +282,10 @@ function ListProfessorCourse($pro_id) {
     $depart_list = GetDepartmentList();
 
     // get course data
-    $query = 'SELECT ID, Year, Name, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course Where pro_id=?';
+    $query = 'SELECT c.ID, c.Year, c.Name, c.student_upper_bound,
+              c.class_room, c.credit, c.department, g.Name, c.required, c.class_hours,
+              c.Additional_Info FROM Course c LEFT JOIN Grade g ON c.grade = g.ID 
+              WHERE c.pro_id = ?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
