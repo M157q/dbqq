@@ -9,7 +9,7 @@ function GetStudentInfoTable() {
     $stu_list = array();
 
     // get student data
-    $query = 'SELECT ID, Name, StudentNumber, department, grade FROM Student';
+    $query = 'SELECT s.ID, s.Name, s.StudentNumber, d.Name, g.Name FROM Student s LEFT JOIN Department d ON s.department = d.ID LEFT JOIN Grade g ON s.grade = g.ID';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
@@ -30,12 +30,7 @@ function GetStudentInfoTable() {
             echo "<td>$row[0]</td>";
             echo "<td>$row[1]</td>";
             echo "<td>$row[2]</td>";
-            if (array_key_exists($row[3], $depart_list)) {
-                echo "<td>" . $depart_list[$row[3]] . "</td>";
-            }
-            else {
-                echo "<td>你什麼系的@@?</td>";
-            }
+            echo "<td>$row[3]</td>";
             echo "<td>$row[4]</td>";
             echo "</tr>";
         }
