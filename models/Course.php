@@ -7,24 +7,24 @@ function RequireToStroing($req) {
 }
 
 // convert classhours from strings to human readable format
-//    3NNYYNNNN5NNNNNNYN -> 二FGH 三CD六G
-//    2NNNNNYYY -> 二FGH
+//    3NNYYNNNNNNNNNN5NNNNNNNYNNNNNN -> 二FGH 三CD六G
+//    2NNNNNNYYY -> 二FGH
 function ClassHoursToStroing($hours) {
     $ret = "";
     $weekday = array("一", "二", "三", "四", "五", "六", "日");
-    $hour_name = array("A", "B", "C", "D", "E", "F", "G", "H");
+    $hour_name = array("A", "B", "C", "D", "X", "E", "F", "G", "H", "Y", "I", "J", "K", "L");
     $ret .= $weekday[substr($hours, 0, 1)-1];
 
-    foreach (range(1, 9) as $i) {
+    foreach (range(1, 14) as $i) {
         if (substr($hours, $i, 1) == "Y")
             $ret .= $hour_name[$i-1];
     }
 
-    if (strlen($hours) > 9) {
-        $ret .= $weekday[substr($hours, 9, 1)-1];
-        foreach (range(10, 17) as $i) {
+    if (strlen($hours) > 15) {
+        $ret .= $weekday[substr($hours, 15, 1)-1];
+        foreach (range(16, 29) as $i) {
             if (substr($hours, $i, 1) == "Y")
-                $ret .= $hour_name[$i-10];
+                $ret .= $hour_name[$i-16];
         }
     }
     return $ret;
@@ -416,8 +416,8 @@ function CheckCourseConfliction($c1, $c2) {
         $t = $c1; $c1 = $c2; $c2 = $t;
     }
 
-    $cc1 = array(substr($c1, 0, 9), substr($c1, 9, 18));
-    $cc2 = array(substr($c2, 0, 9), substr($c2, 9, 18));
+    $cc1 = array(substr($c1, 0, 15), substr($c1, 15, 15));
+    $cc2 = array(substr($c2, 0, 15), substr($c2, 15, 15));
     foreach ($cc1 as $i) {
         foreach ($cc2 as $j) {
             if (CompareCourse($i, $j)) {
@@ -430,7 +430,7 @@ function CheckCourseConfliction($c1, $c2) {
 
 function CompareCourse($c1, $c2) {
     if (substr($c1, 0, 1) == substr($c2, 0, 1)) {
-        foreach (range(1, 9) as $i) {
+        foreach (range(1, 14) as $i) {
             if (substr($c1, $i, 1) == "Y" and substr($c2, $i, 1) == "Y")
                 return true;
         }

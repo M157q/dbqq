@@ -48,10 +48,16 @@
     <input type="checkbox" name="d1[]" value="1">B
     <input type="checkbox" name="d1[]" value="2">C
     <input type="checkbox" name="d1[]" value="3">D
-    <input type="checkbox" name="d1[]" value="4">E
-    <input type="checkbox" name="d1[]" value="5">F
-    <input type="checkbox" name="d1[]" value="6">G
-    <input type="checkbox" name="d1[]" value="7">H
+    <input type="checkbox" name="d1[]" value="4">X
+    <input type="checkbox" name="d1[]" value="5">E
+    <input type="checkbox" name="d1[]" value="6">F
+    <input type="checkbox" name="d1[]" value="7">G
+    <input type="checkbox" name="d1[]" value="8">H
+    <input type="checkbox" name="d1[]" value="9">Y
+    <input type="checkbox" name="d1[]" value="10">I
+    <input type="checkbox" name="d1[]" value="11">J
+    <input type="checkbox" name="d1[]" value="12">K
+    <input type="checkbox" name="d1[]" value="13">L
     <br /><br />
     <label>時段二:</label>
     <select name="day2">
@@ -68,10 +74,16 @@
     <input type="checkbox" name="d2[]" value="1">B
     <input type="checkbox" name="d2[]" value="2">C
     <input type="checkbox" name="d2[]" value="3">D
-    <input type="checkbox" name="d2[]" value="4">E
-    <input type="checkbox" name="d2[]" value="5">F
-    <input type="checkbox" name="d2[]" value="6">G
-    <input type="checkbox" name="d2[]" value="7">H
+    <input type="checkbox" name="d2[]" value="4">X
+    <input type="checkbox" name="d2[]" value="5">E
+    <input type="checkbox" name="d2[]" value="6">F
+    <input type="checkbox" name="d2[]" value="7">G
+    <input type="checkbox" name="d2[]" value="8">H
+    <input type="checkbox" name="d2[]" value="9">Y
+    <input type="checkbox" name="d2[]" value="10">I
+    <input type="checkbox" name="d2[]" value="11">J
+    <input type="checkbox" name="d2[]" value="12">K
+    <input type="checkbox" name="d2[]" value="13">L
     <br /><br />
     <label>學分:</label>
     <input type="number" id="credit" name="credit" placeholder="128" required />

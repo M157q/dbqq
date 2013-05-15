@@ -26,8 +26,8 @@
     $grade3 = $grade=="大三" ? "SELECTED" : "";
     $grade4 = $grade=="大四" ? "SELECTED" : "";
 
-    $day1 = substr($class_hours, 0, 9);
-    $day2 = substr($class_hours, 9, 9);
+    $day1 = substr($class_hours, 0, 15);
+    $day2 = substr($class_hours, 15, 15);
 
     $mon1 = substr($day1, 0, 1)=="1" ? "SELECTED" : "";
     $tue1 = substr($day1, 0, 1)=="2" ? "SELECTED" : "";
@@ -41,10 +41,16 @@
     $B1 = substr($day1, 2, 1)=="Y" ? "CHECKED" : "";
     $C1 = substr($day1, 3, 1)=="Y" ? "CHECKED" : "";
     $D1 = substr($day1, 4, 1)=="Y" ? "CHECKED" : "";
-    $E1 = substr($day1, 5, 1)=="Y" ? "CHECKED" : "";
-    $F1 = substr($day1, 6, 1)=="Y" ? "CHECKED" : "";
-    $G1 = substr($day1, 7, 1)=="Y" ? "CHECKED" : "";
-    $H1 = substr($day1, 8, 1)=="Y" ? "CHECKED" : "";
+    $X1 = substr($day1, 5, 1)=="Y" ? "CHECKED" : "";
+    $E1 = substr($day1, 6, 1)=="Y" ? "CHECKED" : "";
+    $F1 = substr($day1, 7, 1)=="Y" ? "CHECKED" : "";
+    $G1 = substr($day1, 8, 1)=="Y" ? "CHECKED" : "";
+    $H1 = substr($day1, 9, 1)=="Y" ? "CHECKED" : "";
+    $Y1 = substr($day1, 10, 1)=="Y" ? "CHECKED" : "";
+    $I1 = substr($day1, 11, 1)=="Y" ? "CHECKED" : "";
+    $J1 = substr($day1, 12, 1)=="Y" ? "CHECKED" : "";
+    $K1 = substr($day1, 13, 1)=="Y" ? "CHECKED" : "";
+    $L1 = substr($day1, 14, 1)=="Y" ? "CHECKED" : "";
 
     if(isset($day2)) {
         $mon2 = substr($day2, 0, 1)=="1" ? "SELECTED" : "";
@@ -59,10 +65,16 @@
         $B2 = substr($day2, 2, 1)=="Y" ? "CHECKED" : "";
         $C2 = substr($day2, 3, 1)=="Y" ? "CHECKED" : "";
         $D2 = substr($day2, 4, 1)=="Y" ? "CHECKED" : "";
-        $E2 = substr($day2, 5, 1)=="Y" ? "CHECKED" : "";
-        $F2 = substr($day2, 6, 1)=="Y" ? "CHECKED" : "";
-        $G2 = substr($day2, 7, 1)=="Y" ? "CHECKED" : "";
-        $H2 = substr($day2, 8, 1)=="Y" ? "CHECKED" : "";
+        $X2 = substr($day2, 5, 1)=="Y" ? "CHECKED" : "";
+        $E2 = substr($day2, 6, 1)=="Y" ? "CHECKED" : "";
+        $F2 = substr($day2, 7, 1)=="Y" ? "CHECKED" : "";
+        $G2 = substr($day2, 8, 1)=="Y" ? "CHECKED" : "";
+        $H2 = substr($day2, 9, 1)=="Y" ? "CHECKED" : "";
+        $Y2 = substr($day2, 10, 1)=="Y" ? "CHECKED" : "";
+        $I2 = substr($day2, 11, 1)=="Y" ? "CHECKED" : "";
+        $J2 = substr($day2, 12, 1)=="Y" ? "CHECKED" : "";
+        $K2 = substr($day2, 13, 1)=="Y" ? "CHECKED" : "";
+        $L2 = substr($day2, 14, 1)=="Y" ? "CHECKED" : "";
     }
 ?>
 
@@ -107,10 +119,16 @@
         <input type="checkbox" name="d1[]" value="1" <?php echo $B1;?>>B
         <input type="checkbox" name="d1[]" value="2" <?php echo $C1;?>>C
         <input type="checkbox" name="d1[]" value="3" <?php echo $D1;?>>D
-        <input type="checkbox" name="d1[]" value="4" <?php echo $E1;?>>E
-        <input type="checkbox" name="d1[]" value="5" <?php echo $F1;?>>F
-        <input type="checkbox" name="d1[]" value="6" <?php echo $G1;?>>G
-        <input type="checkbox" name="d1[]" value="7" <?php echo $H1;?>>H
+        <input type="checkbox" name="d1[]" value="4" <?php echo $X1;?>>X
+        <input type="checkbox" name="d1[]" value="5" <?php echo $E1;?>>E
+        <input type="checkbox" name="d1[]" value="6" <?php echo $F1;?>>F
+        <input type="checkbox" name="d1[]" value="7" <?php echo $G1;?>>G
+        <input type="checkbox" name="d1[]" value="8" <?php echo $H1;?>>H
+        <input type="checkbox" name="d1[]" value="9" <?php echo $Y1;?>>Y
+        <input type="checkbox" name="d1[]" value="10" <?php echo $I1;?>>I
+        <input type="checkbox" name="d1[]" value="11" <?php echo $J1;?>>J
+        <input type="checkbox" name="d1[]" value="12" <?php echo $K1;?>>K
+        <input type="checkbox" name="d1[]" value="13" <?php echo $L1;?>>L
         </p>
         <p>
         <label>時段二:</label>
@@ -128,10 +146,16 @@
         <input type="checkbox" name="d2[]" value="1" <?php echo $B2;?>>B
         <input type="checkbox" name="d2[]" value="2" <?php echo $C2;?>>C
         <input type="checkbox" name="d2[]" value="3" <?php echo $D2;?>>D
-        <input type="checkbox" name="d2[]" value="4" <?php echo $E2;?>>E
-        <input type="checkbox" name="d2[]" value="5" <?php echo $F2;?>>F
-        <input type="checkbox" name="d2[]" value="6" <?php echo $G2;?>>G
-        <input type="checkbox" name="d2[]" value="7" <?php echo $H2;?>>H
+        <input type="checkbox" name="d2[]" value="4" <?php echo $X2;?>>X
+        <input type="checkbox" name="d2[]" value="5" <?php echo $E2;?>>E
+        <input type="checkbox" name="d2[]" value="6" <?php echo $F2;?>>F
+        <input type="checkbox" name="d2[]" value="7" <?php echo $G2;?>>G
+        <input type="checkbox" name="d2[]" value="8" <?php echo $H2;?>>H
+        <input type="checkbox" name="d2[]" value="9" <?php echo $Y2;?>>Y
+        <input type="checkbox" name="d2[]" value="10" <?php echo $I2;?>>I
+        <input type="checkbox" name="d2[]" value="11" <?php echo $J2;?>>J
+        <input type="checkbox" name="d2[]" value="12" <?php echo $K2;?>>K
+        <input type="checkbox" name="d2[]" value="13" <?php echo $L2;?>>L
         </p>
         <p>
         <label>學分:</label>

@@ -26,14 +26,14 @@
         // push class hour data into a string
         $class_hours = $_POST['day1'];
         $d1 = $_POST['d1'];
-        $day1 = array("0"=>"N", "1"=>"N", "2"=>"N", "3"=>"N", "4"=>"N", "5"=>"N", "6"=>"N", "7"=>"N");
+        $day2 = array("0"=>"N", "1"=>"N", "2"=>"N", "3"=>"N", "4"=>"N", "5"=>"N", "6"=>"N", "7"=>"N", "8"=>"N", "9"=>"N", "10"=>"N", "11"=>"N", "12"=>"N", "13"=>"N");
         foreach($d1 as $i => $x) $day1[$x] = "Y";
         $daystr = implode($day1);
         $class_hours .= $daystr;
         if($_POST['day2'] != "0") {
             $class_hours .= $_POST['day2'];
             $d2 = $_POST['d2'];
-            $day2 = array("0"=>"N", "1"=>"N", "2"=>"N", "3"=>"N", "4"=>"N", "5"=>"N", "6"=>"N", "7"=>"N");
+            $day2 = array("0"=>"N", "1"=>"N", "2"=>"N", "3"=>"N", "4"=>"N", "5"=>"N", "6"=>"N", "7"=>"N", "8"=>"N", "9"=>"N", "10"=>"N", "11"=>"N", "12"=>"N", "13"=>"N");
             foreach($d2 as $i => $x) $day2[$x] = "Y";
             $daystr = implode($day2);
             $class_hours .= $daystr;
