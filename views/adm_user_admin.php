@@ -40,7 +40,7 @@
         <div class="form-actions">
         <h2>更改使用者密碼</h2>
         <p><form id="passwd" method="post" action="../controllers/AdmEditPass.php">
-            <pre><font color="red">Note: 密碼長度必須為10以內</font></pre>
+            <div class="alert alert-danger">密碼長度必須為10以內</div>
             <label>帳號: </label>
             <input type="text" id="account" name="account" maxlength="10" placeholder="帳號" required />
             <label>新密碼: </label>
