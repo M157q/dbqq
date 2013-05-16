@@ -21,10 +21,12 @@
     $req0 = $req=="0" ? "SELECTED" : "";
     $req1 = $req=="1" ? "SELECTED" : "";
 
-    $grade1 = $grade=="大一" ? "SELECTED" : "";
-    $grade2 = $grade=="大二" ? "SELECTED" : "";
-    $grade3 = $grade=="大三" ? "SELECTED" : "";
-    $grade4 = $grade=="大四" ? "SELECTED" : "";
+    $grade1 = $grade=="1" ? "SELECTED" : "";
+    $grade2 = $grade=="2" ? "SELECTED" : "";
+    $grade3 = $grade=="3" ? "SELECTED" : "";
+    $grade4 = $grade=="4" ? "SELECTED" : "";
+    $grade4 = $grade=="5" ? "SELECTED" : "";
+    $grade4 = $grade=="6" ? "SELECTED" : "";
 
     $day1 = substr($class_hours, 0, 15);
     $day2 = substr($class_hours, 15, 15);
@@ -176,10 +178,12 @@
         <p>
         <label>開課年級:</label>
         <select name="grade" required />
-            <option <?php echo $grade1;?> value="大一"> 大一 </option>
-            <option <?php echo $grade2;?> value="大二"> 大二 </option>
-            <option <?php echo $grade3;?> value="大三"> 大三 </option>
-            <option <?php echo $grade4;?> value="大四"> 大四 </option>
+            <option <?php echo $grade1;?> value="1"> 大學部一年級 </option>
+            <option <?php echo $grade2;?> value="2"> 大學部二年級 </option>
+            <option <?php echo $grade3;?> value="3"> 大學部三年級 </option>
+            <option <?php echo $grade4;?> value="4"> 大學部四年級 </option>
+            <option <?php echo $grade4;?> value="5"> 研究所一年級 </option>
+            <option <?php echo $grade4;?> value="6"> 研究所二年級 </option>
         </select>
         </p>
         <p>

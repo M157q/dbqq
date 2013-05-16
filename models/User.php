@@ -481,10 +481,14 @@ function proGetCourseInfo ($pro_id, $course_id, $course_year) {
     $depart_list = GetDepartmentList();
  
     // get course data
-    $query = 'SELECT c.Name, c.student_upper_bound, c.class_room, c.credit,
-              c.department, g.Name, c.required, c.class_hours, c.Additional_Info 
-              FROM Course c LEFT JOIN Grade g ON c.grade = g.ID 
-              Where c.pro_id = ? AND c.ID = ? AND c.Year = ?';
+    //$query = 'SELECT c.Name, c.student_upper_bound, c.class_room, c.credit,
+    //          c.department, g.Name, c.required, c.class_hours, c.Additional_Info 
+    //          FROM Course c LEFT JOIN Grade g ON c.grade = g.ID 
+    //          Where c.pro_id = ? AND c.ID = ? AND c.Year = ?';
+    $query = 'SELECT Name, student_upper_bound, class_room, credit,
+              department, grade, required, class_hours, Additional_Info 
+              FROM Course
+              WHERE pro_id = ? AND ID = ? AND Year = ?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
