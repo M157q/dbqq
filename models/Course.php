@@ -498,4 +498,159 @@ function CheckStudentInCourse($stu_id, $course_id, $course_year)
     return $result or false;
 }
 
+//convert class hours to formatted string in mode 1
+//for example, 1C=%1__Y%
+function Mode1FormattedString($day, $hours)
+{
+    $result = "%".$day;
+
+    $i = 1;
+    while($i < $hours)
+    {
+        $result .= "_";
+        $i++;
+    }
+
+    $result .= ("Y"."%");
+
+    return $result;
+}
+
+//convert class hours to formatted string in mode 2
+//for example, 1AB2C=1YYNNNNNNNNNNNN2NNYNNNNNNNNNNN
+function Mode2FormattedString($class_hours)
+{
+    $day = "1";
+    $hours = "1";
+    $result = "";
+    foreach($class_hours as $i)
+    {
+        if(!empty($i))
+        {
+            if(empty($result))
+                $result = $day;
+            else
+                $result .= $day;
+
+            foreach($i as $j)
+            {
+                while($hours != $j)
+                {
+                    $result .= "N";
+                    $hours++;
+                }
+                $result .= "Y";
+                $hours++;
+            }
+            
+            while($hours != "15")
+            {
+                $result .= "N";
+                $hours++;
+            }
+        }
+        $hours = "1";
+        $day++;
+    }
+
+    return $result;
+}
+
+function CourseFilter($dep, $grade, $mode, $class_hours, $name)
+{
+    require_once('../components/Mysqli.php');
+    require_once('../models/Department.php');
+    require_once('../models/User.php');
+
+    $gradestring = "";
+    $course_list = array();
+    $depart_list = GetDepartmentList();
+
+    foreach($grade as $i)
+        $gradestring .= $i;
+
+    if($mode == 1)
+    {
+        $day = "1";
+        foreach($class_hours as $i)
+        {
+            if(!empty($i))
+            {
+                $link = MysqliConnection('Read');
+                $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course WHERE Name LIKE ? AND department=? AND grade=? AND class_hours LIKE ?';
+                foreach($i as $j)
+                {
+                    $hourstring = Mode1FormattedString($day,$j);
+                    
+                    foreach($dep as $k)
+                    {
+                        $stmt = mysqli_stmt_init($link);
+                        if(mysqli_stmt_prepare($stmt, $query))
+                        {
+                            mysqli_stmt_bind_param($stmt, "ssss", $name, $k, $gradestring, $hourstring);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_bind_result($stmt, $id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info);
+                            while(mysqli_stmt_fetch($stmt)) {
+                                array_push($course_list, array($id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info));
+                            }
+                            mysqli_stmt_close($stmt);
+                        }
+                    }
+                }
+                mysqli_close($link);
+            }
+            $day++;
+        }
+    }
+    else if($mode == 2)
+    {
+        $hourstring = Mode2FormattedString($class_hours);
+
+        foreach($dep as $k)
+        {   
+            $link = MysqliConnection('Read');
+            $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course WHERE Name LIKE ? AND department=? AND grade=? AND class_hours=?';
+            $stmt = mysqli_stmt_init($link);
+            if(mysqli_stmt_prepare($stmt, $query))
+            {
+                mysqli_stmt_bind_param($stmt, "ssss", $name, $k, $gradestring, $hourstring);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_bind_result($stmt, $id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info);
+                while(mysqli_stmt_fetch($stmt)) {
+                    array_push($course_list, array($id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info));
+                }
+                mysqli_stmt_close($stmt);
+            }
+            mysqli_close($link);
+        }
+    }
+
+    array_multisort($course_list);
+        echo "<table border=5 class=\"table table-striped table-bordered\">";
+        echo "<tr>";
+        echo "<th>ID</th><th>年度</th><th>課名</th><th>開課教授</th>" .
+             "<th>修課人數上限</th><th>教室</th><th>學分</th>" .
+             "<th>開課系所</th><th>年級</th><th>必選修</th><th>時間</th>" .
+             "<th>備註</th>";
+        echo "</tr>";
+        foreach($course_list as $row) {
+            echo "<tr>";
+            echo "<td>$row[0]</td>";
+            echo "<td>$row[1]</td>";
+            echo "<td>$row[2]</td>";
+            echo "<td>" . ReturnUserName($row[3]) . "</td>";
+            echo "<td>$row[4]</td>";
+            echo "<td>$row[5]</td>";
+            echo "<td>$row[6]</td>";
+            echo "<td>" . $depart_list[$row[7]] . "</td>";
+            echo "<td>$row[8]</td>";
+            echo "<td>" . RequireToStroing($row[9]) . "</td>";
+            echo "<td>" . ClassHoursToStroing($row[10]) . "</td>";
+            echo "<td>$row[11]</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+        echo "</table>";
+}
+
 ?>

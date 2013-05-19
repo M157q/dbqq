@@ -11,7 +11,7 @@
         CheckPermAndRedirect($_SESSION['perm'], 'stu');
     ?>
 
-    <form method="post" action="../controllers/StuSearchCourse.php">
+    <form method="post" action="../views/course_filter_result.php">
         <p>系所:</p>
         <p>
         <input type="checkbox" name="dep[]" value="1">資訊工程學系
@@ -68,21 +68,22 @@
             <th>日</th>        
         </tr>
         <?php
+            $k = 1;
             $hours = array("A","B","C","D","X","E","F","G","H","Y","I","J","K","L");
             
             foreach($hours as $i)
             {
-                $k = $i - 40;
                 echo "<tr>";
                 echo "<td>$i</td>";
                 echo "<td><input type=\"checkbox\" name=\"mon[]\" value=\"$k\"></td>";
-                echo "<td><input type=\"checkbox\" name=\"mon[]\" value=\"$k\"></td>";
-                echo "<td><input type=\"checkbox\" name=\"mon[]\" value=\"$k\"></td>";
-                echo "<td><input type=\"checkbox\" name=\"mon[]\" value=\"$k\"></td>";
-                echo "<td><input type=\"checkbox\" name=\"mon[]\" value=\"$k\"></td>";
-                echo "<td><input type=\"checkbox\" name=\"mon[]\" value=\"$k\"></td>";
-                echo "<td><input type=\"checkbox\" name=\"mon[]\" value=\"$k\"></td>";
+                echo "<td><input type=\"checkbox\" name=\"tue[]\" value=\"$k\"></td>";
+                echo "<td><input type=\"checkbox\" name=\"wed[]\" value=\"$k\"></td>";
+                echo "<td><input type=\"checkbox\" name=\"thu[]\" value=\"$k\"></td>";
+                echo "<td><input type=\"checkbox\" name=\"fri[]\" value=\"$k\"></td>";
+                echo "<td><input type=\"checkbox\" name=\"sat[]\" value=\"$k\"></td>";
+                echo "<td><input type=\"checkbox\" name=\"sun[]\" value=\"$k\"></td>";
                 echo "</tr>";
+                $k++;
             }
         ?>
         </table>
