@@ -56,6 +56,7 @@
     <hr>
 
     <h2>開始選課</h2>
+    <a href="../views/stu_search_course.php">課程過濾器傳送門</a>
     <form method="post" action="../controllers/CourseSelect.php">
         <?php
             GetCourseInfoTableWithCheckBox();
