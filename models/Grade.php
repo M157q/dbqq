@@ -19,21 +19,27 @@ function GradeListGen () {
 }
 
 //convert the result from DB to readable string
-//for example, 6 = 大一大二
+//for example, 000011 = 大一大二
 function GradeToString ($grade) {
     $result = "";
+    $one = substr($grade,0,1);
+    $two = substr($grade,1,1);
+    $three = substr($grade,2,1);
+    $four = substr($grade,3,1);
+    $five = substr($grade,4,1);
+    $six = substr($grade,5,1);
     
-    if($grade % 2 == 0)
+    if($one == "1")
         $result .= "大一";
-    if($grade % 3 == 0)
+    if($two == "1")
         $result .= "大二";
-    if($grade % 5 == 0)
+    if($three == "1")
         $result .= "大三";
-    if($grade % 7 == 0)
+    if($four == "1")
         $result .= "大四";
-    if($grade % 11 == 0)
+    if($five == "1")
         $result .= "研一";
-    if($grade % 13 == 0)
+    if($six == "1")
         $result .= "研二";
 
     return $result;
@@ -41,24 +47,25 @@ function GradeToString ($grade) {
 }
 
 //convert POST data user input to DB data
-//for example, array:{1,2,4} = 2*3*7 = 42
-function GradeToPrimeProduct ($grade) {
-    $result = 1;
+//for example, array:{1,2,4} = 001011
+function GradeToBinary ($grade) {
+    $result = "";
+    $reverse = "";
+    $index = 1;
 
-    foreach($grade as $i)
-    {
-        if($i == "1")
-            $result *= 2;
-        else if($i == "2")
-            $result *= 3;
-        else if($i == "3")
-            $result *= 5;
-        else if($i == "4")
-            $result *= 7;
-        else if($i == "5")
-            $result *= 11;
-        else if($i == "6")
-            $result *= 13;
+    foreach($grade as $i) {
+        while($index != $i) {
+            $reverse .= "0";
+            $index++;
+        }
+        $reverse .= "1";
+    }
+
+    $index = 5;
+    while($index >= 0) {
+        $temp = substr($reverse,$index,1);
+        $result .= $temp;
+        $index--;
     }
       
     return $result;
