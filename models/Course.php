@@ -33,6 +33,7 @@ function ClassHoursToStroing($hours) {
 function GetCourseInfoTable() {
     require_once('../models/Department.php');
     require_once('../models/User.php');
+    require_once('../models/Grade.php');
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');
 
@@ -41,8 +42,8 @@ function GetCourseInfoTable() {
 
     // get course data
     $query = 'SELECT c.ID, c.Year, c.Name, c.pro_id, c.student_upper_bound,
-              c.class_room, c.credit, c.department, g.Name, c.required, c.class_hours,
-              c.Additional_Info FROM Course c LEFT JOIN Grade g ON c.grade = g.ID';
+              c.class_room, c.credit, c.department, c.grade, c.required, c.class_hours,
+              c.Additional_Info FROM Course c';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
@@ -74,7 +75,7 @@ function GetCourseInfoTable() {
             echo "<td>$row[5]</td>";
             echo "<td>$row[6]</td>";
             echo "<td>" . $depart_list[$row[7]] . "</td>";
-            echo "<td>$row[8]</td>";
+            echo "<td>" . GradeToString($row[8]) . "</td>";
             echo "<td>" . RequireToStroing($row[9]) . "</td>";
             echo "<td>" . ClassHoursToStroing($row[10]) . "</td>";
             echo "<td>$row[11]</td>";
@@ -88,6 +89,7 @@ function GetCourseInfoTable() {
 
 function GetCourseInfoTableWithCheckBox() {
     require_once('../models/User.php');
+    require_once('../models/Grade.php');
     require_once('../models/Department.php');
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');
@@ -97,8 +99,8 @@ function GetCourseInfoTableWithCheckBox() {
 
     // get course data
     $query = 'SELECT c.ID, c.Year, c.Name, c.pro_id, c.student_upper_bound,
-              c.class_room, c.credit, c.department, g.Name, c.required, c.class_hours,
-              c.Additional_Info FROM Course c LEFT JOIN Grade g ON c.grade = g.ID';
+              c.class_room, c.credit, c.department, c.grade, c.required, c.class_hours,
+              c.Additional_Info FROM Course c';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
@@ -135,7 +137,7 @@ function GetCourseInfoTableWithCheckBox() {
         echo "<td>$row[5]</td>";
         echo "<td>$row[6]</td>";
         echo "<td>" . $depart_list[$row[7]] . "</td>";
-        echo "<td>$row[8]</td>";
+        echo "<td>" . GradeToString($row[8]) . "</td>";
         echo "<td>" . RequireToStroing($row[9]) . "</td>";
         echo "<td>" . ClassHoursToStroing($row[10]) . "</td>";
         echo "<td>$row[11]</td>";
@@ -147,6 +149,7 @@ function GetCourseInfoTableWithCheckBox() {
 
 
 function GetCourseInfoTableByIDs($IDs) {
+    require_once('../models/Grade.php');
     require_once('../components/Mysqli.php');
     require_once('../models/User.php');
     require_once('../models/Department.php');
@@ -158,9 +161,8 @@ function GetCourseInfoTableByIDs($IDs) {
     foreach ($IDs as $cid) {
     // get course data
         $query = 'SELECT c.ID, c.Year, c.Name, c.pro_id, c.student_upper_bound,
-              c.class_room, c.credit, c.department, g.Name, c.required, c.class_hours,
-              c.Additional_Info FROM Course c LEFT JOIN Grade g ON c.grade = g.ID 
-              WHERE c.ID = ?';
+              c.class_room, c.credit, c.department, c.grade, c.required, c.class_hours,
+              c.Additional_Info FROM Course c WHERE c.ID = ?';
         $stmt = mysqli_stmt_init($link);
         if (mysqli_stmt_prepare($stmt, $query))
         {
@@ -197,7 +199,7 @@ function GetCourseInfoTableByIDs($IDs) {
         echo "<td>$row[5]</td>";
         echo "<td>$row[6]</td>";
         echo "<td>" . $depart_list[$row[7]] . "</td>";
-        echo "<td>$row[8]</td>";
+        echo "<td>" . GradeToString($row[8]) . "</td>";
         echo "<td>" . RequireToStroing($row[9]) . "</td>";
         echo "<td>" . ClassHoursToStroing($row[10]) . "</td>";
         echo "<td>$row[11]</td>";
@@ -273,6 +275,7 @@ function ListStudentCourse($id) {
 }
 
 function ListProfessorCourse($pro_id) {
+    require_once('../models/Grade.php');
     require_once('../models/Department.php');
     require_once('../models/User.php');
     require_once('../components/Mysqli.php');
@@ -283,9 +286,8 @@ function ListProfessorCourse($pro_id) {
 
     // get course data
     $query = 'SELECT c.ID, c.Year, c.Name, c.student_upper_bound,
-              c.class_room, c.credit, c.department, g.Name, c.required, c.class_hours,
-              c.Additional_Info FROM Course c LEFT JOIN Grade g ON c.grade = g.ID 
-              WHERE c.pro_id = ?';
+              c.class_room, c.credit, c.department, c.grade, c.required, c.class_hours,
+              c.Additional_Info FROM Course c WHERE c.pro_id = ?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
@@ -313,7 +315,7 @@ function ListProfessorCourse($pro_id) {
             echo "<td>$row[4]</td>";
             echo "<td>$row[5]</td>";
             echo "<td>" . $depart_list[$row[6]] . "</td>";
-            echo "<td>$row[7]</td>";
+            echo "<td>" . GradeToString($row[7]) . "</td>";
             echo "<td>" . RequireToStroing($row[8]) . "</td>";
             echo "<td>" . ClassHoursToStroing($row[9]) . "</td>";
             echo "<td>$row[10]</td>";
@@ -561,68 +563,89 @@ function CourseFilter($dep, $grade, $mode, $class_hours, $name)
     require_once('../components/Mysqli.php');
     require_once('../models/Department.php');
     require_once('../models/User.php');
+    require_once('../models/Grade.php');
 
     $gradestring = "";
+    $dup_list = array();
     $course_list = array();
     $depart_list = GetDepartmentList();
-
-    foreach($grade as $i)
-        $gradestring .= $i;
 
     if($mode == 1)
     {
         $day = "1";
+        
+        $link = MysqliConnection('Read');
+        $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course WHERE Name LIKE ? AND department=? AND grade LIKE ? AND class_hours LIKE ?';
         foreach($class_hours as $i)
         {
             if(!empty($i))
             {
-                $link = MysqliConnection('Read');
-                $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course WHERE Name LIKE ? AND department=? AND grade=? AND class_hours LIKE ?';
                 foreach($i as $j)
                 {
                     $hourstring = Mode1FormattedString($day,$j);
                     
                     foreach($dep as $k)
                     {
-                        $stmt = mysqli_stmt_init($link);
-                        if(mysqli_stmt_prepare($stmt, $query))
+                        foreach($grade as $l)
                         {
-                            mysqli_stmt_bind_param($stmt, "ssss", $name, $k, $gradestring, $hourstring);
-                            mysqli_stmt_execute($stmt);
-                            mysqli_stmt_bind_result($stmt, $id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info);
-                            while(mysqli_stmt_fetch($stmt)) {
-                                array_push($course_list, array($id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info));
+                            $gradestring = GradeToFormattedString($l);
+                            
+                            $stmt = mysqli_stmt_init($link);
+                            if(mysqli_stmt_prepare($stmt, $query))
+                            {
+                                mysqli_stmt_bind_param($stmt, "ssss", $name, $k, $gradestring, $hourstring);
+                                mysqli_stmt_execute($stmt);
+                                mysqli_stmt_bind_result($stmt, $id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info);
+                                while(mysqli_stmt_fetch($stmt)) {
+                                    array_push($dup_list, array($id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info));
+                                }
+                                mysqli_stmt_close($stmt);
                             }
-                            mysqli_stmt_close($stmt);
                         }
                     }
                 }
-                mysqli_close($link);
             }
             $day++;
         }
+        mysqli_close($link);
     }
     else if($mode == 2)
     {
         $hourstring = Mode2FormattedString($class_hours);
 
+        $link = MysqliConnection('Read');
+        $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course WHERE Name LIKE ? AND department=? AND grade LIKE ? AND class_hours=?';
         foreach($dep as $k)
-        {   
-            $link = MysqliConnection('Read');
-            $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course WHERE Name LIKE ? AND department=? AND grade=? AND class_hours=?';
-            $stmt = mysqli_stmt_init($link);
-            if(mysqli_stmt_prepare($stmt, $query))
-            {
-                mysqli_stmt_bind_param($stmt, "ssss", $name, $k, $gradestring, $hourstring);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_bind_result($stmt, $id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info);
-                while(mysqli_stmt_fetch($stmt)) {
-                    array_push($course_list, array($id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info));
+        {
+            foreach($grade as $l)
+            {   
+                $gradestring = GradeToFormattedString($l);
+                
+                $stmt = mysqli_stmt_init($link);
+                if(mysqli_stmt_prepare($stmt, $query))
+                {
+                    mysqli_stmt_bind_param($stmt, "ssss", $name, $k, $gradestring, $hourstring);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_bind_result($stmt, $id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info);
+                    while(mysqli_stmt_fetch($stmt)) {
+                        array_push($dup_list, array($id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info));
+                    }
+                    mysqli_stmt_close($stmt);
                 }
-                mysqli_stmt_close($stmt);
             }
-            mysqli_close($link);
         }
+        mysqli_close($link);
+    }
+
+    foreach($dup_list as $i)
+    {   
+        $dup = "0";
+        foreach($course_list as $j)
+            if($i[0] == $j[0])
+                $dup = "1";
+
+        if($dup == "0")
+            array_push($course_list, $i);
     }
 
     array_multisort($course_list);
@@ -643,7 +666,7 @@ function CourseFilter($dep, $grade, $mode, $class_hours, $name)
             echo "<td>$row[5]</td>";
             echo "<td>$row[6]</td>";
             echo "<td>" . $depart_list[$row[7]] . "</td>";
-            echo "<td>$row[8]</td>";
+            echo "<td>" . GradeToString($row[8])  . "</td>";
             echo "<td>" . RequireToStroing($row[9]) . "</td>";
             echo "<td>" . ClassHoursToStroing($row[10]) . "</td>";
             echo "<td>$row[11]</td>";

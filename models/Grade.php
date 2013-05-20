@@ -18,16 +18,36 @@ function GradeListGen () {
     mysqli_close($link);
 }
 
+function GradeListGenWithCheckBox () {
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+
+    // get IDs and names from department
+    $query = 'SELECT ID, Name FROM Grade';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $grade_id, $grade_name);
+        while(mysqli_stmt_fetch($stmt)) {
+            echo '<input type="checkbox" name="grade[]" value="'.$grade_id.'"> '.$grade_name.'';
+        }
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+}
+
 //convert the result from DB to readable string
 //for example, 000011 = 大一大二
 function GradeToString ($grade) {
+
     $result = "";
-    $one = substr($grade,0,1);
-    $two = substr($grade,1,1);
-    $three = substr($grade,2,1);
-    $four = substr($grade,3,1);
-    $five = substr($grade,4,1);
-    $six = substr($grade,5,1);
+    $one = substr($grade,5,1);
+    $two = substr($grade,4,1);
+    $three = substr($grade,3,1);
+    $four = substr($grade,2,1);
+    $five = substr($grade,1,1);
+    $six = substr($grade,0,1);
     
     if($one == "1")
         $result .= "大一";
@@ -43,7 +63,6 @@ function GradeToString ($grade) {
         $result .= "研二";
 
     return $result;
-
 }
 
 //convert POST data user input to DB data
@@ -51,7 +70,7 @@ function GradeToString ($grade) {
 function GradeToBinary ($grade) {
     $result = "";
     $reverse = "";
-    $index = 1;
+    $index = "1";
 
     foreach($grade as $i) {
         while($index != $i) {
@@ -59,16 +78,59 @@ function GradeToBinary ($grade) {
             $index++;
         }
         $reverse .= "1";
+        $index++;
     }
 
-    $index = 5;
-    while($index >= 0) {
+    while($index <= "6") {
+        $reverse .= "0";
+        $index++;
+    }
+
+    $index = "5";
+    while($index >= "0") {
         $temp = substr($reverse,$index,1);
         $result .= $temp;
         $index--;
     }
       
     return $result;
+}
+
+//single grade only
+function GradeToFormattedString ($grade) {
+    $result = "";
+    $reverse = "";
+    $index = "1";
+
+        while($index != $grade) {
+            $reverse .= "_";
+            $index++;
+        }
+        $reverse .= "1";
+        $index++;
+
+    while($index <= "6") {
+        $reverse .= "_";
+        $index++;
+    }
+
+    $index = "5";
+    while($index >= "0") {
+        $temp = substr($reverse,$index,1);
+        $result .= $temp;
+        $index--;
+    }
+    return $result;
+}
+
+//check  whether a grade exist in a DB data
+function CheckGradeIfExist($gradebin, $grade) {
+
+    $index = 6 - $grade;
+    if(substr($gradebin,$index,1) == "1")
+        return 1;
+    else
+        return 0;
 }
 
 ?>

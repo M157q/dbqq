@@ -104,9 +104,7 @@
     </select>
     <br /><br />
     <label>開課年級:</label>
-    <select name="grade" required />
-        <?php GradeListGen(); ?>
-    </select>
+    <?php GradeListGenWithCheckBox(); ?>
     <br /><br />
     <label>備註:</label>
     <textarea name="additional_info" cols=56 rows=4></textarea>

@@ -499,6 +499,6 @@ function proGetCourseInfo ($pro_id, $course_id, $course_year) {
         mysqli_stmt_close($stmt);
     }
     mysqli_close($link);
-    return array($name, $sub, $classroom, $credit, $grade, $req, $class_hours, $add_info);
+    return array($name, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info);
 }
 ?>

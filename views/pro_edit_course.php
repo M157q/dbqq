@@ -1,12 +1,13 @@
 <?php
     session_start();
+    require_once('../models/Grade.php');
     require_once('../models/Department.php');
     require_once('../models/User.php');
     require_once('../controllers/Session.php');
     if (isBanned($_SESSION['id'])) RedirectByPerm($_SESSION['perm']);
     if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
 
-    list($name, $sub, $classroom, $credit, $grade, $req, $class_hours, $add_info) =
+    list($name, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info) =
         proGetCourseInfo($_SESSION['id'], $_POST['id'], $_POST['year']);
 
 
@@ -21,12 +22,30 @@
     $req0 = $req=="0" ? "SELECTED" : "";
     $req1 = $req=="1" ? "SELECTED" : "";
 
-    $grade1 = $grade=="1" ? "SELECTED" : "";
-    $grade2 = $grade=="2" ? "SELECTED" : "";
-    $grade3 = $grade=="3" ? "SELECTED" : "";
-    $grade4 = $grade=="4" ? "SELECTED" : "";
-    $grade4 = $grade=="5" ? "SELECTED" : "";
-    $grade4 = $grade=="6" ? "SELECTED" : "";
+    $dep1 = $dep=="1" ? "SELECTED" : "";
+    $dep2 = $dep=="2" ? "SELECTED" : "";
+    $dep3 = $dep=="3" ? "SELECTED" : "";
+    $dep4 = $dep=="4" ? "SELECTED" : "";
+    $dep5 = $dep=="5" ? "SELECTED" : "";
+    $dep6 = $dep=="6" ? "SELECTED" : "";
+    $dep7 = $dep=="7" ? "SELECTED" : "";
+    $dep8 = $dep=="8" ? "SELECTED" : "";
+    $dep9 = $dep=="9" ? "SELECTED" : "";
+    $dep10 = $dep=="10" ? "SELECTED" : "";
+    $dep11 = $dep=="11" ? "SELECTED" : "";
+    $dep12 = $dep=="12" ? "SELECTED" : "";
+    $dep13 = $dep=="13" ? "SELECTED" : "";
+    $dep14 = $dep=="14" ? "SELECTED" : "";
+    $dep15 = $dep=="15" ? "SELECTED" : "";
+    $dep16 = $dep=="16" ? "SELECTED" : "";
+    $dep17 = $dep=="17" ? "SELECTED" : "";
+
+    $grade1 = CheckGradeIfExist($grade,"1") ? "CHECKED" : "";
+    $grade2 = CheckGradeIfExist($grade,"2") ? "CHECKED" : "";
+    $grade3 = CheckGradeIfExist($grade,"3") ? "CHECKED" : "";
+    $grade4 = CheckGradeIfExist($grade,"4") ? "CHECKED" : "";
+    $grade5 = CheckGradeIfExist($grade,"5") ? "CHECKED" : "";
+    $grade6 = CheckGradeIfExist($grade,"6") ? "CHECKED" : "";
 
     $day1 = substr($class_hours, 0, 15);
     $day2 = substr($class_hours, 15, 15);
@@ -172,19 +191,33 @@
         <p>
         <label>系所:</label>
         <select name="department" required />
-            <?php DepartListGen(); ?>
+            <option <?php echo $dep1;?> value="1"> 資訊工程學系 </option>
+            <option <?php echo $dep2;?> value="2"> 電資學士班 </option>
+            <option <?php echo $dep3;?> value="3"> 人文社會學系 </option>
+            <option <?php echo $dep4;?> value="4"> 管理科學學系 </option>
+            <option <?php echo $dep5;?> value="5"> 電子工程學系 </option>
+            <option <?php echo $dep6;?> value="6"> 電機工程學系 </option>
+            <option <?php echo $dep7;?> value="7"> 機械工程學系 </option>
+            <option <?php echo $dep8;?> value="8"> 土木工程學系 </option>
+            <option <?php echo $dep9;?> value="9"> 材料科學與工程學系 </option>
+            <option <?php echo $dep10;?> value="10"> 奈米科學及工程學士學位學程 </option>
+            <option <?php echo $dep11;?> value="11"> 電子物理學系 </option>
+            <option <?php echo $dep12;?> value="12"> 財金管理學系 </option>
+            <option <?php echo $dep13;?> value="13"> 應用數學系 </option>
+            <option <?php echo $dep14;?> value="14"> 外國語文學系 </option>
+            <option <?php echo $dep15;?> value="15"> 生物科技學系 </option>
+            <option <?php echo $dep16;?> value="16"> 電信工程學系 </option>
+            <option <?php echo $dep17;?> value="17"> 光電工程學系 </option>
         </select>
         </p>
         <p>
         <label>開課年級:</label>
-        <select name="grade" required />
-            <option <?php echo $grade1;?> value="1"> 大學部一年級 </option>
-            <option <?php echo $grade2;?> value="2"> 大學部二年級 </option>
-            <option <?php echo $grade3;?> value="3"> 大學部三年級 </option>
-            <option <?php echo $grade4;?> value="4"> 大學部四年級 </option>
-            <option <?php echo $grade4;?> value="5"> 研究所一年級 </option>
-            <option <?php echo $grade4;?> value="6"> 研究所二年級 </option>
-        </select>
+        <input type="checkbox" name="grade[]" value="1" <?php echo $grade1;?>> 大一
+        <input type="checkbox" name="grade[]" value="2" <?php echo $grade2;?>> 大二
+        <input type="checkbox" name="grade[]" value="3" <?php echo $grade3;?>> 大三
+        <input type="checkbox" name="grade[]" value="4" <?php echo $grade4;?>> 大四
+        <input type="checkbox" name="grade[]" value="5" <?php echo $grade5;?>> 研一
+        <input type="checkbox" name="grade[]" value="6" <?php echo $grade6;?>> 研二
         </p>
         <p>
         <label>備註:</label>
