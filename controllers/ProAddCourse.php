@@ -1,6 +1,7 @@
 <?php
     session_start();
     require_once('../models/Grade.php');
+    require_once('../models/User.php');
     require_once('../models/Course.php');
     require_once('../components/Mysqli.php');
     require_once('../controllers/Session.php');
@@ -16,8 +17,8 @@
     
     if($_POST['student_upper_bound'] < 1)
         $errmsg = '人數上限必須大於零';
-    elseif(!isset($_POST['grade']))
-        $errmsg = '開課年級未填';
+    //elseif(!isset($_POST['grade']))
+    //    $errmsg = '開課年級未填';
     elseif($_POST['credit'] < 0)
         $errmsg = '學分數不能為負值';
     elseif($_POST['day1'] == $_POST['day2'])
@@ -53,7 +54,8 @@
             $credit = $_POST['credit'];
             $year = $_POST['year'];
             $department = $_POST['department'];
-            $grade = GradeToBinary($_POST['grade']);
+            if (isset($_POST['grade'])) $grade = GradeToBinary($_POST['grade']);
+            else $grade = '111111';
             $additional_info = $_POST['additional_info'];
 
             // insert the data to the database
