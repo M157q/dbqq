@@ -57,14 +57,15 @@
 	    <form method="post" action="../views/pro_view_student.php">
 	    <?php ListProfessorCourse($_SESSION['id'])?>
             <br><button class="btn btn-info" type="submit">學生列表</button>
-            </form>
+        </form>
         <div class="form-actions">
 	    <h3>編輯課程</h3>
         <form method="post" action="../views/pro_edit_course.php">
-	    <label>課號:</label>
-	    <input type="text" id="id" name="id" placeholder="4699" required />
-	    <label>年度:</label>
-	    <input type="number" id="year" name="year" placeholder="21XX" required /><br />
+            <label>課號:</label>
+            <input type="text" name="id" placeholder="4699" required />
+            <label>年度:</label>
+            <input type="number" name="year" placeholder="21XX" required />
+            <br /><br />
             <button class="btn btn-success" type="submit">編輯此課程</button>
 	    </form>
         </div>

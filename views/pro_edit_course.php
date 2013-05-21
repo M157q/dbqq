@@ -7,14 +7,17 @@
     if (isBanned($_SESSION['id'])) RedirectByPerm($_SESSION['perm']);
     if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
 
-    list($name, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info) =
-        proGetCourseInfo($_SESSION['id'], $_POST['id'], $_POST['year']);
+    #var_dump($_POST);
+    $id   = $_POST['id'];
+    $year = $_POST['year'];
+
+    list($name, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info) = proGetCourseInfo($_SESSION['id'], $id, $year);
 
 
     // if no such course, then go back
     if(!isset($name)) {
-    $_SESSION['errmsg'] = '你沒有教授此課程';
-        header("Location: ../views/pro.php");
+        $_SESSION['errmsg'] = '你沒有教授此課程';
+        RedirectByPerm($_SESSION['perm']);
     }
 
 
@@ -224,8 +227,8 @@
         <br>
         <textarea name="additional_info" cols=56 rows=4><?php echo $add_info;?></textarea>
         </p>
-        <input type="hidden" id="id" name="id" value="<?php echo $_POST['id'];?>">
-        <input type="hidden" id="year" name="year" value="<?php echo $_POST['year'];?>">
+        <input type="hidden" name="id" value="<?php echo $id;?>">
+        <input type="hidden" name="year" value="<?php echo $year;?>">
         <button class="btn btn-primary" type="submit">修改</button>
     </form>
     </div>
