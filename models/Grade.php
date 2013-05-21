@@ -1,4 +1,23 @@
 <?php
+function showGrade ($grade_id) {
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+    $grade_name = '';
+
+    $query = 'SELECT Name FROM Grade WHERE ID=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+    	mysqli_stmt_bind_param($stmt, "s", $grade_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $grade_name);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+    return $grade_name;
+}
+
 function GradeListGen () {
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');

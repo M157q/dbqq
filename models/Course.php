@@ -348,7 +348,6 @@ function ProViewCourseStudent($id_year)
         }
         mysqli_stmt_close($stmt);
     }
-
     mysqli_close($link);
 
     $link = MysqliConnection('Read');
@@ -366,47 +365,47 @@ function ProViewCourseStudent($id_year)
             mysqli_stmt_close($stmt);
         }
     }
-
     mysqli_close($link);
 
+    require_once('../models/Grade.php');
     array_multisort($stu_list);
-       echo "<table border=5 class=\"table table-striped table-bordered\">";
-       echo "<caption>學生列表</caption>";
-       echo "<tr>";
-       echo "<th>學號</th><th>姓名</th><th>系所</th><th>年級</th>";
-       echo "</tr>";
-       foreach($stu_list as $row) {
-           echo "<tr>";
-           echo "<td>$row[0]</td>";
-           echo "<td>$row[1]</td>";
-           echo "<td>" . $depart_list[$row[2]] . "</td>";
-           echo "<td>$row[3]</td>";
-           echo "</tr>";
-       }
-       echo "</table>";
+    echo "<table border=5 class=\"table table-striped table-bordered\">";
+    echo "<caption>學生列表</caption>";
+    echo "<tr>";
+    echo "<th>學號</th><th>姓名</th><th>系所</th><th>年級</th>";
+    echo "</tr>";
+    foreach($stu_list as $row) {
+        echo "<tr>";
+        echo "<td>$row[0]</td>";
+        echo "<td>$row[1]</td>";
+        echo "<td>" . $depart_list[$row[2]] . "</td>";
+        echo "<td>" . showGrade($row[3]) . "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
 }
 
 function CheckProIfCollision($pro_id, $class_hours) {
+    $result = false;
+
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');
-
     $query = 'SELECT class_hours FROM Course WHERE pro_id=?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query)) {
     	mysqli_stmt_bind_param($stmt, "s", $pro_id);
-	mysqli_stmt_execute($stmt);
-	mysqli_stmt_bind_result($stmt, $chrs);
-	while(mysqli_stmt_fetch($stmt)) {
-	    if(CheckCourseConfliction($class_hours, $chrs)) {
-		mysqli_stmt_close($stmt);
-		mysqli_close($link);
-		return true;
-	    }
-	}
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $chrs);
+        while(mysqli_stmt_fetch($stmt)) {
+            if(CheckCourseConfliction($class_hours, $chrs)) {
+                $result = true;
+                break;
+            }
+        }
         mysqli_stmt_close($stmt);
     }
     mysqli_close($link);
-    return false;
+    return $result;
 }
 
 
