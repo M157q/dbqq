@@ -9,26 +9,22 @@
     if (isBanned($_SESSION['id'])) RedirectByPerm($_SESSION['perm']);
     CheckPermAndRedirect($_SESSION['perm'], 'pro');
 
-    // redirect to the home page by default
-    $redirect_url = '../views/pro_edit_course.php';
-
-    // user input error detection and error message return
-    $errmsg = '';
-    var_dump($_POST);
+    $redirct_url = '../views/pro_edit_course.php';
 
     if($_POST['student_upper_bound'] < 1)
-        $errmsg = '人數上限必須大於零';
+        $_SESSION['errmsg'] = '人數上限必須大於零';
     elseif(!isset($_POST['grade']))
-        $errmsg = '開課年級未填';
+        $_SESSION['errmsg'] = '開課年級未填';
     elseif($_POST['credit'] < 0)
-        $errmsg = '學分數不能為負值';
+        $_SESSION['errmsg'] = '學分數不能為負值';
     elseif($_POST['day1'] == $_POST['day2'])
-        $errmsg = '時段一與時段二不能在同一天';
+        $_SESSION['errmsg'] = '時段一與時段二不能在同一天';
     elseif(!isset($_POST['d1']))
-        $errmsg = '時段一之時間未填';
+        $_SESSION['errmsg'] = '時段一之時間未填';
     elseif($_POST['day2'] != "0" && !isset($_POST['d2']))
-        $errmsg = '時段二之時間未填';
-    else {
+        $_SESSION['errmsg'] = '時段二之時間未填';
+    else 
+    {
         // push class hour data into a string
         $class_hours = $_POST['day1'];
         $d1 = $_POST['d1'];
@@ -49,7 +45,7 @@
             $class_hours .= $daystr;
         }
         if(false)//CheckProIfCollision($_SESSION['id'], $class_hours)
-            $errmsg = '此課程時段與其他課程衝堂';
+            $_SESSION['errmsg'] = '此課程時段與其他課程衝堂';
         else {
             $id = $_POST['id'];
             $name = $_POST['name'];
@@ -74,12 +70,10 @@
                 mysqli_stmt_close($stmt);
             }
             mysqli_close($link);
-            // if adding course is ok, then goto the professor page
-            $redirect_url = '../views/pro.php';
+            $_SESSION['errmsg'] = '您已成功修改課程資訊';
+            $redirct_url = '../views/pro.php';
         }
     }
-
-    $_SESSION['errmsg'] = $errmsg;
-    header("Location: $redirect_url");
+    header("Location: $redirct_url");
 ?>
 

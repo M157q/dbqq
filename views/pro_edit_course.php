@@ -7,99 +7,96 @@
     if (isBanned($_SESSION['id'])) RedirectByPerm($_SESSION['perm']);
     if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
 
-    #var_dump($_POST);
-    $id   = $_POST['id'];
-    $year = $_POST['year'];
+    if (isset($_POST['id']))   $_SESSION['course_id'] = $_POST['id'];
+    if (isset($_POST['year'])) $_SESSION['course_year'] = $_POST['year'];
 
-    list($name, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info) = proGetCourseInfo($_SESSION['id'], $id, $year);
-
+    list($name, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info) = proGetCourseInfo($_SESSION['id'], $_SESSION['course_id'], $_SESSION['course_year']);
 
     // if no such course, then go back
     if(!isset($name)) {
-        $_SESSION['errmsg'] = '你沒有教授此課程';
+        $_SESSION['errmsg'] = '您沒有教授該課程';
         RedirectByPerm($_SESSION['perm']);
     }
+    else {
+        //recover the data pro input into form
+        $req0 = $req=="0" ? "SELECTED" : "";
+        $req1 = $req=="1" ? "SELECTED" : "";
 
+        $dep1 = $dep=="1" ? "SELECTED" : "";
+        $dep2 = $dep=="2" ? "SELECTED" : "";
+        $dep3 = $dep=="3" ? "SELECTED" : "";
+        $dep4 = $dep=="4" ? "SELECTED" : "";
+        $dep5 = $dep=="5" ? "SELECTED" : "";
+        $dep6 = $dep=="6" ? "SELECTED" : "";
+        $dep7 = $dep=="7" ? "SELECTED" : "";
+        $dep8 = $dep=="8" ? "SELECTED" : "";
+        $dep9 = $dep=="9" ? "SELECTED" : "";
+        $dep10 = $dep=="10" ? "SELECTED" : "";
+        $dep11 = $dep=="11" ? "SELECTED" : "";
+        $dep12 = $dep=="12" ? "SELECTED" : "";
+        $dep13 = $dep=="13" ? "SELECTED" : "";
+        $dep14 = $dep=="14" ? "SELECTED" : "";
+        $dep15 = $dep=="15" ? "SELECTED" : "";
+        $dep16 = $dep=="16" ? "SELECTED" : "";
+        $dep17 = $dep=="17" ? "SELECTED" : "";
 
-    //recover the data pro input into form
-    $req0 = $req=="0" ? "SELECTED" : "";
-    $req1 = $req=="1" ? "SELECTED" : "";
+        $grade1 = CheckGradeIfExist($grade,"1") ? "CHECKED" : "";
+        $grade2 = CheckGradeIfExist($grade,"2") ? "CHECKED" : "";
+        $grade3 = CheckGradeIfExist($grade,"3") ? "CHECKED" : "";
+        $grade4 = CheckGradeIfExist($grade,"4") ? "CHECKED" : "";
+        $grade5 = CheckGradeIfExist($grade,"5") ? "CHECKED" : "";
+        $grade6 = CheckGradeIfExist($grade,"6") ? "CHECKED" : "";
 
-    $dep1 = $dep=="1" ? "SELECTED" : "";
-    $dep2 = $dep=="2" ? "SELECTED" : "";
-    $dep3 = $dep=="3" ? "SELECTED" : "";
-    $dep4 = $dep=="4" ? "SELECTED" : "";
-    $dep5 = $dep=="5" ? "SELECTED" : "";
-    $dep6 = $dep=="6" ? "SELECTED" : "";
-    $dep7 = $dep=="7" ? "SELECTED" : "";
-    $dep8 = $dep=="8" ? "SELECTED" : "";
-    $dep9 = $dep=="9" ? "SELECTED" : "";
-    $dep10 = $dep=="10" ? "SELECTED" : "";
-    $dep11 = $dep=="11" ? "SELECTED" : "";
-    $dep12 = $dep=="12" ? "SELECTED" : "";
-    $dep13 = $dep=="13" ? "SELECTED" : "";
-    $dep14 = $dep=="14" ? "SELECTED" : "";
-    $dep15 = $dep=="15" ? "SELECTED" : "";
-    $dep16 = $dep=="16" ? "SELECTED" : "";
-    $dep17 = $dep=="17" ? "SELECTED" : "";
+        $day1 = substr($class_hours, 0, 15);
+        $day2 = substr($class_hours, 15, 15);
 
-    $grade1 = CheckGradeIfExist($grade,"1") ? "CHECKED" : "";
-    $grade2 = CheckGradeIfExist($grade,"2") ? "CHECKED" : "";
-    $grade3 = CheckGradeIfExist($grade,"3") ? "CHECKED" : "";
-    $grade4 = CheckGradeIfExist($grade,"4") ? "CHECKED" : "";
-    $grade5 = CheckGradeIfExist($grade,"5") ? "CHECKED" : "";
-    $grade6 = CheckGradeIfExist($grade,"6") ? "CHECKED" : "";
+        $mon1 = substr($day1, 0, 1)=="1" ? "SELECTED" : "";
+        $tue1 = substr($day1, 0, 1)=="2" ? "SELECTED" : "";
+        $wed1 = substr($day1, 0, 1)=="3" ? "SELECTED" : "";
+        $thu1 = substr($day1, 0, 1)=="4" ? "SELECTED" : "";
+        $fri1 = substr($day1, 0, 1)=="5" ? "SELECTED" : "";
+        $sat1 = substr($day1, 0, 1)=="6" ? "SELECTED" : "";
+        $sun1 = substr($day1, 0, 1)=="7" ? "SELECTED" : "";
 
-    $day1 = substr($class_hours, 0, 15);
-    $day2 = substr($class_hours, 15, 15);
+        $A1 = substr($day1, 1, 1)=="Y" ? "CHECKED" : "";
+        $B1 = substr($day1, 2, 1)=="Y" ? "CHECKED" : "";
+        $C1 = substr($day1, 3, 1)=="Y" ? "CHECKED" : "";
+        $D1 = substr($day1, 4, 1)=="Y" ? "CHECKED" : "";
+        $X1 = substr($day1, 5, 1)=="Y" ? "CHECKED" : "";
+        $E1 = substr($day1, 6, 1)=="Y" ? "CHECKED" : "";
+        $F1 = substr($day1, 7, 1)=="Y" ? "CHECKED" : "";
+        $G1 = substr($day1, 8, 1)=="Y" ? "CHECKED" : "";
+        $H1 = substr($day1, 9, 1)=="Y" ? "CHECKED" : "";
+        $Y1 = substr($day1, 10, 1)=="Y" ? "CHECKED" : "";
+        $I1 = substr($day1, 11, 1)=="Y" ? "CHECKED" : "";
+        $J1 = substr($day1, 12, 1)=="Y" ? "CHECKED" : "";
+        $K1 = substr($day1, 13, 1)=="Y" ? "CHECKED" : "";
+        $L1 = substr($day1, 14, 1)=="Y" ? "CHECKED" : "";
 
-    $mon1 = substr($day1, 0, 1)=="1" ? "SELECTED" : "";
-    $tue1 = substr($day1, 0, 1)=="2" ? "SELECTED" : "";
-    $wed1 = substr($day1, 0, 1)=="3" ? "SELECTED" : "";
-    $thu1 = substr($day1, 0, 1)=="4" ? "SELECTED" : "";
-    $fri1 = substr($day1, 0, 1)=="5" ? "SELECTED" : "";
-    $sat1 = substr($day1, 0, 1)=="6" ? "SELECTED" : "";
-    $sun1 = substr($day1, 0, 1)=="7" ? "SELECTED" : "";
+        if(isset($day2)) {
+            $mon2 = substr($day2, 0, 1)=="1" ? "SELECTED" : "";
+            $tue2 = substr($day2, 0, 1)=="2" ? "SELECTED" : "";
+            $wed2 = substr($day2, 0, 1)=="3" ? "SELECTED" : "";
+            $thu2 = substr($day2, 0, 1)=="4" ? "SELECTED" : "";
+            $fri2 = substr($day2, 0, 1)=="5" ? "SELECTED" : "";
+            $sat2 = substr($day2, 0, 1)=="6" ? "SELECTED" : "";
+            $sun2 = substr($day2, 0, 1)=="7" ? "SELECTED" : "";
 
-    $A1 = substr($day1, 1, 1)=="Y" ? "CHECKED" : "";
-    $B1 = substr($day1, 2, 1)=="Y" ? "CHECKED" : "";
-    $C1 = substr($day1, 3, 1)=="Y" ? "CHECKED" : "";
-    $D1 = substr($day1, 4, 1)=="Y" ? "CHECKED" : "";
-    $X1 = substr($day1, 5, 1)=="Y" ? "CHECKED" : "";
-    $E1 = substr($day1, 6, 1)=="Y" ? "CHECKED" : "";
-    $F1 = substr($day1, 7, 1)=="Y" ? "CHECKED" : "";
-    $G1 = substr($day1, 8, 1)=="Y" ? "CHECKED" : "";
-    $H1 = substr($day1, 9, 1)=="Y" ? "CHECKED" : "";
-    $Y1 = substr($day1, 10, 1)=="Y" ? "CHECKED" : "";
-    $I1 = substr($day1, 11, 1)=="Y" ? "CHECKED" : "";
-    $J1 = substr($day1, 12, 1)=="Y" ? "CHECKED" : "";
-    $K1 = substr($day1, 13, 1)=="Y" ? "CHECKED" : "";
-    $L1 = substr($day1, 14, 1)=="Y" ? "CHECKED" : "";
-
-    if(isset($day2)) {
-        $mon2 = substr($day2, 0, 1)=="1" ? "SELECTED" : "";
-        $tue2 = substr($day2, 0, 1)=="2" ? "SELECTED" : "";
-        $wed2 = substr($day2, 0, 1)=="3" ? "SELECTED" : "";
-        $thu2 = substr($day2, 0, 1)=="4" ? "SELECTED" : "";
-        $fri2 = substr($day2, 0, 1)=="5" ? "SELECTED" : "";
-        $sat2 = substr($day2, 0, 1)=="6" ? "SELECTED" : "";
-        $sun2 = substr($day2, 0, 1)=="7" ? "SELECTED" : "";
-
-        $A2 = substr($day2, 1, 1)=="Y" ? "CHECKED" : "";
-        $B2 = substr($day2, 2, 1)=="Y" ? "CHECKED" : "";
-        $C2 = substr($day2, 3, 1)=="Y" ? "CHECKED" : "";
-        $D2 = substr($day2, 4, 1)=="Y" ? "CHECKED" : "";
-        $X2 = substr($day2, 5, 1)=="Y" ? "CHECKED" : "";
-        $E2 = substr($day2, 6, 1)=="Y" ? "CHECKED" : "";
-        $F2 = substr($day2, 7, 1)=="Y" ? "CHECKED" : "";
-        $G2 = substr($day2, 8, 1)=="Y" ? "CHECKED" : "";
-        $H2 = substr($day2, 9, 1)=="Y" ? "CHECKED" : "";
-        $Y2 = substr($day2, 10, 1)=="Y" ? "CHECKED" : "";
-        $I2 = substr($day2, 11, 1)=="Y" ? "CHECKED" : "";
-        $J2 = substr($day2, 12, 1)=="Y" ? "CHECKED" : "";
-        $K2 = substr($day2, 13, 1)=="Y" ? "CHECKED" : "";
-        $L2 = substr($day2, 14, 1)=="Y" ? "CHECKED" : "";
-    }
+            $A2 = substr($day2, 1, 1)=="Y" ? "CHECKED" : "";
+            $B2 = substr($day2, 2, 1)=="Y" ? "CHECKED" : "";
+            $C2 = substr($day2, 3, 1)=="Y" ? "CHECKED" : "";
+            $D2 = substr($day2, 4, 1)=="Y" ? "CHECKED" : "";
+            $X2 = substr($day2, 5, 1)=="Y" ? "CHECKED" : "";
+            $E2 = substr($day2, 6, 1)=="Y" ? "CHECKED" : "";
+            $F2 = substr($day2, 7, 1)=="Y" ? "CHECKED" : "";
+            $G2 = substr($day2, 8, 1)=="Y" ? "CHECKED" : "";
+            $H2 = substr($day2, 9, 1)=="Y" ? "CHECKED" : "";
+            $Y2 = substr($day2, 10, 1)=="Y" ? "CHECKED" : "";
+            $I2 = substr($day2, 11, 1)=="Y" ? "CHECKED" : "";
+            $J2 = substr($day2, 12, 1)=="Y" ? "CHECKED" : "";
+            $K2 = substr($day2, 13, 1)=="Y" ? "CHECKED" : "";
+            $L2 = substr($day2, 14, 1)=="Y" ? "CHECKED" : "";
+        }
 ?>
 
 <!DOCTYPE html>
@@ -113,8 +110,8 @@
 <body>
     <div class="container">
     <h1>修改課程</h1>
-    <?php showWarning(); ?>
     <div class="form-actions">
+    <?php showWarning(); ?>
     <form method="POST" action="../controllers/ProEditCourse.php">
         <p>
         <label>課程名稱:</label>
@@ -227,8 +224,8 @@
         <br>
         <textarea name="additional_info" cols=56 rows=4><?php echo $add_info;?></textarea>
         </p>
-        <input type="hidden" name="id" value="<?php echo $id;?>">
-        <input type="hidden" name="year" value="<?php echo $year;?>">
+        <input type="hidden" name="id" value="<?php echo $_SESSION['course_id'];?>">
+        <input type="hidden" name="year" value="<?php echo $_SESSION['course_year'];?>">
         <button class="btn btn-primary" type="submit">修改</button>
     </form>
     </div>
@@ -237,3 +234,4 @@
     </div>
 </body>
 </html>
+<?php } ?>
