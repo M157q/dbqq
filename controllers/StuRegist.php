@@ -35,15 +35,14 @@
         if (mysqli_stmt_prepare($stmt, $query))
         {
             mysqli_stmt_bind_param($stmt, "ssssss", $id, $passwd, $name, $stu_id, $department, $grade);
-            mysqli_stmt_execute($stmt);
+            if (mysqli_stmt_execute($stmt)) 
+            {
+                $redirect_url = '../index.php';
+                $errmsg = '您已成功註冊，請使用方才申請的帳號密碼登入。';
+            }
             mysqli_stmt_close($stmt);
         }
         mysqli_close($link);
-        // if regitstration is ok, then goto the main page
-        $redirect_url = '../index.php';
-        $_SESSION['id'] = $_POST['account'];
-        $_SESSION['perm'] = 'stu';
-        $_SESSION['adm'] = false;
     }
 
     $_SESSION['errmsg'] = $errmsg;
