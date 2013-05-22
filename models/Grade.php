@@ -8,7 +8,7 @@ function showGrade ($grade_id) {
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
-    	mysqli_stmt_bind_param($stmt, "s", $grade_id);
+        mysqli_stmt_bind_param($stmt, "s", $grade_id);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $grade_name);
         mysqli_stmt_fetch($stmt);
@@ -67,7 +67,7 @@ function GradeToString ($grade) {
     $four = substr($grade,2,1);
     $five = substr($grade,1,1);
     $six = substr($grade,0,1);
-    
+
     if($one == "1")
         $result .= "大一";
     if($two == "1")
@@ -111,7 +111,7 @@ function GradeToBinary ($grade) {
         $result .= $temp;
         $index--;
     }
-      
+
     return $result;
 }
 

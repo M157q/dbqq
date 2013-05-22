@@ -12,7 +12,7 @@
 
     $redirect_url = '../views/stu_search_course.php';
     $errmsg = '';
-    
+
     $mon = isset($_POST['mon']) ? $_POST['mon'] : array();
     $tue = isset($_POST['tue']) ? $_POST['tue'] : array();
     $wed = isset($_POST['wed']) ? $_POST['wed'] : array();

@@ -594,7 +594,7 @@ function CourseFilter($dep, $grade, $mode, $class_hours, $name)
     if($mode == 1)
     {
         $day = "1";
-        
+
         $link = MysqliConnection('Read');
         $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course WHERE Name LIKE ? AND department=? AND grade LIKE ? AND class_hours LIKE ?';
         foreach($class_hours as $i)
@@ -604,13 +604,12 @@ function CourseFilter($dep, $grade, $mode, $class_hours, $name)
                 foreach($i as $j)
                 {
                     $hourstring = Mode1FormattedString($day,$j);
-                    
                     foreach($dep as $k)
                     {
                         foreach($grade as $l)
                         {
                             $gradestring = GradeToFormattedString($l);
-                            
+
                             $stmt = mysqli_stmt_init($link);
                             if(mysqli_stmt_prepare($stmt, $query))
                             {
@@ -639,7 +638,7 @@ function CourseFilter($dep, $grade, $mode, $class_hours, $name)
         foreach($dep as $k)
         {
             foreach($grade as $l)
-            {   
+            {
                 $gradestring = GradeToFormattedString($l);
                 
                 $stmt = mysqli_stmt_init($link);

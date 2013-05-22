@@ -23,7 +23,7 @@
         $_SESSION['errmsg'] = '時段一之時間未填';
     elseif($_POST['day2'] != "0" && !isset($_POST['d2']))
         $_SESSION['errmsg'] = '時段二之時間未填';
-    else 
+    else
     {
         // push class hour data into a string
         $id = $_POST['id'];

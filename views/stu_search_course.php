@@ -50,8 +50,8 @@
         <input type="checkbox" name="grade[]" value="5">研一
         <input type="checkbox" name="grade[]" value="6">研二
         </p>
-        
-        <p>時間過濾: 
+
+        <p>時間過濾:
         <input type="radio" name="mode" value="1">模式一
         <input type="radio" name="mode" value="2">模式二
         </p>
@@ -65,12 +65,12 @@
             <th>四</th>
             <th>五</th>
             <th>六</th>
-            <th>日</th>        
+            <th>日</th>
         </tr>
         <?php
             $k = 1;
             $hours = array("A","B","C","D","X","E","F","G","H","Y","I","J","K","L");
-            
+
             foreach($hours as $i)
             {
                 echo "<tr>";

@@ -23,18 +23,18 @@
     require_once("../models/User.php");
     require_once("../components/Mysqli.php");
     require_once("../controllers/Session.php");
-    
+
     if (isBanned($_SESSION['id'])) RedirectByPerm($_SESSION['perm']);
     if ($_SESSION['perm'] != 'pro') RedirectByPerm($_SESSION['perm']);
-    
+
     if(isset($_POST['id_year'])) $_SESSION['id_year'] = $_POST['id_year'];
-    if(!isset($_SESSION['id_year'])) { 
+    if(!isset($_SESSION['id_year'])) {
         $_SESSION['errmsg'] = '沒有選擇課程 無法顯示學生列表';
         RedirectByPerm($_SESSION['perm']);
     }
 
     showWarning();
-    
+
     ProViewCourseStudent($_SESSION['id_year']);
 ?>
         <div class="form-actions">

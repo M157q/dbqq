@@ -25,7 +25,7 @@
         }
         mysqli_close($link);
     }
-    
+
 
     $_SESSION['errmsg'] = $errmsg;
     //RedirectByPerm($_SESSION['perm']);
