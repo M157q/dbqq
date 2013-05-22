@@ -55,7 +55,10 @@
             $credit = $_POST['credit'];
             $year = $_POST['year'];
             $department = $_POST['department'];
-            $grade = GradeToBinary($_POST['grade']);
+            if(!isset($_POST['grade']))
+                $grade = "111111";
+            else
+                $grade = GradeToBinary($_POST['grade']);
             $additional_info = $_POST['additional_info'];
 
             // update the data to the database
