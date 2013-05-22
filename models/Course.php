@@ -408,6 +408,28 @@ function CheckProIfCollision($pro_id, $class_hours) {
     return $result;
 }
 
+function CheckProEditIfCollision($pro_id, $class_hours, $cid) {
+    $result = false;
+
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+    $query = 'SELECT id, class_hours FROM Course WHERE pro_id=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query)) {
+        mysqli_stmt_bind_param($stmt, "s", $pro_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $id, $chrs);
+        while(mysqli_stmt_fetch($stmt)) {
+            if($id != $cid && CheckCourseConfliction($class_hours, $chrs)) {
+                $result = true;
+                break;
+            }
+        }
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+    return $result;
+}
 
 // return ture if two course are conflict
 function CheckCourseConfliction($c1, $c2) {

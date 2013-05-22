@@ -26,6 +26,7 @@
     else 
     {
         // push class hour data into a string
+        $id = $_POST['id'];
         $class_hours = $_POST['day1'];
         $d1 = $_POST['d1'];
         $day1 = array("0"=>"N", "1"=>"N", "2"=>"N", "3"=>"N", "4"=>"N", "5"=>"N", "6"=>"N", "7"=>"N", "8"=>"N", "9"=>"N", "10"=>"N", "11"=>"N", "12"=>"N", "13"=>"N");
@@ -44,10 +45,9 @@
             $daystr = implode($day2);
             $class_hours .= $daystr;
         }
-        if(false)//CheckProIfCollision($_SESSION['id'], $class_hours)
+        if(CheckProEditIfCollision($_SESSION['id'], $class_hours, $id))
             $_SESSION['errmsg'] = '此課程時段與其他課程衝堂';
         else {
-            $id = $_POST['id'];
             $name = $_POST['name'];
             $student_upper_bound = $_POST['student_upper_bound'];
             $class_room = $_POST['class_room'];
