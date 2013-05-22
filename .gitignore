@@ -1,3 +1,7 @@
 # ignore vim's temp files
 *.swp
 views/test2.php
+
+# ignore bootstrap
+include/bootstrap.zip
+include/bootstrap
