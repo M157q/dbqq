@@ -12,7 +12,7 @@
     $errmsg = '';
 
     if (!CheckCourseIDExist($course_id, $course_year))
-        $errmsg = 'Course ID: '.$course_id.' of year '.$course_year.' not found.';
+        $errmsg = "課號: $course_id  年度: $course_year 的課程並不存在";
     else
     {
         // update the data in the database
