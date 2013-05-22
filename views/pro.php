@@ -65,9 +65,20 @@
             <input type="text" name="id" placeholder="4699" required />
             <label>年度:</label>
             <input type="number" name="year" placeholder="21XX" required />
-            <br /><br />
+            <br />
             <button class="btn btn-success" type="submit">編輯此課程</button>
 	    </form>
+        </div>
+        <div class="form-actions">
+        <h3>刪除課程</h3>
+        <form id="delete_course" method="post" action="../controllers/ProDeleteOwnCourse.php">
+            <label>課號: </label>
+            <input type="text" id="course_id" name="course_id" placeholder="課號" required />
+            <label>年度: </label>
+            <input type="text" id="course_year" name="course_year" placeholder="年度" required />
+            <br />
+            <button class="btn btn-danger" form="delete_course" type="submit">刪除該課程</button>
+        </form>
         </div>
     </div>
 </div>
