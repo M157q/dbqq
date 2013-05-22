@@ -1,6 +1,7 @@
 <?php session_start();
     require_once('../controllers/Session.php');
     require_once('../models/User.php');
+    require_once('../models/Course.php');
     require_once('../components/Mysqli.php');
 
     CheckPermAndRedirect($_SESSION['perm'], 'pro');
@@ -32,18 +33,7 @@
 
     // there's a deletion
     if ($del_ok == 1) {
-        $link = MysqliConnection('Write');
-        $query = 'INSERT INTO Course_change ' .
-                 '(course_id, course_year, stu_id, change_type) ' .
-                 'VALUES (?, ?, ?, ?)';
-        $stmt = mysqli_stmt_init($link);
-        if (mysqli_stmt_prepare($stmt, $query)) {
-            $type = "3";
-            mysqli_stmt_bind_param($stmt, "ssss", $course_id, $course_year, $id, $type);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        }
-        mysqli_close($link);
+        UpdateCourseChange($course_id, $course_year, $id, "3");
     }
 
 

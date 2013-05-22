@@ -505,51 +505,91 @@ function proGetCourseInfo ($pro_id, $course_id, $course_year) {
 function GetDeleteWarning ($stu_id) {
     require_once('../components/Mysqli.php');
 
+
+    // delete for different reasones
+    $deleted1 = array();
+    $deleted2 = array();
+    $deleted3 = array();
+
     $link = MysqliConnection('Read');
-    $deleted = array();
-
     // fetch the changed course
-    $query = 'SELECT c.Name, cc.course_id, cc.course_year ' .
+
+    $query = 'SELECT c.Name, cc.course_id, cc.course_year, cc.change_type ' .
              'FROM Course_change AS cc, Course AS c ' .
-             'WHERE change_type=? AND stu_id=? AND cc.course_id=c.ID';
+             'WHERE course_id=ID AND stu_id=?';
+
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
     {
-        $type = "3";
-        mysqli_stmt_bind_param($stmt, "ss", $type, $stu_id);
+        mysqli_stmt_bind_param($stmt, "s", $stu_id);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $cname, $cid, $cyr);
+        mysqli_stmt_bind_result($stmt, $cname, $cid, $cyr, $type);
         while ( mysqli_stmt_fetch($stmt) ) {
-            array_push($deleted, array($cname, $cid, $cyr));
+            if ($type == "1") {
+                array_push($deleted1, array($cname, $cid, $cyr));
+            }
+            else if ($type == "2") {
+                array_push($deleted2, array($cname, $cid, $cyr));
+            }
+            else if ($type == "3") {
+                array_push($deleted3, array($cname, $cid, $cyr));
+            }
         }
-        mysqli_stmt_close($stmt);
-    }
-    mysqli_close($link);
-
-
-    // delete the record in Course_change
-    $link = MysqliConnection('Write');
-    $query = 'DELETE FROM Course_change WHERE change_type=? AND stu_id=?';
-    $stmt = mysqli_stmt_init($link);
-    if (mysqli_stmt_prepare($stmt, $query))
-    {
-        $type = "3";
-        mysqli_stmt_bind_param($stmt, "ss", $type, $stu_id);
-        mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
     }
     mysqli_close($link);
 
 
     // output
-    if (count($deleted) > 0) {
+    if (count($deleted1) > 0 || count($deleted2) > 0 || count($deleted3) > 0) {
         echo "<div class=\"alert alert-error\">";
-        echo "<h4>您的以下課程已被教授踢除於修課名單內:</h4>";
-        foreach ($deleted as $pair) {
-            echo "$pair[0] [ 課號: $pair[1] 年度: $pair[2] ]<br>";
+        if (count($deleted2) > 0) {
+            echo "<h4>您的以下課程因修課資格不服而刪除於修課名單:</h4>";
+            foreach ($deleted2 as $pair) {
+                echo "$pair[0] [ 課號: $pair[1] 年度: $pair[2] ]<br>";
+            }
+        }
+        echo "<br>";
+        if (count($deleted3) > 0) {
+            echo "<h4>您的以下課程已被教授踢除於修課名單內:</h4>";
+            foreach ($deleted3 as $pair) {
+                echo "$pair[0] [ 課號: $pair[1] 年度: $pair[2] ]<br>";
+            }
         }
         echo "</div>";
+
+
+        // delete the record in Course_change
+        $link = MysqliConnection('Write');
+        $query = 'DELETE FROM Course_change WHERE stu_id=?';
+        $stmt = mysqli_stmt_init($link);
+        if (mysqli_stmt_prepare($stmt, $query)) {
+            mysqli_stmt_bind_param($stmt, "s", $stu_id);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        }
+        mysqli_close($link);
     }
+}
+
+function GetGradeByStuID ($stu_id) {
+    require_once('../components/Mysqli.php');
+
+    $link = MysqliConnection('Read');
+
+    // fetch the changed course
+    $query = 'SELECT grade FROM Student WHERE ID=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $stu_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $grade);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+    return $grade;
 }
 
 ?>

@@ -102,6 +102,17 @@
             $redirct_url = '../views/pro.php';
         }
     }
+
+    $stu_list = ListCourseStudents($id, $year);
+    foreach ($stu_list as $stu_id) {
+        $stu_grade = GetGradeByStuID($stu_id);
+        if ($grade[strlen($grade) - $stu_grade] != 1) {
+            StudentDeleteCourse($stu_id, $id, $year);
+            UpdateCourseChange($id, $year, $stu_id, "2");
+        }
+    }
+
+
     header("Location: $redirct_url");
 ?>
 

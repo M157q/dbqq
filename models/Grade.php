@@ -1,4 +1,8 @@
 <?php
+// return the name by ID
+// Examples.
+//     1 -> 大一
+//     2 -> 大二
 function showGrade ($grade_id) {
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');

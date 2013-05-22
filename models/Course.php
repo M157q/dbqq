@@ -486,7 +486,7 @@ function CheckCourseIDExist($course_id, $course_year)
 function StudentDeleteCourse($stu_id, $course_id, $course_year)
 { 
     require_once('../components/Mysqli.php');
-    $link = MysqliConnection('Read');
+    $link = MysqliConnection('Write');
 
     $query = 'DELETE FROM Course_taken WHERE StudentID=? AND CourseID=? AND 
         CourseYear=?';
@@ -694,6 +694,50 @@ function CourseFilter($dep, $grade, $mode, $class_hours, $name)
         }
         echo "</table>";
         echo "</table>";
+}
+
+function ListCourseStudents ($cid, $cyr){
+    require_once('../components/Mysqli.php');
+
+    $stu_list = array();
+
+    $link = MysqliConnection('Read');
+    $query = 'SELECT StudentID FROM Course_taken WHERE CourseID=? AND CourseYear=?';
+    $stmt = mysqli_stmt_init($link);
+    if(mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "ss", $cid, $cyr);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $std_id);
+        while(mysqli_stmt_fetch($stmt)) {
+            array_push($stu_list, $std_id);
+        }
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+
+    return $stu_list;
+}
+
+
+// type:
+// 2: Professor edit his course, but student is not in the correct grade
+// 3: Professor delete student from his course
+function UpdateCourseChange ($course_id, $course_year, $stu_id, $type) {
+    require_once('../components/Mysqli.php');
+
+    $link = MysqliConnection('Write');
+    $query = 'INSERT INTO Course_change ' .
+             '(course_id, course_year, stu_id, change_type) ' .
+             'VALUES (?, ?, ?, ?)';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query)) {
+        mysqli_stmt_bind_param($stmt, "ssss",
+                               $course_id, $course_year, $stu_id, $type);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
 }
 
 ?>
