@@ -461,9 +461,9 @@ function showWarning()
     if (isset($_SESSION['errmsg']) && $_SESSION['errmsg'] !== '')
     {
         echo '<div class="alert alert-error">提醒訊息：' . $_SESSION['errmsg'] . '</div>';
-        $_SESSION['errmsg'] = '';                                              
-    }                                                                          
-    if (isset($_SESSION['id']) && isBanned($_SESSION['id'])) echo '<div class="alert alert-block">您正在被停權中</div>'; 
+        $_SESSION['errmsg'] = '';
+    }
+    if (isset($_SESSION['id']) && isBanned($_SESSION['id'])) echo '<div class="alert alert-block">您正在被停權中</div>';
 }
 
 function showLoginMessage()
@@ -479,14 +479,14 @@ function proGetCourseInfo ($pro_id, $course_id, $course_year) {
 
     $course_list = array();
     $depart_list = GetDepartmentList();
- 
+
     // get course data
     //$query = 'SELECT c.Name, c.student_upper_bound, c.class_room, c.credit,
-    //          c.department, g.Name, c.required, c.class_hours, c.Additional_Info 
-    //          FROM Course c LEFT JOIN Grade g ON c.grade = g.ID 
+    //          c.department, g.Name, c.required, c.class_hours, c.Additional_Info
+    //          FROM Course c LEFT JOIN Grade g ON c.grade = g.ID
     //          Where c.pro_id = ? AND c.ID = ? AND c.Year = ?';
     $query = 'SELECT Name, student_upper_bound, class_room, credit,
-              department, grade, required, class_hours, Additional_Info 
+              department, grade, required, class_hours, Additional_Info
               FROM Course
               WHERE pro_id = ? AND ID = ? AND Year = ?';
     $stmt = mysqli_stmt_init($link);
@@ -501,4 +501,55 @@ function proGetCourseInfo ($pro_id, $course_id, $course_year) {
     mysqli_close($link);
     return array($name, $sub, $classroom, $credit, $dep, $grade, $req, $class_hours, $add_info);
 }
+
+function GetDeleteWarning ($stu_id) {
+    require_once('../components/Mysqli.php');
+
+    $link = MysqliConnection('Read');
+    $deleted = array();
+
+    // fetch the changed course
+    $query = 'SELECT c.Name, cc.course_id, cc.course_year ' .
+             'FROM Course_change AS cc, Course AS c ' .
+             'WHERE change_type=? AND stu_id=? AND cc.course_id=c.ID';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        $type = "3";
+        mysqli_stmt_bind_param($stmt, "ss", $type, $stu_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $cname, $cid, $cyr);
+        while ( mysqli_stmt_fetch($stmt) ) {
+            array_push($deleted, array($cname, $cid, $cyr));
+        }
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+
+
+    // delete the record in Course_change
+    $link = MysqliConnection('Write');
+    $query = 'DELETE FROM Course_change WHERE change_type=? AND stu_id=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        $type = "3";
+        mysqli_stmt_bind_param($stmt, "ss", $type, $stu_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+
+
+    // output
+    if (count($deleted) > 0) {
+        echo "<div class=\"alert alert-error\">";
+        echo "<h4>您的以下課程已被教授踢除於修課名單內:</h4>";
+        foreach ($deleted as $pair) {
+            echo "$pair[0] [ 課號: $pair[1] 年度: $pair[2] ]<br>";
+        }
+        echo "</div>";
+    }
+}
+
 ?>

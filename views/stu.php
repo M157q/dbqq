@@ -19,6 +19,7 @@
     {
         showLoginMessage();
         showWarning();
+        GetDeleteWarning($_SESSION['id']);
 ?>
     <h1>安安我是 student</h1>
     <hr>

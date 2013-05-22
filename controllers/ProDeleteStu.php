@@ -8,6 +8,7 @@
     $id = $_POST['account'];
     $errmsg = '';
     list($course_id, $course_year) = explode('_', $_SESSION['id_year']);
+    $del_ok = 0;
 
     if (!CheckStudentIDExist($id)) {
         $errmsg = "此學生帳號 $id 並不存在";
@@ -19,8 +20,27 @@
         $stmt = mysqli_stmt_init($link);
         if (mysqli_stmt_prepare($stmt, $query)) {
             mysqli_stmt_bind_param($stmt, "sss", $id, $course_id, $course_year);
-            if (mysqli_stmt_execute($stmt)) $errmsg = '您已成功刪除該使用者';
+            if (mysqli_stmt_execute($stmt)) {
+                $errmsg = '您已成功刪除該使用者';
+                $del_ok = 1;
+            }
             else $errmsg = "$id 不在本課程的修課學生名單內";
+            mysqli_stmt_close($stmt);
+        }
+        mysqli_close($link);
+    }
+
+    // there's a deletion
+    if ($del_ok == 1) {
+        $link = MysqliConnection('Write');
+        $query = 'INSERT INTO Course_change ' .
+                 '(course_id, course_year, stu_id, change_type) ' .
+                 'VALUES (?, ?, ?, ?)';
+        $stmt = mysqli_stmt_init($link);
+        if (mysqli_stmt_prepare($stmt, $query)) {
+            $type = "3";
+            mysqli_stmt_bind_param($stmt, "ssss", $course_id, $course_year, $id, $type);
+            mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
         }
         mysqli_close($link);
