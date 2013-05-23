@@ -544,7 +544,7 @@ function GetDeleteWarning ($stu_id) {
     if (count($deleted1) > 0 || count($deleted2) > 0 || count($deleted3) > 0) {
         echo "<div class=\"alert alert-error\">";
         if (count($deleted2) > 0) {
-            echo "<h4>您的以下課程因修課資格不服而刪除於修課名單:</h4>";
+            echo "<h4>您的以下課程因修課身份資格不服而刪除於修課名單:</h4>";
             foreach ($deleted2 as $pair) {
                 echo "$pair[0] [ 課號: $pair[1] 年度: $pair[2] ]<br>";
             }
@@ -577,7 +577,7 @@ function GetGradeByStuID ($stu_id) {
 
     $link = MysqliConnection('Read');
 
-    // fetch the changed course
+    // get student's grade
     $query = 'SELECT grade FROM Student WHERE ID=?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
@@ -592,4 +592,23 @@ function GetGradeByStuID ($stu_id) {
     return $grade;
 }
 
+function GetDepartByStuID ($stu_id) {
+    require_once('../components/Mysqli.php');
+
+    $link = MysqliConnection('Read');
+
+    // get student's department
+    $query = 'SELECT department FROM Student WHERE ID=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $stu_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $depart);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+    return $depart;
+}
 ?>

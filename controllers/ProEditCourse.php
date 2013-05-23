@@ -103,15 +103,18 @@
         }
     }
 
+    // post edit check
     $stu_list = ListCourseStudents($id, $year);
     foreach ($stu_list as $stu_id) {
         $stu_grade = GetGradeByStuID($stu_id);
-        if ($grade[strlen($grade) - $stu_grade] != 1) {
+        $stu_depart = GetDepartByStuID($stu_id);
+        // you are not in the correct grade or not in the correct department
+        if (($grade[strlen($grade) - $stu_grade] != 1) ||
+            ($stu_depart != $department)) {
             StudentDeleteCourse($stu_id, $id, $year);
             UpdateCourseChange($id, $year, $stu_id, "2");
         }
     }
-
 
     header("Location: $redirct_url");
 ?>
