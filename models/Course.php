@@ -740,4 +740,43 @@ function UpdateCourseChange ($course_id, $course_year, $stu_id, $type) {
     mysqli_close($link);
 }
 
+function ListTakenCoursesByStuID ($stu_id) {
+    //get selected course list of student
+    $link = MysqliConnection('Read');
+    $course_list = array();
+
+    $query = 'SELECT CourseID, CourseYear FROM Course_taken WHERE StudentID=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $stu_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $cid, $cyear);
+        while(mysqli_stmt_fetch($stmt)) {
+            array_push($course_list, array($cid, $cyear));
+        }
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+    return $course_list;
+}
+
+
+// get class_hours of a course
+function GetCourseClassHours($cid, $cyr) {
+    $link = MysqliConnection('Read');
+
+    $query = 'SELECT class_hours FROM Course WHERE ID=? AND Year=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "ss", $cid, $cyr);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $class_hour);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+    return $class_hour;
+}
 ?>

@@ -543,6 +543,13 @@ function GetDeleteWarning ($stu_id) {
     // output
     if (count($deleted1) > 0 || count($deleted2) > 0 || count($deleted3) > 0) {
         echo "<div class=\"alert alert-error\">";
+        if (count($deleted1) > 0) {
+            echo "<h4>您的以下課程因課程衝堂而刪除於修課名單:</h4>";
+            foreach ($deleted1 as $pair) {
+                echo "$pair[0] [ 課號: $pair[1] 年度: $pair[2] ]<br>";
+            }
+        }
+        echo "<br>";
         if (count($deleted2) > 0) {
             echo "<h4>您的以下課程因修課身份資格不服而刪除於修課名單:</h4>";
             foreach ($deleted2 as $pair) {

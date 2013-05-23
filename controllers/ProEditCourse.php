@@ -114,6 +114,16 @@
             StudentDeleteCourse($stu_id, $id, $year);
             UpdateCourseChange($id, $year, $stu_id, "2");
         }
+
+
+        $stu_course_list = ListTakenCoursesByStuID($stu_id);
+        foreach ($stu_course_list as $row) {
+            if ( CheckCourseConfliction($class_hours,
+                GetCourseClassHours($row[0], $row[1]))) {
+                StudentDeleteCourse($stu_id, $row[0], $row[1]);
+                UpdateCourseChange($row[0], $row[1], $stu_id, "1");
+            }
+        }
     }
 
     header("Location: $redirct_url");
