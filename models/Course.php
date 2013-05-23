@@ -484,11 +484,11 @@ function CheckCourseIDExist($course_id, $course_year)
 }
 
 function StudentDeleteCourse($stu_id, $course_id, $course_year)
-{ 
+{
     require_once('../components/Mysqli.php');
     $link = MysqliConnection('Write');
 
-    $query = 'DELETE FROM Course_taken WHERE StudentID=? AND CourseID=? AND 
+    $query = 'DELETE FROM Course_taken WHERE StudentID=? AND CourseID=? AND
         CourseYear=?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query))
@@ -565,7 +565,7 @@ function Mode2FormattedString($class_hours)
                 $result .= "Y";
                 $hours++;
             }
-            
+
             while($hours != "15")
             {
                 $result .= "N";
@@ -665,7 +665,7 @@ function CourseFilter($dep, $grade, $mode, $class_hours, $name)
             foreach($grade as $l)
             {
                 $gradestring = GradeToFormattedString($l);
-                
+
                 $stmt = mysqli_stmt_init($link);
                 if(mysqli_stmt_prepare($stmt, $query))
                 {
@@ -683,7 +683,7 @@ function CourseFilter($dep, $grade, $mode, $class_hours, $name)
     }
 
     foreach($dup_list as $i)
-    {   
+    {
         $dup = "0";
         foreach($course_list as $j)
             if($i[0] == $j[0])
@@ -924,7 +924,7 @@ function GetTotalCredit($sid)
     {
         $stmt = mysqli_stmt_init($link);
         if (mysqli_stmt_prepare($stmt, $query))
-        {   
+        {
             mysqli_stmt_bind_param($stmt, "ss", $i[0], $i[1]);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_bind_result($stmt, $sum);

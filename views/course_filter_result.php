@@ -36,7 +36,7 @@
         $errmsg = '已選擇時段，卻未選擇過濾模式，過濾器關閉';
     if(!isset($mode))
         $mode = "0";
-    
+
     CourseFilter($dep,$grade,$mode,$class_hours,$name);
 
     if($errmsg != '')
