@@ -721,7 +721,8 @@ function ListCourseStudents ($cid, $cyr){
 
 
 // type:
-// 2: Professor edit his course, but student is not in the correct grade
+// 1: Professor edits his course, but student has course collision
+// 2: Professor edits his course, but student is not in the correct grade
 // 3: Professor delete student from his course
 function UpdateCourseChange ($course_id, $course_year, $stu_id, $type) {
     require_once('../components/Mysqli.php');
@@ -741,6 +742,7 @@ function UpdateCourseChange ($course_id, $course_year, $stu_id, $type) {
 }
 
 function ListTakenCoursesByStuID ($stu_id) {
+    require_once('../components/Mysqli.php');
     //get selected course list of student
     $link = MysqliConnection('Read');
     $course_list = array();
@@ -764,6 +766,7 @@ function ListTakenCoursesByStuID ($stu_id) {
 
 // get class_hours of a course
 function GetCourseClassHours($cid, $cyr) {
+    require_once('../components/Mysqli.php');
     $link = MysqliConnection('Read');
 
     $query = 'SELECT class_hours FROM Course WHERE ID=? AND Year=?';
@@ -779,4 +782,38 @@ function GetCourseClassHours($cid, $cyr) {
     mysqli_close($link);
     return $class_hour;
 }
+
+function CheckStudentDepartAndGrade($stu_id, $cid, $cyr) {
+    require_once('../models/User.php');
+    require_once('../models/Course.php');
+    require_once('../components/Mysqli.php');
+    $result = false;
+
+    $link = MysqliConnection('Read');
+    $stu_grade = GetGradeByStuID($stu_id);
+    $stu_depart = GetDepartByStuID($stu_id);
+
+    $query = 'SELECT department, grade FROM Course WHERE ID=? AND Year=?';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "ss", $cid, $cyr);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $depart, $grade);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+
+    // you are not in the correct grade or not in the correct department
+    if (($grade[strlen($grade) - $stu_grade] != 1) ||
+        ($stu_depart != $department)) {
+            return false;
+    }
+    else {
+        return true;
+    }
+
+}
+
 ?>

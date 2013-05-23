@@ -45,7 +45,6 @@ $query = 'SELECT class_hours FROM Course WHERE id=? AND year=?';
 // from courses which student choose via the views/stu.php
 foreach($course_id_years as $i) {
     $conflict = false;
-    //echo "\$i -> $i<br>";
     list($id, $year) = explode('_', $i);
     if (CheckIfChosen($_SESSION['id'], $id)) {
         $_SESSION['errmsg'] .= "course ID: $id 此課程已選擇  ";
@@ -54,7 +53,6 @@ foreach($course_id_years as $i) {
 
     // check chosen courses
     foreach($selected_cid_year as $j) {
-        //echo "checking -> $j <br>";
         list($id, $year) = explode('_', $i);
         $stmt = mysqli_stmt_init($link);
         if(mysqli_stmt_prepare($stmt, $query)) {
@@ -81,13 +79,16 @@ foreach($course_id_years as $i) {
             break;
         }
     }
+
     // if not conflict, then choose the course
-    if (!$conflict) {
+    list($id, $year) = explode('_', $i);
+    if (!$conflict &&
+        CheckStudentDepartAndGrade($_SESSION['id'], $id, $year)) {
         ChooseCourse($_SESSION['id'], $i);
     }
     else {
-        list($id, $year) = explode('_', $i);
-        $_SESSION['errmsg'] .= "course ID: $id 課程衝堂 QQ ";
+        $_SESSION['errmsg'] .=  ("課程衝堂或修課資格不符 QQ <br>" .
+                                 "course ID: $id course Year: $year<br>");
     }
 }
 
