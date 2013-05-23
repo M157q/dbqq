@@ -119,11 +119,11 @@
         $stu_course_list = ListTakenCoursesByStuID($stu_id);
         foreach ($stu_course_list as $row) {
             // except this course
-            if ($id != $row[0] && $year != $row[1]) {
+            if ($id != $row[0] || $year != $row[1]) {
                 if ( CheckCourseConfliction($class_hours,
                     GetCourseClassHours($row[0], $row[1]))) {
-                    StudentDeleteCourse($stu_id, $row[0], $row[1]);
-                    UpdateCourseChange($row[0], $row[1], $stu_id, "1");
+                    StudentDeleteCourse($stu_id, $id, $year);
+                    UpdateCourseChange($id, $year, $stu_id, "1");
                 }
             }
         }

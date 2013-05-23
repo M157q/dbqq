@@ -3,6 +3,7 @@ session_start();
 
 require_once('../components/Mysqli.php');
 require_once("../models/Course.php");
+require_once("../models/User.php");
 require_once('../controllers/Session.php');
 CheckPermAndRedirect($_SESSION['perm'], 'stu');
 
