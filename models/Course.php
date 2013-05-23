@@ -591,7 +591,32 @@ function CourseFilter($dep, $grade, $mode, $class_hours, $name)
     $course_list = array();
     $depart_list = GetDepartmentList();
 
-    if($mode == 1)
+    if($mode == "0")
+    {
+        $hourstring = "%";
+
+        $link = MysqliConnection('Read');
+        $query = 'SELECT ID, Year, Name, pro_id, student_upper_bound, class_room, credit, department, grade, required, class_hours, Additional_Info FROM Course WHERE Name LIKE ? AND department LIKE ? AND grade LIKE ? AND class_hours LIKE ?';
+        foreach($dep as $k)
+        {
+            foreach($grade as $l)
+            {
+                $gradestring = GradeToFormattedString($l);
+                $stmt = mysqli_stmt_init($link);
+                if(mysqli_stmt_prepare($stmt, $query))
+                {
+                    mysqli_stmt_bind_param($stmt, "ssss", $name, $k, $gradestring, $hourstring);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_bind_result($stmt, $id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info);
+                    while(mysqli_stmt_fetch($stmt)) {
+                        array_push($dup_list, array($id, $year, $cname, $pro_id, $student_upper_bound, $class_room, $credit, $department, $cgrade, $required, $class_hour, $Additional_Info));
+                    }
+                    mysqli_stmt_close($stmt);
+                }
+            }
+        }
+    }
+    else if($mode == 1)
     {
         $day = "1";
 
@@ -807,13 +832,110 @@ function CheckStudentDepartAndGrade($stu_id, $cid, $cyr) {
 
     // you are not in the correct grade or not in the correct department
     if (($grade[strlen($grade) - $stu_grade] != 1) ||
-        ($stu_depart != $department)) {
+        ($stu_depart != $depart)) {
             return false;
     }
     else {
         return true;
     }
 
+}
+
+function CertainHourFormattedString($day, $hours)
+{
+    if($day == "1")
+        $result = "_";
+    else
+        $result = "________________";
+
+    $i = 1;
+    while($i < $hours)
+    {
+        $result .= "_";
+        $i++;
+    }
+
+    $result .= "Y";
+    $i++;
+    while($i < 15)
+    {
+        $result .= "_";
+        $i++;
+    }
+
+    if($day == "1")
+        $result .= "%";
+
+    return $result;
+}
+
+function GetTotalHours($sid)
+{
+    require_once('../models/Course.php');
+    require_once('../components/Mysqli.php');
+
+    $course_list = ListTakenCoursesByStuID($sid);
+    $day = 1;
+    $count = 1;
+    $result = 0;
+
+    $link = MysqliConnection('Read');
+    $query = 'SELECT COUNT(*) FROM Course WHERE ID=? AND Year=? AND class_hours LIKE ?';
+    foreach($course_list as $i)
+    {
+        while($day <= 2)
+        {
+            while($count <= 14)
+            {
+                $hourstring = CertainHourFormattedString($day, $count);
+                $stmt = mysqli_stmt_init($link);
+                if (mysqli_stmt_prepare($stmt, $query))
+                {
+                    mysqli_stmt_bind_param($stmt, "sss", $i[0], $i[1], $hourstring);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_bind_result($stmt, $sum);
+                    if(mysqli_stmt_fetch($stmt))
+                        $result += $sum;
+                    mysqli_stmt_close($stmt);
+                }
+                $count++;
+            }
+            $day++;
+            $count = 1;
+        }
+        $day = 1;
+    }
+    mysqli_close($link);
+
+    return $result;
+}
+
+function GetTotalCredit($sid)
+{
+    require_once('../models/Course.php');
+    require_once('../components/Mysqli.php');
+
+    $course_list = ListTakenCoursesByStuID($sid);
+    $result = 0;
+
+    $link = MysqliConnection('Read');
+    $query = 'SELECT SUM(credit) FROM Course WHERE ID=? AND Year=?';
+    foreach($course_list as $i)
+    {
+        $stmt = mysqli_stmt_init($link);
+        if (mysqli_stmt_prepare($stmt, $query))
+        {   
+            mysqli_stmt_bind_param($stmt, "ss", $i[0], $i[1]);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $sum);
+            if(mysqli_stmt_fetch($stmt))
+                $result += $sum;
+            mysqli_stmt_close($stmt);
+        }
+    }
+    mysqli_close($link);
+
+    return $result;
 }
 
 ?>

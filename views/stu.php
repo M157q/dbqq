@@ -52,7 +52,9 @@
 
     <hr>
     <h2>已選課程</h2>
-    <?php ListStudentCourse($_SESSION['id']); ?>
+    <?php ListStudentCourse($_SESSION['id']); ?><br/>
+    總修課學分: <?php echo GetTotalCredit($_SESSION['id']); ?> 學分<br/>
+    總修課時數: <?php echo GetTotalHours($_SESSION['id']); ?> 小時<br/>
     <a class="btn btn-info" href="/views/course_list.php">所有課程列表</a><br/>
     <hr>
 

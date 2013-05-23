@@ -21,28 +21,23 @@
     $sat = isset($_POST['sat']) ? $_POST['sat'] : array();
     $sun = isset($_POST['sun']) ? $_POST['sun'] : array();
 
+    $hoursset = (!empty($mon) || !empty($tue) || !empty($wed) || !empty($thu) || !empty($fri) || !empty($sat) || !empty($sun));
+
     $id = $_SESSION['id'];
-    $dep = $_POST['dep'];
-    $grade = $_POST['grade'];
+    $dep = isset($_POST['dep']) ? $_POST['dep'] : array("_");
+    $grade = isset($_POST['grade']) ? $_POST['grade'] : array("1","2","3","4","5","6");
     $mode = $_POST['mode'];
     $class_hours = array($mon, $tue, $wed, $thu, $fri, $sat, $sun);
-    $name = "%";
+    $name = empty($_POST['name']) ? "%" : $_POST['name'];
 
-    if(isset($_POST['name']))
-        $name = "%".$_POST['name']."%";
-
-    if(!isset($dep))
-        $errmsg = '未選取任何系所，過濾器關閉';
-    else if(!isset($grade))
-        $errmsg = '未選取任何年級，過濾器關閉';
-    else if(!isset($mode))
-        $errmsg = '未選取過濾模式，過濾器關閉';
-    else if(!isset($class_hours))
-        $errmsg = '未選取任何時段，過濾器關閉';
-    else
-    {
-        CourseFilter($dep,$grade,$mode,$class_hours,$name);
-    }
+    if(isset($mode) && !($hoursset))
+        $errmsg = '開啟時段過濾功能，卻未選取任何時段，過濾器關閉';
+    else if(!isset($mode) && $hoursset)
+        $errmsg = '已選擇時段，卻未選擇過濾模式，過濾器關閉';
+    if(!isset($mode))
+        $mode = "0";
+    
+    CourseFilter($dep,$grade,$mode,$class_hours,$name);
 
     if($errmsg != '')
     {
