@@ -92,7 +92,5 @@ foreach($course_id_years as $i) {
 }
 
 mysqli_close($link);
-#echo "選擇課程";
-#GetCourseInfoTableByIDs($course_ids);
 RedirectByPerm('stu');
 ?>
