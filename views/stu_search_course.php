@@ -9,6 +9,9 @@
         require_once('../models/User.php');
         require_once('../models/Course.php');
         CheckPermAndRedirect($_SESSION['perm'], 'stu');
+
+        showWarning();
+
     ?>
 
     <form method="post" action="../views/course_filter_result.php">

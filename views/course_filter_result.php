@@ -28,7 +28,7 @@
     $grade = isset($_POST['grade']) ? $_POST['grade'] : array("1","2","3","4","5","6");
     $mode = $_POST['mode'];
     $class_hours = array($mon, $tue, $wed, $thu, $fri, $sat, $sun);
-    $name = empty($_POST['name']) ? "%" : $_POST['name'];
+    $name = empty($_POST['name']) ? "%" : "%".$_POST['name']."%";
 
     if(isset($mode) && !($hoursset))
         $errmsg = '開啟時段過濾功能，卻未選取任何時段，過濾器關閉';
