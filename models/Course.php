@@ -752,14 +752,28 @@ function ListCourseStudents ($cid, $cyr){
 function UpdateCourseChange ($course_id, $course_year, $stu_id, $type) {
     require_once('../components/Mysqli.php');
 
-    $link = MysqliConnection('Write');
-    $query = 'INSERT INTO Course_change ' .
-             '(course_id, course_year, stu_id, change_type) ' .
-             'VALUES (?, ?, ?, ?)';
+    // get course name from id & year
+    $link = MysqliConnection('Read');
+    $query = 'SELECT Name FROM Course WHERE ID=? AND Year=?';
     $stmt = mysqli_stmt_init($link);
     if (mysqli_stmt_prepare($stmt, $query)) {
-        mysqli_stmt_bind_param($stmt, "ssss",
-                               $course_id, $course_year, $stu_id, $type);
+        mysqli_stmt_bind_param($stmt, "ss", $course_id, $course_year);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $cname);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+
+    $link = MysqliConnection('Write');
+    $query = 'INSERT INTO Course_change ' .
+             '(course_id, course_year, stu_id, change_type, info) ' .
+             'VALUES (?, ?, ?, ?, ?)';
+    $stmt = mysqli_stmt_init($link);
+    if (mysqli_stmt_prepare($stmt, $query)) {
+        $info = "$cname [ 課號: $course_id 年度: $course_year ]";
+        mysqli_stmt_bind_param($stmt, "sssss",
+                               $course_id, $course_year, $stu_id, $type, $info);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
     }

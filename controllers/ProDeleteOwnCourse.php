@@ -15,6 +15,13 @@
         $errmsg = "課號: $course_id  年度: $course_year 的課程並不存在";
     else
     {
+        // pre delete processing
+        $stu_list = ListCourseStudents($course_id, $course_year);
+        foreach ($stu_list as $stu_id) {
+            StudentDeleteCourse($stu_id, $course_id, $course_year);
+            UpdateCourseChange($course_id, $course_year, $stu_id, "3");
+        }
+
         // update the data in the database
         $link = MysqliConnection('Write');
         $query = 'DELETE FROM Course WHERE ID=? AND Year=? AND pro_id=?';
