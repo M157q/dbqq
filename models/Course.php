@@ -749,6 +749,7 @@ function ListCourseStudents ($cid, $cyr){
 // 1: Professor edits his course, but student has course collision
 // 2: Professor edits his course, but student is not in the correct grade
 // 3: Professor delete student from his course
+// 4: Professor delete the course
 function UpdateCourseChange ($course_id, $course_year, $stu_id, $type) {
     require_once('../components/Mysqli.php');
 
