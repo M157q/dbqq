@@ -19,7 +19,7 @@
         $stu_list = ListCourseStudents($course_id, $course_year);
         foreach ($stu_list as $stu_id) {
             StudentDeleteCourse($stu_id, $course_id, $course_year);
-            UpdateCourseChange($course_id, $course_year, $stu_id, "3");
+            UpdateCourseChange($course_id, $course_year, $stu_id, "4");
         }
 
         // update the data in the database

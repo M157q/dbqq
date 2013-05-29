@@ -510,6 +510,7 @@ function GetDeleteWarning ($stu_id) {
     $deleted1 = array();
     $deleted2 = array();
     $deleted3 = array();
+    $deleted4 = array();
 
     $link = MysqliConnection('Read');
     // fetch the changed course
@@ -526,6 +527,7 @@ function GetDeleteWarning ($stu_id) {
             if      ($type == "1") { array_push($deleted1, $info); }
             else if ($type == "2") { array_push($deleted2, $info); }
             else if ($type == "3") { array_push($deleted3, $info); }
+            else if ($type == "4") { array_push($deleted4, $info); }
         }
         mysqli_stmt_close($stmt);
     }
@@ -533,7 +535,8 @@ function GetDeleteWarning ($stu_id) {
 
 
     // output
-    if (count($deleted1) > 0 || count($deleted2) > 0 || count($deleted3) > 0) {
+    if (count($deleted1) > 0 || count($deleted2) > 0 ||
+        count($deleted3) > 0 || count($deleted4) > 0) {
         echo "<div class=\"alert alert-error\">";
         if (count($deleted1) > 0) {
             echo "<h4>您的以下課程因課程衝堂而刪除於修課名單:</h4><ul>";
@@ -548,8 +551,14 @@ function GetDeleteWarning ($stu_id) {
         }
         if (count($deleted3) > 0) {
             echo "<br>";
-            echo "<h4>您的以下課程已被教授踢除於修課名單內:</h4><ul>";
+            echo "<h4>您的以下課程已被踢除於修課名單內:</h4><ul>";
             foreach ($deleted3 as $i) { echo "<li>$i</li>"; }
+            echo "</ul>";
+        }
+        if (count($deleted4) > 0) {
+            echo "<br>";
+            echo "<h4>您的以下課程已被刪除:</h4><ul>";
+            foreach ($deleted4 as $i) { echo "<li>$i</li>"; }
             echo "</ul>";
         }
         echo "</div>";
