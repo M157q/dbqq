@@ -10,17 +10,14 @@
     $course_year = $_POST['course_year'];
     $pro_id = $_SESSION['id'];
     $errmsg = '';
+    $delflg = 0;
 
     if (!CheckCourseIDExist($course_id, $course_year))
         $errmsg = "課號: $course_id  年度: $course_year 的課程並不存在";
     else
     {
-        // pre delete processing
+        //pre-get student list
         $stu_list = ListCourseStudents($course_id, $course_year);
-        foreach ($stu_list as $stu_id) {
-            StudentDeleteCourse($stu_id, $course_id, $course_year);
-            UpdateCourseChange($course_id, $course_year, $stu_id, "4");
-        }
 
         // update the data in the database
         $link = MysqliConnection('Write');
@@ -29,11 +26,21 @@
         if (mysqli_stmt_prepare($stmt, $query)) {
             mysqli_stmt_bind_param($stmt, "sss", $course_id, $course_year, $pro_id);
             mysqli_stmt_execute($stmt);
-            if (mysqli_stmt_affected_rows($stmt)) $errmsg = '您已成功刪除該課程';
+            if (mysqli_stmt_affected_rows($stmt)) {
+                $delflg = 1;
+                $errmsg = '您已成功刪除該課程';
+            }
             else $errmsg = '這不是您所建立的課程，故無法刪除。';
             mysqli_stmt_close($stmt);
         }
         mysqli_close($link);
+
+        if ($delflg) {
+            foreach ($stu_list as $stu_id) {
+                StudentDeleteCourse($stu_id, $course_id, $course_year);
+                UpdateCourseChange($course_id, $course_year, $stu_id, "4");
+            }
+        }
     }
 
     $_SESSION['errmsg'] = $errmsg;
