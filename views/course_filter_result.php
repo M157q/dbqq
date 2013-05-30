@@ -1,7 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <title>Searching Courses Result</title>
-<body>
+    <head>
+        <meta charset="utf-8">
+        <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
+    </head>
+    <body>
+
+    <div class="container">
 <?php
     session_start();
     require_once('../controllers/Session.php');
@@ -46,6 +52,7 @@
     }
 
 ?>
-<a href="../views/stu_search_course.php">回上頁</a>
+<a class="btn btn-info" href="../views/stu_search_course.php">回上頁</a>
+</div>
 </body>
 </html>
