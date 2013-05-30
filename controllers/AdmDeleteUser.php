@@ -44,6 +44,19 @@
             }
             mysqli_close($link);
             $errmsg = '您已成功刪除該使用者';
+
+            // delete records in Course_change
+            if ($perm = 'stu') {
+                $link = MysqliConnection('Write');
+                $query = 'DELETE FROM Course_change WHERE stu_id = ?';
+                $stmt = mysqli_stmt_init($link);
+                if (mysqli_stmt_prepare($stmt, $query)) {
+                    mysqli_stmt_bind_param($stmt, "s", $id);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+                }
+                mysqli_close($link);
+            }
         }
     }
 
