@@ -4,6 +4,17 @@
     <head>
         <meta charset="utf-8">
         <link href="../include/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <style type="text/css">
+            .out .in {
+               position: absolute;
+               left: 180px;
+               display: none;
+            }
+
+            .out:hover .in {
+                display: block;
+            }
+        </style>
     </head>
     <body>
 
@@ -59,7 +70,10 @@
     <hr>
 
     <h2>開始選課</h2>
-    <a href="../views/stu_search_course.php">課程過濾器傳送門</a>
+    <div class="out">
+        <a href="../views/stu_search_course.php">課程過濾器傳送門</a>
+        <div class="in"><img src="http://i.imgur.com/2hM8IHT.jpg"/></div>
+    </div>
     <form method="post" action="../controllers/CourseSelect.php">
         <?php
             GetCourseInfoTableWithCheckBox();
