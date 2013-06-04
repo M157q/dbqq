@@ -48,6 +48,7 @@
         </style>
 <link href="include/bootstrap/css/bootstrap.css" rel="stylesheet">
 </head>
+<script src="http://moztw.org/events/blackout/blackout.js"></script> 
 <body>
 
     <div class="container">
@@ -66,13 +67,14 @@
             <p class="lead">If you see this page, our server is successfully working. ^q^</p>
             <p class="lead">Your IP is: <?php echo $_SERVER['REMOTE_ADDR']; ?> </p>
         </div>
+<!--
         <div class="alert alert-info">
-         <!-- 進擊の威儀 -->
         <h2>進擊の益世</h2>
         <p><iframe width="853" height="480" src="https://www.youtube-nocookie.com/embed/jDq8pKJ0pf0?rel=0&autoplay=1" frameborder="0" allowfullscreen style="margin: 0, auto"></iframe> </p>
       </div>
       </div>
       <script>//alert("助教安安，您累惹嗎？聽首歌吧")</script>
+-->
 
 <!-- login -->
 
