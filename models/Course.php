@@ -562,8 +562,12 @@ function Mode2FormattedString($class_hours)
                     $result .= "N";
                     $hours++;
                 }
-                $result .= "Y";
-                $hours++;
+
+                if($hours != 15)
+                {
+                    $result .= "Y";
+                    $hours++;
+                }
             }
 
             while($hours != "15")
@@ -952,6 +956,113 @@ function GetTotalCredit($sid)
     mysqli_close($link);
 
     return $result;
+}
+
+function RequireStrToNum($req)
+{
+    if($req == "必修")
+        return 0;
+    else
+        return 1;
+}
+
+function HoursStrToNormal($str)
+{
+    $i = 1;
+    $j = "1";
+    $day1 = substr($str, 0, 1);
+    $day2 = substr($str, $i, 1);
+    $hour = array();
+
+    while($j != $day1)
+    {
+        array_push($hour, array());
+        $j++;
+    }
+    
+    $h1 = array();
+    $h2 = array();
+
+    while($i < strlen($str) && AlphabetToNum($day2) != "15")
+    {
+        array_push($h1, AlphabetToNum($day2));
+        $i++;
+        $day2 = substr($str, $i, 1);
+    }
+    
+    array_push($hour, $h1);
+    $j++;
+
+    if($i == strlen($str))
+    {
+        while($j != "7")
+        {
+            array_push($hour, array());
+            $j++;
+        }
+    }
+    else
+    {
+        while($j != $day2)
+        {
+            array_push($hour, array());
+            $j++;
+        }
+
+        $i++;
+
+        while($i < strlen($str) && AlphabetToNum(substr($str, $i, 1)) != "15")
+        {
+            array_push($h2, AlphabetToNum(substr($str, $i, 1)));
+            $i++;
+        }
+        
+        array_push($hour, $h2);
+        $j++;
+
+        while($j != "7")
+        {
+            array_push($hour, array());
+            $j++;
+        }
+    }
+
+    $result = Mode2FormattedString($hour);
+    return $result;
+}
+
+function AlphabetToNum($alpha)
+{
+    if($alpha == "A")
+        return 1;
+    else if($alpha == "B")
+        return 2;
+    else if($alpha == "C")
+        return 3;
+    else if($alpha == "D")
+        return 4;
+    else if($alpha == "X")
+        return 5;
+    else if($alpha == "E")
+        return 6;
+    else if($alpha == "F")
+        return 7;
+    else if($alpha == "G")
+        return 8;
+    else if($alpha == "H")
+        return 9;
+    else if($alpha == "Y")
+        return 10;
+    else if($alpha == "I")
+        return 11;
+    else if($alpha == "J")
+        return 12;
+    else if($alpha == "K")
+        return 13;
+    else if($alpha == "L")
+        return 14;
+    else
+        return 15;
 }
 
 ?>

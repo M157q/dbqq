@@ -39,5 +39,62 @@ function GetDepartmentList() {
     mysqli_close($link);
     return $depart_list;
 }
+
+function NewDepartment($dep) {
+    require_once('../components/Mysqli.php');
+    $link = MysqliConnection('Read');
+    $exist = 0;
+    $id = 0;
+
+    $query = 'SELECT id FROM Department WHERE name = ?';
+    $stmt = mysqli_stmt_init($link);
+    if(mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $dep);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $result);
+        if (mysqli_stmt_fetch($stmt)) {
+            $exist = 1;
+            $id = $result;
+        }
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+    
+    if($exist == 0)
+    {
+        $link = MysqliConnection('Write');
+        
+        $query = 'INSERT INTO Department(name) VALUES (?)';
+        $stmt = mysqli_stmt_init($link);
+        if(mysqli_stmt_prepare($stmt, $query))
+        {
+            mysqli_stmt_bind_param($stmt, "s", $dep);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        }
+        mysqli_close($link);
+
+        $link = MysqliConnection('Read');
+
+        $query = 'SELECT id FROM Department WHERE name = ?';
+        $stmt = mysqli_stmt_init($link);
+        if(mysqli_stmt_prepare($stmt, $query))
+        {
+            mysqli_stmt_bind_param($stmt, "s", $dep);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $result);
+            if (mysqli_stmt_fetch($stmt)) {
+                $exist = 1;
+                $id = $result;
+            }
+            mysqli_stmt_close($stmt);
+        }
+        mysqli_close($link);
+    }
+    
+    return $id;
+}
+
 ?>
 
