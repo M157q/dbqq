@@ -990,12 +990,32 @@ function HoursStrToNormal($str)
         $day2 = substr($str, $i, 1);
     }
     
+    if($day1 == $day2)
+    {
+        while($i < strlen($str) && AlphabetToNum(substr($str, $i, 1)) != "16")
+        {
+            array_push($h1, AlphabetToNum(substr($str, $i, 1)));
+            $i++;
+        }
+        array_push($hour, $h1);
+        $j++;
+        
+        while($j != "8")
+        {
+            array_push($hour, array());
+            $j++;
+        }
+
+        $result = Mode2FormattedString($hour);
+        return $result;
+    }
+
     array_push($hour, $h1);
     $j++;
 
     if($i == strlen($str))
     {
-        while($j != "7")
+        while($j != "8")
         {
             array_push($hour, array());
             $j++;
@@ -1020,7 +1040,7 @@ function HoursStrToNormal($str)
         array_push($hour, $h2);
         $j++;
 
-        while($j != "7")
+        while($j != "8")
         {
             array_push($hour, array());
             $j++;

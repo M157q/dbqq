@@ -14,6 +14,7 @@
         require_once('../controllers/Session.php');
         require_once('../models/User.php');
         require_once('../models/Course.php');
+        require_once('../models/Department.php');
         CheckPermAndRedirect($_SESSION['perm'], 'stu');
 
         showWarning();
@@ -23,34 +24,39 @@
     <form method="post" action="../views/course_filter_result.php">
         <div class="alert alert-info">
         <h3>系所:</h3>
-        <p>
-        <input type="checkbox" name="dep[]" value="1">資訊工程學系
-        <input type="checkbox" name="dep[]" value="2">電資學士班
-        <input type="checkbox" name="dep[]" value="3">人文社會學系
-        <input type="checkbox" name="dep[]" value="4">管理科學學系
-        </p>
-        <p>
-        <input type="checkbox" name="dep[]" value="5">電子工程學系
-        <input type="checkbox" name="dep[]" value="6">電機工程學系
-        <input type="checkbox" name="dep[]" value="7">機械工程學系
-        <input type="checkbox" name="dep[]" value="8">土木工程學系
-        </p>
-        <p>
-        <input type="checkbox" name="dep[]" value="9">材料科學與工程學系
-        <input type="checkbox" name="dep[]" value="10">奈米科學及工程學士學位學程
-        <input type="checkbox" name="dep[]" value="11">電子物理學系
-        </p>
-        <p>
-        <input type="checkbox" name="dep[]" value="12">財金管理學系
-        <input type="checkbox" name="dep[]" value="13">應用數學系
-        <input type="checkbox" name="dep[]" value="14">外國語文學系
-        <input type="checkbox" name="dep[]" value="15">生物科技學系
-        </p>
-        <p>
-        <input type="checkbox" name="dep[]" value="16">電信工程學系
-        <input type="checkbox" name="dep[]" value="17">光電工程學系
-        </p>
+<?php
+        $F = 0;
+        $error = 0;
+        $i = "1";
+        while(!$error)
+        {
+            echo '<p>';
+            $loop = 0;
+            while($loop < 4)
+            {
+                $name = GetDepByID($i);
+                while($name == false)
+                {
+                    $F++;
+                    $i++;
+                    if($F >= 3)
+                    {
+                        $error = 1;
+                        break;
+                    }
+                    $name = GetDepByID($i);
+                }
 
+                if($error)
+                    break;
+                echo '<input type="checkbox" name="dep[]" value="'.$i.'">'.$name;
+                $F = 0;
+                $loop++;
+                $i++;
+            }
+            echo '</p>';
+        }
+?>        
         <p>年級:</p>
         <p>
         <input type="checkbox" name="grade[]" value="1">大一

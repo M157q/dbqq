@@ -96,5 +96,27 @@ function NewDepartment($dep) {
     return $id;
 }
 
+function GetDepById($id){
+    $query = 'SELECT name FROM Department WHERE id = ?';
+    $link = MysqliConnection('Read');
+    $stmt = mysqli_stmt_init($link);
+    $name = "";
+    if(mysqli_stmt_prepare($stmt, $query))
+    {
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $result);
+        if (!mysqli_stmt_fetch($stmt)) {
+            $name = false;
+        }
+        else
+            $name = $result;
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+
+    return $name;
+}
+
 ?>
 
