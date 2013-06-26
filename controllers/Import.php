@@ -20,7 +20,8 @@
     $j = (fgets($file));
 
     while(!feof($file)) {
-        $i = fgets($file);
+        $line = fgets($file);
+        $i = substr($line, 0, strlen($line) - 2);
         $item = explode(",", $i);
         foreach($item as $j)
         {
