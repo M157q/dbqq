@@ -57,7 +57,7 @@
             echo '</p>';
         }
 ?>        
-        <p>年級:</p>
+        <p><h3>年級:</h3></p>
         <p>
         <input type="checkbox" name="grade[]" value="1">大一
         <input type="checkbox" name="grade[]" value="2">大二

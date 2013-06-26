@@ -17,7 +17,8 @@
     }
     ///*
     $file = fopen('../../'.$_FILES["file"]["tmp_name"], "r");
-    
+    $j = (fgets($file));
+
     while(!feof($file)) {
         $i = fgets($file);
         $item = explode(",", $i);
