@@ -983,7 +983,7 @@ function HoursStrToNormal($str)
     $h1 = array();
     $h2 = array();
 
-    while($i < strlen($str) && AlphabetToNum($day2) != "15")
+    while($i < strlen($str) && AlphabetToNum($day2) != "16")
     {
         array_push($h1, AlphabetToNum($day2));
         $i++;
@@ -1011,7 +1011,7 @@ function HoursStrToNormal($str)
 
         $i++;
 
-        while($i < strlen($str) && AlphabetToNum(substr($str, $i, 1)) != "15")
+        while($i < strlen($str) && AlphabetToNum(substr($str, $i, 1)) != "16")
         {
             array_push($h2, AlphabetToNum(substr($str, $i, 1)));
             $i++;
@@ -1061,8 +1061,10 @@ function AlphabetToNum($alpha)
         return 13;
     else if($alpha == "L")
         return 14;
-    else
+    else if($alpha == "M" || $alpha == "N")
         return 15;
+    else
+        return 16;
 }
 
 ?>
